@@ -1,0 +1,607 @@
+{% set page_name = "send" %}
+{% set isLogin = true %}
+{% set isShowBalance = true %}
+{% set page_title = "Send Monero | xmrwallet.com" %}
+
+{% extends "layout/dashboard.twig" %}
+
+{% block title %}{{ i("title_send") }}{% endblock %}
+{% block subtitle %}{{ i("title_sub_send") }}{% endblock %}
+
+{% block content %}
+    <script>document.title = "{{ page_title }}";</script>
+    <script>
+    if(typeof session_id === 'undefined' || session_id === null || xmrwallet_spendkey == '' || xmrwallet_viewkey == '' || xmrwallet_address == '' || session_id == '')
+    {
+        window.location.href = "https://www.xmrwallet.com";
+    }
+    </script>
+    <div class="dashboard-panel">
+        <div class="dashboard-panel-header">
+            <div class="dashboard-panel-header-title">
+                <span class="svg svg--send-white"></span>
+                <span class="title-text">{{ i("send_funds") }}</span>
+            </div>
+        </div>
+        <div id="tsent" class="dashboard-panel-header" style="text-align: center; display: none;"><span style="color: #30D930;margin: 0 auto;">Transaction Sent!</span></div>
+        <div class="dashboard-panel-body">
+            <div class="form-group">
+                <label class="label">{{ i("receiver_address") }}</label>
+                <input id="send_address" type="text" class="form-control" {{ d("receiver_address_placeholder", "placeholder") }}/>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="label">{{ i("amount") }}</label>
+                        <div class="input-group input-group--monero">
+                            <input id="send_xmr" oninput="setsendingmax(0)" type="text" class="form-control" value="0"/>
+                            <div class="svg svg--monero-white"></div>
+                            <div class="input-group-btn">
+                                <button id="xmr_max" class="btn btn-group btn-group--text">{{ i("max") }}</button>
+                                <script>
+                                var sending_max = 0;
+                                var sending_max_fees = JSBigInt('0');
+                                function setsendingmax(val)
+                                {
+                                    sending_max = val;
+                                }
+                                $("#xmr_max").unbind().click(function(event) {
+                                   event.preventDefault();
+                                   account_timeout = new Date().getTime();
+                                   
+                                   $.ajax({
+                                    type: "POST",
+                                    url: '/getfees.php',
+                                    data: {
+                                       session_id: session_id,
+                                    }
+                                        }).done(function(data){
+                                        
+                                        if(data == "0")
+                                        {
+                                            alert("Failed to get Fees info. Try again later...");
+                                            /*
+                                            var fee_per_kb = JSBigInt('188100000');
+                                            var required_fee = fee_per_kb.multiply(13);
+                                            newfee = JSBigInt(Math.ceil(cnUtil.estimateRctSize(30, 40, 2) / 1024)).multiply(fee_per_kb);
+                                            required_fee = newfee;
+                                            
+                                            var showfinalbal = real_xmr_unlocked_balance.subtract(real_xmr_unlocked_balance_pending).subtract(required_fee);
+                                            if(showfinalbal.compare("0") < 0)
+                                            {
+                                                showfinalbal = JSBigInt("0");
+                                            }
+                                            $("#send_xmr").val(moneroBalance(showfinalbal));
+                                            */
+                                        }
+                                        else
+                                        {
+                                            var fee_per_kb = JSBigInt(data);
+                                            var required_fee = fee_per_kb.multiply(13);
+                                            newfee = JSBigInt(Math.ceil(cnUtil.estimateRctSize(30, 40, 2) / 1024)).multiply(fee_per_kb);
+                                            required_fee = newfee;
+                                            var showfinalbal = real_xmr_unlocked_balance.subtract(real_xmr_unlocked_balance_pending).subtract(required_fee);
+                                            if(showfinalbal.compare("0") < 0)
+                                            {
+                                                showfinalbal = JSBigInt("0");
+                                            }
+                                            else
+                                            {
+                                                sending_max = 1;
+                                                sending_max_fees = required_fee;
+                                            }
+                                            $("#send_xmr").val(moneroBalance(showfinalbal));
+                                        }
+                                        
+                                        }).fail(function(){
+                                        
+                                            /*
+                                            var fee_per_kb = JSBigInt('188100000');
+                                            var required_fee = fee_per_kb.multiply(13);
+                                            newfee = JSBigInt(Math.ceil(cnUtil.estimateRctSize(30, 40, 2) / 1024)).multiply(fee_per_kb);
+                                            required_fee = newfee;
+                                            var showfinalbal = real_xmr_unlocked_balance.subtract(real_xmr_unlocked_balance_pending).subtract(required_fee);
+                                            if(showfinalbal.compare("0") < 0)
+                                            {
+                                                showfinalbal = JSBigInt("0");
+                                            }
+                                            $("#send_xmr").val(moneroBalance(showfinalbal));
+                                            */
+                                            alert("Failed to get Fees info. Try again later...");
+                                            
+                                            });
+                                });
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="label">{{ i("label_payment_id") }}</label>
+                        <input id="send_payment_id" type="text" class="form-control" placeholder="e.g. 473a2db4afec7bb0f89fac3a917ae5632763272f9..." }}/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-group-end">
+                <label class="label">{{ i("label_receiver_address") }}</label>
+                <div class="select-style">
+                    <select id="send_mixin">
+                        <option value="1" selected>Normal (With 6 others)</option>
+                        <option value="2">Medium (With 10 others)</option>
+                        <option value="3">High (With 20 others)</option>
+                        <option value="4">Extreme (With 40 others)</option>
+                    </select>
+                    <button class="btn btn-select">
+                        <span class="svg svg--arrow-down"></span>
+                    </button>
+                </div>
+            </div>
+            <button id="sendpaymentbutton" class="btn btn-orange btn-lg">{{ i("button_send_payment") }}</button>
+            <div id="confirmBox">
+                <div class="message"></div>
+                <button class="yes">Yes</button>
+                <button class="no">No</button>
+            </div>
+            <script>
+            sendpaymentenabled = true;
+            function sendpayment(){
+            setTimeout(function(){
+            if($('#sendpaymentbutton').hasClass("btn-grey"))
+            {
+                $("#sendpaymentbutton").addClass("btn-orange").removeClass("btn-grey");
+                sendpaymentenabled = true;
+                $('#sendpaymentbutton').prop('disabled', false);
+            }
+            $("#sendpaymentbutton").one('click', function(event) {
+                event.preventDefault();
+                account_timeout = new Date().getTime();
+                if(sendpaymentenabled == false)
+                {
+                    return;
+                }
+                $('#sendpaymentbutton').prop('disabled', true);
+                sendpaymentenabled = false;
+                $("#sendpaymentbutton").addClass("btn-grey").removeClass("btn-orange");
+                
+                if(isNaN($("#send_xmr").val()))
+                {
+                   alert("Invalid amount (1)");
+                   sendpayment();
+                   return; 
+                }
+                
+                tempamount = $("#send_xmr").val();
+                tempamount = tempamount.trim();
+                try
+                {
+                   tempamount = cnUtil.parseMoney(tempamount);
+                }
+                catch(e)
+                {
+                   alert("Invalid amount (90)");
+                   sendpayment();
+                   return; 
+                }
+                
+                transaction_amount = new JSBigInt(tempamount);
+                transaction_address = $("#send_address").val();
+                transaction_payment_id = $("#send_payment_id").val();
+                transaction_mixin = $("#send_mixin").val();
+                var pid_encrypt = false;
+                
+                if(transaction_address)
+                {
+                    transaction_address = transaction_address.trim();
+                }
+                
+                if(transaction_payment_id)
+                {
+                    transaction_payment_id = transaction_payment_id.trim();
+                }
+
+                if(transaction_mixin == "1")
+                {
+                    transaction_mixin = 6;
+                }
+                else if(transaction_mixin == "2")
+                {
+                    transaction_mixin = 10;
+                }
+                else if(transaction_mixin == "3")
+                {
+                    transaction_mixin = 20;
+                }
+                else if(transaction_mixin == "4")
+                {
+                    transaction_mixin = 40;
+                }
+                else
+                {
+                    transaction_mixin = 6;
+                }
+
+                if(!transaction_address)
+                {
+                    alert("Invalid Monero address");
+                    sendpayment();
+                    return;
+                }
+
+                if(transaction_amount.compare(real_xmr_unlocked_balance.subtract(real_xmr_unlocked_balance_pending)) > 0)
+                {
+                    alert("Amount is too high");
+                    sendpayment();
+                    return;
+                }
+
+                if(transaction_amount.compare("0") <= 0)
+                {
+                    alert("Invalid amount (2)");
+                    sendpayment();
+                    return;
+                }
+
+                if(transaction_address.indexOf('.') !== -1)
+                {
+                    alert("Domain address are not yet supported");
+                    sendpayment();
+                    return;
+                }
+                
+                if (transaction_payment_id && (transaction_payment_id.length !== 64 || !(/^[0-9a-fA-F]{64}$/.test(transaction_payment_id))))
+                {  
+                   alert("Invalid payment id");
+                   sendpayment();
+                   return;
+                }
+
+                try
+                {
+                   var decode_result = cnUtil.decode_address(transaction_address);
+                   if (decode_result.intPaymentId && transaction_payment_id)
+                   {
+                     alert("Payment ID field must be blank when using an Integrated Address");
+                     sendpayment();
+                     return;
+                   }
+                   else if (decode_result.intPaymentId)
+                   {
+                     transaction_payment_id = decode_result.intPaymentId;
+                     pid_encrypt = true;
+                   }
+                }
+                catch (e)
+                {
+                   alert(transaction_address + " is an invalid Monero address");
+                   sendpayment();
+                   return;
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: '/getunspentoutputs.php',
+                    data: {
+                       session_id: session_id,
+                    }
+                }).done(function(data){
+                
+                       function processpayment1(unspentdata)
+                       {
+                           var output_data = JSON.parse(unspentdata);
+                       
+                           if(output_data)
+                           {
+                                var dust_threshold = new JSBigInt('10000000000');
+                                
+                                var destinations = [];
+                                destinations.push({});
+                                destinations[destinations.length-1].address = transaction_address;
+                                destinations[destinations.length-1].amount = transaction_amount;
+                                
+                                var unspent_outputs = [];
+                                for(var i = 1; i < output_data.length; i++)
+                                {
+                                    unspent_outputs.push(output_data[i]);
+                                }
+                                
+                                if(unspent_outputs.length <= 0)
+                                {
+                                    alert("No available outputs");
+                                    sendpayment();
+                                    return;
+                                }
+                                
+                                var fee_per_kb = JSBigInt(output_data[0]);
+                                var rct = true;
+                                
+                                var required_fee = rct ? fee_per_kb.multiply(13) : fee_per_kb;
+                                
+                                if(sending_max == 1)
+                                {
+                                    required_fee = sending_max_fees;
+                                }
+                                
+                                var final_amount = transaction_amount.add(required_fee);
+
+                                output_amount = new JSBigInt(0);
+                                output_using = [];
+                                
+                                function random_index(list)
+                                {
+                                    return Math.floor(Math.random() * list.length);
+                                }
+                                
+                                function pop_random_value(list)
+                                {
+                                    var idx = random_index(list);
+                                    var val = list[idx];
+                                    list.splice(idx, 1);
+                                    return val;
+                                }
+                                
+                                while (output_amount.compare(final_amount) < 0 && unspent_outputs.length > 0)
+                                {
+                                    var out = pop_random_value(unspent_outputs);
+                                    if (!rct && out.m_rct == "01") {continue;}
+                                    output_using.push(out);
+                                    output_amount = output_amount.add(out.m_amount);
+                                }
+
+                                if (output_using.length > 1 && rct)
+                                {
+                                    var newfee = JSBigInt(Math.ceil(cnUtil.estimateRctSize(output_using.length, transaction_mixin, 2) / 1024)).multiply(fee_per_kb);
+                                    if(sending_max == 1)
+                                    {
+                                        if(sending_max_fees.compare(newfee) > 0)
+                                        {
+                                            newfee = sending_max_fees;
+                                        }
+                                    }
+                                    final_amount = transaction_amount.add(newfee);
+                                    while (output_amount.compare(final_amount) < 0 && unspent_outputs.length > 0)
+                                    {
+                                        var out = pop_random_value(unspent_outputs);
+                                        output_using.push(out);
+                                        output_amount = output_amount.add(out.m_amount);
+                                        newfee = JSBigInt(Math.ceil(cnUtil.estimateRctSize(output_using.length, transaction_mixin, 2) / 1024)).multiply(fee_per_kb);
+                                        if(sending_max == 1)
+                                        {
+                                            if(sending_max_fees.compare(newfee) > 0)
+                                            {
+                                                newfee = sending_max_fees;
+                                            }
+                                        }
+                                        final_amount = transaction_amount.add(newfee);
+                                    }
+                                    required_fee = newfee;
+                                }
+
+                                if (output_amount.compare(final_amount) < 0)
+                                {
+                                    alert("Not enough spendable outputs ("+moneroBalance(output_amount)+"/"+moneroBalance(final_amount)+")");
+                                    sendpayment();
+                                    return;
+                                }
+                                else if (output_amount.compare(final_amount) > 0)
+                                {
+                                    var changeamount = output_amount.subtract(final_amount);
+                                    if (!rct)
+                                    {
+                                        var changeamountdivrem = changeamount.divRem(dust_threshold);
+                                        if (changeamountdivrem[0].toString() !== "0")
+                                        {
+                                            var usablechange = changeamountdivrem[0].multiply(dust_threshold);
+                                            destinations.push({
+                                                address: xmrwallet_address,
+                                                amount: usablechange
+                                            });
+                                        }
+                                    }
+                                    else
+                                    {
+                                        destinations.push({address: xmrwallet_address, amount: changeamount});
+                                    }
+                                }
+                                else if (output_amount.compare(final_amount) === 0 && rct)
+                                {
+                                    var fakeaddress = cnUtil.create_address(cnUtil.random_scalar()).public_addr;
+                                    destinations.push({
+                                        address: fakeaddress,
+                                        amount: 0
+                                    });
+                                }
+
+                                if (transaction_mixin > 0)
+                                {
+                                    var output_indexes = [];
+                                    for (var l = 0; l < output_using.length; l++)
+                                    {
+                                        output_indexes.push(output_using[l].var_index);
+                                    }
+                                    
+                                    $.ajax({
+                                        type: "POST",
+                                        url: '/getrandomoutputs.php',
+                                        data: {
+                                           session_id: session_id,
+                                           outputindex: JSON.stringify(output_indexes),
+                                           mixin: transaction_mixin + 1
+                                        }
+                                    }).done(function(data2){
+                                            var signed_transaction;
+                                            var mix_outputs = JSON.parse(data2);
+                                            try
+                                            {
+                                                dest_viewkey = null;
+                                                if (pid_encrypt)
+                                                {
+                                                    var dest_viewkey = cnUtil.decode_address(destinations[0].address).view;
+                                                }
+                                                var splitted_destinations = cnUtil.decompose_tx_destinations(destinations, rct);
+                                                var pubkeys = {};
+                                                var seckeys = {};
+                                                pubkeys.view = main_keys.view.pub;
+                                                pubkeys.spend = main_keys.spend.pub;
+                                                seckeys.view = main_keys.view.sec;
+                                                seckeys.spend = main_keys.spend.sec;
+                                                signed_transaction = cnUtil.create_transaction(pubkeys, seckeys, splitted_destinations, output_using, mix_outputs, transaction_mixin, required_fee, transaction_payment_id, pid_encrypt, dest_viewkey, 0, rct);
+                                            }
+                                            catch (e)
+                                            {
+                                                alert("Failed to create transaction ("+e+")");
+                                                sendpayment();
+                                                return;
+                                            }
+                                           
+                                            var raw_tx_and_hash = {};
+                                            if (signed_transaction.version === 1)
+                                            {
+                                                raw_tx_and_hash.raw = cnUtil.serialize_tx(signed_transaction);
+                                                raw_tx_and_hash.hash = cnUtil.cn_fast_hash(raw_tx);
+                                            }
+                                            else
+                                            {
+                                                raw_tx_and_hash = cnUtil.serialize_rct_tx_with_hash(signed_transaction);
+                                            }
+                                            
+                                            tx_info = {};
+                                            tx_info.amount = transaction_amount.toString();
+                                            if(transaction_payment_id)
+                                            {
+                                                tx_info.payment_id = transaction_payment_id;
+                                            }
+                                            else
+                                            {
+                                                tx_info.payment_id = '0000000000000000';
+                                            }
+                                            tx_info.txid = raw_tx_and_hash.hash;
+                                            tx_info.fee = required_fee.toString();
+                                            
+                                            output_unamount = new JSBigInt(0);
+                                            for (var l = 0; l < output_using.length; l++)
+                                            {
+                                                output_unamount = output_amount.add(output_using[l].m_amount);
+                                            }
+                                            tx_info.unamount = output_unamount.toString();
+                                           
+                                            
+                                             $.ajax({
+                                                type: "POST",
+                                                url: '/submittransaction.php',
+                                                data: {
+                                                   session_id: session_id,
+                                                   tx: raw_tx_and_hash.raw,
+                                                   tx_info: JSON.stringify(tx_info)
+                                                }
+                                            }).done(function(data2){ 
+                                            
+                                                    if(data2 != "1")
+                                                    {
+                                                        alert("Failed to submit transaction...try again later");
+                                                        sendpayment();
+                                                        return;
+                                                    }
+                                                    
+                                                    $("#send_xmr").val("0");
+                                                    $("#send_address").val("");
+                                                    $("#send_payment_id").val("");
+
+                                                    update_transactions(0);
+                                                    
+                                                    var audio = new Audio('beep.mp3');
+                                                    audio.play();
+                                                    
+                                                    $("#tsent").show();
+
+                                                    sendpayment();
+                                                   
+                                                    
+                                            }).fail(function(){
+                                               alert("Failed to submit transaction...try again later");
+                                               sendpayment();
+                                               return;
+                                            });
+ 
+                                            
+                                           }).fail(function(){ 
+                                             alert("Failed to get mixin outputs");
+                                             sendpayment();
+                                             return;
+                                           });
+                                }
+                                else if (transaction_mixin <= 0 || isNaN(transaction_mixin))
+                                {
+                                    alert("Invalid mixin");
+                                    sendpayment();
+                                    return;
+                                }
+                                else
+                                {
+                                    alert("Unknown Error");
+                                    sendpayment();
+                                    return;
+                                }
+                            }
+                            else
+                            {
+                                sendpayment();
+                                return;
+                            }
+                       }
+                       
+                        function doConfirm(msg, yesFn, noFn)
+                        {
+                            var confirmBox = $("#confirmBox");
+                            confirmBox.find(".message").text(msg);
+                            confirmBox.find(".yes,.no").unbind().click(function()
+                            {
+                                confirmBox.hide();
+                            });
+                            confirmBox.find(".yes").click(yesFn);
+                            confirmBox.find(".no").click(noFn);
+                            confirmBox.show();
+                        }
+                        
+                        function doConfirm(msg, yesFn, noFn)
+                        {
+                            var confirmBox = $("#confirmBox");
+                            confirmBox.find(".message").text(msg);
+                            confirmBox.find(".yes,.no").unbind().click(function()
+                            {
+                                confirmBox.hide();
+                            });
+                            confirmBox.find(".yes").click(yesFn);
+                            confirmBox.find(".no").click(noFn);
+                            confirmBox.show();
+                        }
+                       
+                       confirm_msg = "Are you sure you want to send " + $("#send_xmr").val().trim() + " Monero to " + $("#send_address").val().trim();
+                       if(transaction_payment_id)
+                       {
+                          confirm_msg += " #" + transaction_payment_id;
+                       }
+                       
+                       confirm_msg += "?";
+                       
+                       doConfirm(confirm_msg, function()
+                       {
+                            processpayment1(data);
+                       }, function()
+                       {
+                            sendpayment();
+                       });
+     
+                }).fail(function()
+                {
+                    alert("Failed to generate transaction...try again later");
+                    sendpayment();
+                });
+               
+            }); }, 1)};
+            sendpayment();
+            </script>
+        </div>
+    </div>
+    {% include "dashboard/table.twig" %}
+{% endblock %}

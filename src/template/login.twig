@@ -1,0 +1,192 @@
+{% set page_name = "login" %}
+{% set isShowBalance = false %}
+{% set isLogin = false %}
+{% set page_title = "Login with Seed | xmrwallet.com" %}
+
+{% extends "layout/dashboard.twig" %}
+
+{% block title %}{{ i("title_create") }}{% endblock %}
+{% block subtitle %}{{ i("title_sub_create") }}{% endblock %}
+{% block subtitlelink %}<a href="#/create.html" {{ p("title_link_create") }}>{{ t("title_link_create") }}</a>{% endblock %}
+
+{% block content %}
+    <script>document.title = "{{ page_title }}";</script>
+    <div class="dashboard-panel-tabs">
+        <a href="#/login.html" class="panel-tab active">
+            <span class="svg svg--key-white"></span>
+            <span class="title-text">{{ i("login_private_key") }}</span>
+        </a>
+        <a href="#/login_public.html" class="panel-tab">
+            <span class="svg svg--public-white"></span>
+            <span class="title-text">{{ i("login_public_key") }}</span>
+        </a>
+    </div>
+    <div class="dashboard-panel">
+        <div class="dashboard-panel-body">
+            <script>
+            function findseedlanguage(seed)
+            {
+                if(seed)
+                {
+                    seed_data = seed.split(" ");
+                    if(seed_data.length == 25)
+                    {
+                        found_key = '';
+                        for (var key in mn_words)
+                        {
+                            for(var i = 0; i < seed_data.length; i++)
+                            {
+                                if(mn_words[key].words.indexOf(seed_data[i]) == -1)
+                                {
+                                   break;
+                                }
+                                else
+                                {
+                                   if(i == seed_data.length - 1)
+                                   {
+                                        found_key = key;
+                                        break;
+                                   }
+                                }
+                            }
+                            if(found_key != '')
+                            {
+                                break;
+                            }
+                        }
+                        return found_key;
+                    }
+                    else if(seed_data.length == 13)
+                    {
+                        found_key = '';
+                        for (var key in mn_words)
+                        {
+                            for(var i = 0; i < seed_data.length; i++)
+                            {
+                                if(mn_words[key].words.indexOf(seed_data[i]) == -1)
+                                {
+                                   break;
+                                }
+                                else
+                                {
+                                   if(i == seed_data.length - 1)
+                                   {
+                                        found_key = key;
+                                        break;
+                                   }
+                                }
+                            }
+                            if(found_key != '')
+                            {
+                                break;
+                            }
+                        }
+                        return found_key;
+                    }
+                }
+                return '';
+            }
+            function moneroSeed()
+            {
+                var theseed = document.getElementById('private_seed').value.trim();
+                theseed = theseed.trim();
+                var seedlang = findseedlanguage(theseed);
+                if(seedlang == '')
+                {
+                    return false;
+                }
+                seed = mn_decode(theseed, seedlang);
+                keys = cnUtil.create_address(seed);
+                document.getElementById("public_viewkey").value = keys.view.sec;
+                document.getElementById("public_address").value = cnUtil.pubkeys_to_string(keys.spend.pub, keys.view.pub);
+                document.getElementById("private_spendkey").value = keys.spend.sec;
+                return true;
+            }
+            </script>
+            <form id="login_account">
+            <div class="form-group">
+                <label class="label">{{ i("label_private_login_key") }}</label>
+                <input id="private_seed" type="text" class="form-control"
+                       placeholder="Enter your Seed here"/>
+            </div>
+            <div class="form-group form-group-end">
+                <label class="label">{{ i("label_language") }}</label>
+                <div class="select-style">
+                    <select>
+                        <option value="1" selected {{ p("label_language_option_1") }}>{{ t("label_language_option_1") }}</option>
+                    </select>
+                    <button class="btn btn-select">
+                        <span class="svg svg--arrow-down"></span>
+                    </button>
+                </div>
+            </div>
+            <input id="public_address" type="hidden" name="address" class="form-control" {{ d("label_your_address_placeholder", "placeholder") }}/>
+            <input id="public_viewkey" type="hidden" name="viewkey" class="form-control" {{ d("label_view_key_placeholder", "placeholder") }}/>
+            <input type="hidden" name="isnew" value="0">
+            <input id="private_spendkey" type="hidden">
+            <button type="submit" class="btn btn-orange btn-lg">{{ i("button_enter_my_account") }}</button>
+            </form>
+            <script>
+            function server_error_create()
+            {
+                alert("Invalid login information!");
+                window.location.hash = "#/login.html";
+            }
+            $("#login_account").submit(function(e)
+            {
+                e.preventDefault();
+                account_timeout = new Date().getTime();
+                
+                if(moneroSeed() == false)
+                {
+                    alert("Invalid login information!");
+                    return;
+                }
+                
+                var url = "auth.php";
+
+                $.ajax({
+                       type: "POST",
+                       url: url,
+                       data: $("#login_account").serialize()
+                }).done(function(data){
+                            var returned_data = data.split(":");
+                            if(returned_data.length == 2)
+                            {
+                                if(returned_data[0] == '1')
+                                {
+                                    try
+                                    {
+                                    xmrwallet_viewkey = document.getElementById("public_viewkey").value.trim();
+                                    xmrwallet_address = document.getElementById("public_address").value.trim();
+                                    xmrwallet_spendkey = document.getElementById("private_spendkey").value.trim();
+                                    xmrwallet_seed = document.getElementById("private_seed").value.trim();
+                                    xmrwallet_realseed = xmrwallet_seed.trim();
+                                    var seedlang = findseedlanguage(xmrwallet_realseed);
+                                    xmrwallet_realseed = mn_decode(xmrwallet_realseed, seedlang);
+                                    main_keys = cnUtil.create_address(xmrwallet_realseed);
+                                    session_id = returned_data[1];
+                                    window.location.hash = "#/dashboard.html";
+                                    }
+                                    catch(e)
+                                    {
+                                        server_error_create();
+                                    }
+                                }
+                                else
+                                {
+                                    server_error_create();
+                                }
+                            }
+                            else
+                            {
+                                server_error_create();
+                            }
+                }).fail(function(){
+                    server_error_create();
+                });
+            });
+            </script>
+        </div>
+    </div>
+{% endblock %}

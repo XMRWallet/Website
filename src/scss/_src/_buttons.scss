@@ -1,0 +1,219 @@
+
+.btn {
+	color: #fff;
+	display: inline-block;
+	margin-bottom: 0; // For input.btn
+	font-weight: normal;
+	text-align: center;
+	vertical-align: middle;
+	touch-action: manipulation;
+	cursor: pointer;
+	background-image: none; // Reset unusual Firefox-on-Android default style; see https://github.com/necolas/normalize.css/issues/214
+	border: 1px solid transparent;
+	white-space: nowrap;
+
+	padding: 17px 39px 16px;
+	font-size: 18px;
+	line-height: 1;
+	border-radius: 0;
+
+	@include user-select(none);
+
+	&:hover {
+		color: #fff;
+	}
+
+	&:hover,
+	&:focus,
+	&.focus {
+		text-decoration: none;
+	}
+
+	&:active,
+	&.active {
+		outline: 0;
+		background-image: none;
+	}
+
+	&.btn-lg {
+		width: 100%;
+	}
+}
+
+.btn-section {
+	font-size: 14px;
+	color: #474E5D;
+	padding: 11px 19px 9px;
+
+	background: #FFF;
+	border: 1px solid #D9DCE7;
+	border-radius: 5px;
+	@include box-shadow(0 5px 5px 0 rgba(172, 180, 197, 0.15));
+
+	&.active,
+	&:hover {
+		z-index: 1;
+		color: #474E5D;
+		border-color: #474E5D;
+	}
+
+	.dashboard-widgets-section.active &,
+	.dashboard-widgets-section:hover & {
+		color: #fff;
+		background: #4F5666;
+		border-color: rgba(255, 255, 255, 0.20);
+		@include box-shadow(0 5px 5px 0 rgba(0, 0, 0, 0.05));
+
+		&:hover:not([disabled]) {
+			border-color: #FFF;
+		}
+
+		&[disabled] {
+			color: rgba(255, 255, 255, 0.5);
+		}
+	}
+}
+
+.btn-select {
+	pointer-events: none;
+	font-size: 14px;
+	color: #474E5D;
+	width: 50px;
+	height: 50px;
+	padding: 0;
+
+	background: #FFF;
+	border: 1px solid #D9DCE7;
+	@include border-right-radius(5px);
+	@include box-shadow(0 5px 5px 0 rgba(172, 180, 197, 0.15));
+}
+
+.btn-group {
+	font-size: 14px;
+	color: #474E5D;
+	width: 50px;
+	height: 50px;
+	padding: 0;
+
+	background: #FFF;
+	border: 1px solid #D9DCE7;
+	border-radius: 5px;
+	@include box-shadow(0 5px 5px 0 rgba(172, 180, 197, 0.15));
+
+	&:hover {
+		color: #474E5D !important;
+		border-color: #474E5D !important;
+	}
+
+	&.btn-group--text {
+		width: auto;
+		padding: 11px 19px 9px;
+	}
+}
+
+input + .input-group-btn .btn-group {
+	border-color: #D9DCE7;
+	@include box-shadow(none);
+}
+
+input:hover:not([disabled]) + .input-group-btn .btn-group {
+	border-color: #BABFD0;
+	@include box-shadow(0 0 8px 0 rgba(186, 191, 208, 0.50));
+}
+
+input:focus:not([disabled]) + .input-group-btn .btn-group {
+	color: #474E5D;
+	border-color: #BABFD0;
+	@include box-shadow(0 0 8px 0 rgba(186, 191, 208, 0.50));
+}
+
+input[disabled] + .input-group-btn .btn-group {
+	color: #F1F2F6;
+	border-color: #D9DCE7;
+}
+
+.btn-orange {
+	font-family: $font-family-roboto-bold;
+	font-size: 14px;
+	letter-spacing: 2px;
+	color: #FFF;
+	padding: 21px 19px 19px;
+
+	background: #FF6600;
+	border: 0;
+	border-radius: 5px;
+	@include box-shadow(0 15px 30px 0 rgba(255, 102, 0, 0.30));
+
+	&.active,
+	&:hover {
+		z-index: 1;
+		background: #FF7200;
+	}
+}
+
+.btn-orange--gray {
+	@include box-shadow(0 15px 30px 0 rgba(0,0,0,0.10));
+}
+
+.btn-white-letar {
+	font-family: $font-family-roboto-bold;
+	font-size: 14px;
+	letter-spacing: 2px;
+	color: #474E5D;
+	padding: 21px 19px 19px;
+
+	background: #FFF;
+	border: 0;
+	border-radius: 5px;
+	@include box-shadow(0 15px 30px 0 rgba(0,0,0,0.10));
+
+	&.active,
+	&:hover {
+		color: #474E5D;
+		background: #E6E6E6;
+		@include box-shadow(0 5px 5px 0 rgba(0,0,0,0.05));
+	}
+}
+
+.btn-white {
+	font-family: $font-family-roboto-medium;
+	font-size: 16px;
+	color: #474E5D;
+	padding: 13px 14px 11px;
+
+	background: #FFF;
+	border: 0;
+	border-radius: 5px;
+	@include box-shadow(0 5px 5px 0 rgba(0, 0, 0, 0.05));
+
+	&.active,
+	&:hover {
+		z-index: 1;
+		color: #474E5D;
+		background: #E6E6E6;
+	}
+}
+
+.btn-gray {
+	font-family: $font-family-roboto-medium;
+	font-size: 16px;
+	color: #FFF;
+	padding: 12px 14px 10px;
+
+	background: #4F5666;
+	border: 1px solid rgba(255, 255, 255, 0.20);
+	border-radius: 5px;
+	@include box-shadow(0 5px 5px 0 rgba(0, 0, 0, 0.05));
+
+	&.active:not([disabled]),
+	&:hover:not([disabled]) {
+		z-index: 1;
+		border-color: #FFF;
+		color: #FFF;
+		background: #4F5666;
+	}
+
+	&[disabled] {
+		color: rgba(71, 78, 93, 0.5);
+	}
+}

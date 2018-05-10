@@ -1,0 +1,23 @@
+@import "generate/sass-image";
+// Core variables and mixins
+@import "_src/variables";
+@import "_src/mixins";
+// Reset and dependencies
+@import "_src/normalize";
+@import "_src/scaffolding";
+// Core CSS
+@import "_src/select2/core";
+@import "_src/font";
+@import "_src/svg";
+@import "_src/grid";
+@import "_src/form";
+@import "_src/buttons";
+// Магия слоев
+@import "_src/layout";
+@import "_src/nav";
+@import "dashboard";
+@import "landing";
+
+// Utility classes
+@import "_src/utilities";
+@import "_src/responsive-utilities";

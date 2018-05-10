@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="26px" height="18px" viewBox="0 0 26 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>transacrions</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="UI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-144.000000, -215.000000)">
+        <g id="Icons" transform="translate(100.000000, 210.000000)" fill="#FFFFFF" fill-rule="nonzero">
+            <g id="transacrions" transform="translate(43.000000, 0.000000)">
+                <path d="M12,15 L7.01262625,15 L7.01262625,13.3965228 L4.03787876,15.9990092 L7.01262625,18.5946609 L7.01262625,17 L16,17 L16,19 L9.00982042,19 L9.00982042,23 L1,16 L9.00982042,9 L9.00982042,13 L12,13 L21,13 L21,14.6004605 L23.9799812,11.9993925 L21,9.39412457 L21,11 L12,11 L12,9 L19,9 L19,5 L27,12 L19,19 L19,15 L12,15 Z" id="transactions"></path>
+            </g>
+        </g>
+    </g>
+</svg>

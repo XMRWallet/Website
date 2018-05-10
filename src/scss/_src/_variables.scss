@@ -1,0 +1,68 @@
+$path-img: "/i/";
+$path-font: "/fonts/";
+
+$bootstrap-sass-asset-helper: false !default;
+//
+// Variables
+// --------------------------------------------------
+
+//** Background color for `<body>`.
+$body-bg:                       #F7F7F7 !default;
+//** Global text color on `<body>`.
+$text-color:                    #000 !default;
+
+//** Global textual link color.
+$link-color:                    rgba(0, 0, 0, 0.3) !default;
+$link-hover-color:              #000 !default;
+//** Link hover decoration.
+$link-hover-decoration:         none !default;
+
+$font-family-roboto-black:       'Roboto-Black', sans-serif !default;
+$font-family-roboto-bold:        'Roboto-Bold', sans-serif !default;
+$font-family-roboto-medium:      'Roboto-Medium', sans-serif !default;
+$font-family-roboto-light:       'Roboto-Light', sans-serif !default;
+$font-family-roboto-regular:     'Roboto-Regular', sans-serif !default;
+
+$font-family-regular:            $font-family-roboto-regular;
+$font-family-base:               $font-family-regular !default;
+
+$font-weight:                    normal !default;
+
+$font-size-base:                 14px !default;
+
+$line-height-base:               1 !default;
+
+$border-radius-base:             50% !default;
+
+//** Disabled cursor for form controls and buttons.
+$cursor-disabled:                not-allowed !default;
+
+//== Media queries breakpoints
+
+// Small screen / tablet
+$screen-sm:                  900px !default;
+$screen-sm-min:              $screen-sm !default;
+$screen-tablet:              $screen-sm-min !default;
+
+$screen-xs-max:              ($screen-sm-min - 1) !default;
+
+//== Grid system
+//
+//## Define your custom responsive grid.
+
+//** Number of columns in the grid.
+$grid-columns:           12 !default;
+//** Padding between columns. Gets divided in half for the left and right.
+$grid-gutter-width:      18px !default;
+$grid-gutter-offset:     18px !default;
+// Navbar collapse
+//** Point at which the navbar becomes uncollapsed.
+$grid-float-breakpoint:     $screen-sm-min !default;
+//** Point at which the navbar begins collapsing.
+$grid-float-breakpoint-max: ($grid-float-breakpoint - 1) !default;
+
+// Small screen / tablet
+$container-tablet:             ($screen-sm) !default;
+$container-sm:                 $container-tablet !default;
+
+$container-desktop:            940px !default;

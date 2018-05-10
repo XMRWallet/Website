@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="90px" height="57px" viewBox="0 0 90 57" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>image-risks</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M11,0 L79,0 C81.209139,-4.05812251e-16 83,1.790861 83,4 L83,56 L7,56 L7,4 C7,1.790861 8.790861,4.05812251e-16 11,0 Z" id="path-1"></path>
+        <path d="M38.0853529,49 C38.2912711,49.5825962 38.8468906,50 39.5,50 L50.5,50 C51.1531094,50 51.7087289,49.5825962 51.9146471,49 L90,49 L90,50 C90,53.8659932 86.8659932,57 83,57 L7,57 C3.13400675,57 4.73447626e-16,53.8659932 0,50 L0,49 L38.0853529,49 Z" id="path-2"></path>
+        <circle id="path-3" cx="45" cy="29" r="12"></circle>
+    </defs>
+    <g id="Dashboard_CreateAccount" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-435.000000, -671.000000)">
+        <g id="Content" transform="translate(374.000000, 28.000000)">
+            <g id="Understand-the-Risks-in-Using-MyMonero" transform="translate(1.000000, 545.000000)">
+                <g id="image-risks" transform="translate(60.000000, 98.000000)">
+                    <g id="Rectangle-4">
+                        <use fill="#F1F2F6" fill-rule="evenodd" xlink:href="#path-1"></use>
+                        <path stroke="#474E5D" stroke-width="2" d="M8,55 L82,55 L82,4 C82,2.34314575 80.6568542,1 79,1 L11,1 C9.34314575,1 8,2.34314575 8,4 L8,55 Z"></path>
+                    </g>
+                    <g id="Combined-Shape">
+                        <use fill="#F1F2F6" fill-rule="evenodd" xlink:href="#path-2"></use>
+                        <path stroke="#474E5D" stroke-width="2" d="M37.4995844,50 L1,50 C1,53.3137085 3.6862915,56 7,56 L83,56 C86.3137085,56 89,53.3137085 89,50 L52.5004156,50 C52.0388946,50.6149971 51.3060878,51 50.5,51 L39.5,51 C38.6939122,51 37.9611054,50.6149971 37.4995844,50 Z"></path>
+                    </g>
+                    <g id="Oval-4">
+                        <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-3"></use>
+                        <circle stroke="#474E5D" stroke-width="2" cx="45" cy="29" r="11"></circle>
+                    </g>
+                    <path d="M45,22 C45.5522847,22 46,22.4477153 46,23 L46,30 C46,30.5522847 45.5522847,31 45,31 C44.4477153,31 44,30.5522847 44,30 L44,23 C44,22.4477153 44.4477153,22 45,22 Z" id="Rectangle-3" fill="#474E5D"></path>
+                    <path d="M45,33 C45.5522847,33 46,33.4477153 46,34 L46,35 C46,35.5522847 45.5522847,36 45,36 C44.4477153,36 44,35.5522847 44,35 L44,34 C44,33.4477153 44.4477153,33 45,33 Z" id="Rectangle-3" fill="#474E5D"></path>
+                    <circle id="Oval-5" fill="#474E5D" cx="45" cy="6" r="1"></circle>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

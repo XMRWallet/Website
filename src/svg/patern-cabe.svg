@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="42px" viewBox="0 0 40 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>langing_header_patern</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Dashboard_MainPage" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-159.000000, -166.000000)" opacity="0.035">
+        <g id="00" fill="#FFFFFF" fill-rule="nonzero">
+            <g id="Group">
+                <g id="Pattern" style="mix-blend-mode: overlay;" transform="translate(-121.000000, -86.000000)">
+                    <g id="Group-3" transform="translate(280.000000, 0.000000)">
+                        <g id="Group-4" transform="translate(0.000000, 252.000000)">
+                            <path d="M21,40.6883603 L40,32.3468969 L40,10.2732928 L21,18.8232928 L21,40.6883603 Z M20,40.6883603 L20,18.8232928 L1,10.2732928 L1,32.3468969 L20,40.6883603 Z M1.53586369,9.41784585 L20.5,17.9517072 L39.4641363,9.41784585 L20.5,1.09212747 L1.53586369,9.41784585 Z M0,9 L20.5,0 L41,9 L41,33 L20.5,42 L0,33 L0,9 Z" id="langing_header_patern"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

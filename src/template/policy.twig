@@ -1,0 +1,89 @@
+{% set page_name = "policy" %}
+{% set isShowBalance = false %}
+{% set isLogin = false %}
+{% set page_title = "Privacy Policy | xmrwallet.com" %}
+
+{% extends "layout/dashboard.twig" %}
+
+{% block title %}{{ i("title_policy") }}{% endblock %}
+{% block subtitle %}{{ i("title_sub_policy") }}{% endblock %}
+
+{% block content %}
+    <script>document.title = "{{ page_title }}";</script>
+    <div class="dashboard-content">
+        <h3>{{ i("policy_h3_1") }}: 2018/01/15</h3>
+        <h4>{{ i("policy_h4_1") }}</h4>
+        <p>
+            {{ i("policy_h4_1_1") }}
+        </p>
+        <p>
+            {{ i("policy_h4_1_2") }}
+        </p>
+        <p>
+            {{ i("policy_h4_1_3") }}
+        </p>
+        <h4>{{ i("policy_h4_2") }}</h4>
+        <p>
+           {{ i("policy_h4_2_1") }}
+        </p>
+        <p>
+            {{ i("policy_h4_2_2") }}
+        </p>
+        <p>
+            {{ i("policy_h4_2_3") }}
+        </p>
+        <p>
+            {{ i("policy_h4_2_4") }}
+        </p>
+        <p>
+            {{ i("policy_h4_2_5") }}
+        </p>
+        <p>
+            {{ i("policy_h4_2_6") }}
+        </p>
+        <p>
+            {{ i("policy_h4_2_7") }}
+        </p>
+
+        <h4>{{ i("policy_h4_3") }}</h4>
+        <p>
+            {{ i("policy_h4_3_1") }}
+        </p>
+
+        <span class="content">{{ i("policy_h4_4_2") }}</span>
+        <ul class="ul-tire">
+            <li>
+                {{ i("policy_h4_4_3") }}
+            </li>
+            <li>
+                {{ i("policy_h4_4_4") }}
+            </li>
+            <li>
+                {{ i("policy_h4_4_5") }}
+            </li>
+            <li>
+                {{ i("policy_h4_4_6") }}
+            </li>
+            <li>
+                {{ i("policy_h4_4_7") }}
+            </li>
+            <li>
+                {{ i("policy_h4_4_8") }}
+            </li>
+        </ul>
+        <h4>{{ i("policy_h4_4") }}</h4>
+        <p>
+            {{ i("policy_h4_4_1") }}
+        </p>
+
+        <h4>{{ i("policy_h4_5") }}</h4>
+        <ul class="ul-tire">
+            <li>
+                {{ i("policy_h4_5_1") }}
+            </li>
+        </ul>
+        <p>
+            {{ i("policy_h4_5_2") }}
+        </p>
+    </div>
+{% endblock %}

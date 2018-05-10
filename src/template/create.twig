@@ -1,0 +1,154 @@
+{% set page_name = "create" %}
+{% set isShowBalance = false %}
+{% set isLogin = false %}
+{% set page_title = "Create Account | xmrwallet.com" %}
+
+{% extends "layout/dashboard.twig" %}
+
+{% block title %}<span class="svg svg--icon-checked"></span> {{ i("title_login") }}{% endblock %}
+{% block subtitle %}{{ i("title_sub_login") }}{% endblock %}
+{% block subtitlelink %}<a href="#/login.html" {{ p("title_link_login") }}>{{ t("title_link_login") }}</a>{% endblock %}
+
+{% block content %}
+    <script>document.title = "{{ page_title }}";</script>
+    <script>
+    function generatenewseed(language)
+    {
+        seed = cnUtil.sc_reduce32(cnUtil.rand_32());
+        keys = cnUtil.create_address(seed);
+        mnemonic = mn_encode(seed,language);
+        //keys.spend.sec;
+        document.getElementById("public_viewkey").value = keys.view.sec;
+        document.getElementById("public_address").value = cnUtil.pubkeys_to_string(keys.spend.pub, keys.view.pub);
+        document.getElementById("private_spendkey").value = keys.spend.sec;
+        //keys.public_addr;
+        document.getElementById("private_seed").value = mnemonic;
+    }
+    function generatenewseed_select(selectObj)
+    {
+        generatenewseed(selectObj.value);
+    }
+    </script>
+    <div class="dashboard-panel">
+        <div class="dashboard-panel-header">
+            <div class="dashboard-panel-header-title">
+                <span class="svg svg--key-white"></span>
+                <span class="title-text">{{ i("panel_private_login_key") }}</span>
+            </div>
+        </div>
+        <div class="dashboard-panel-body">
+            <div class="form-group form-group">
+                <label class="label">{{ i("label_language") }}</label>
+                <div class="select-style">
+                    <select onchange="generatenewseed_select(this)">
+                        <option value="english" selected>English</option>
+                        <option value="esperanto">Esperanto</option>
+                        <option value="lojban">Lojban</option>
+                        <option value="spanish">Spanish (Español)</option>
+                        <option value="german">German (Deutsch)</option>
+                        <option value="french">French (Français)</option>
+                        <option value="italian">Italian (Italiano)</option>
+                        <option value="dutch">Dutch (Nederlands)</option>
+                        <option value="chinese_simplified">Chinese Simplified (简体中文 (中国))</option>
+                        <option value="japanese">Japanese (日本語)</option>
+                        <option value="russian">Russian (русский язык)</option>
+                        <option value="portuguese">Portuguese (Português)</option>
+                    </select>
+                    <button class="btn btn-select">
+                        <span class="svg svg--arrow-down"></span>
+                    </button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="label">{{ i("label_private_login_key") }}</label>
+                <div class="input-group">
+                    <textarea id="private_seed" class="form-control" style="color: #474E5D; border-color: #D9DCE7; background-color: #F1F2F6;" readonly>generating...</textarea>
+                    <div class="input-group-btn">
+                        <button onclick="window.print();" class="btn btn-group">
+                            <span class="svg svg--print-white"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-group-end">
+                <label class="label">{{ i("label_private_login_key_confirm") }}</label>
+                <input id="private_seed_confirm" type="text" class="form-control" {{ d("label_private_login_key_confirm_placeholder", "placeholder") }}/>
+            </div>
+            <form id="create_account">
+            <input id="public_address" type="hidden" name="address" class="form-control" {{ d("label_your_address_placeholder", "placeholder") }}/>
+            <input id="public_viewkey" type="hidden" name="viewkey" class="form-control" {{ d("label_view_key_placeholder", "placeholder") }}/>
+            <input id="private_spendkey" type="hidden">
+            <input type="hidden" name="isnew" value="1">
+            <button type="submit" class="btn btn-orange btn-lg">{{ i("button_private_login_key") }}</button>
+			</form>
+            <script>
+            function server_error_create()
+            {
+                window.location.hash = "#/login.html";
+            }
+            $("#create_account").submit(function(e)
+            {
+                e.preventDefault();
+                account_timeout = new Date().getTime();
+                if(document.getElementById('private_seed_confirm').value != document.getElementById('private_seed').value){ alert('Incorrect seed confirmation. Please, write down the seed exactly as shown.'); return false; }
+
+                var url = "auth.php";
+
+                $.ajax({
+                       type: "POST",
+                       url: url,
+                       data: $("#create_account").serialize()
+                }).done(function(data){
+                    var returned_data = data.split(":");
+                    if(returned_data.length == 2)
+                    {
+                        if(returned_data[0] == '1')
+                        {
+                            xmrwallet_viewkey = document.getElementById("public_viewkey").value;
+                            xmrwallet_address = document.getElementById("public_address").value;
+                            xmrwallet_spendkey = document.getElementById("private_spendkey").value;
+                            xmrwallet_seed = document.getElementById("private_seed").value;
+                            session_id = returned_data[1];
+                            window.location.hash = "#/dashboard.html";
+                        }
+                        else
+                        {
+                            server_error_create();
+                        }
+                    }
+                    else
+                    {
+                        server_error_create();
+                    }
+               }).fail(function(){
+                    server_error_create();
+               });
+            });
+            </script>
+        </div>
+    </div>
+
+    <div class="dashboard-inline">
+        <div class="dashboard-inline-image">
+            <div class="svg svg--image-risks"></div>
+        </div>
+        <div class="dashboard-inline-body">
+            <div class="dashboard-inline-title">{{ i("description_risk_xmrwallet") }}</div>
+            <div class="dashboard-inline-text">{{ i("description_risk_xmrwallet_text") }}</div>
+        </div>
+    </div>
+
+    <div class="dashboard-inline">
+        <div class="dashboard-inline-image">
+            <div class="svg svg--image-private"></div>
+        </div>
+        <div class="dashboard-inline-body">
+            <div class="dashboard-inline-title">{{ i("description_must_xmrwallet") }}</div>
+            <div class="dashboard-inline-text">{{ i("description_must_xmrwallet_text") }}</div>
+        </div>
+    </div>
+    <script>
+    generatenewseed('english');
+    </script>
+    
+{% endblock %}

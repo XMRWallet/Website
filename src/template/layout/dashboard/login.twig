@@ -1,0 +1,25 @@
+{% if page_name != "maintenance" %}
+<div class="dashboard-button-list">
+    <a href="#/login.html" class="btn btn-gray btn-lg">{{ i("login") }}</a>
+    <a href="#/create.html" class="btn btn-white btn-lg">{{ i("create_account") }}</a>
+</div>
+<div class="dashboard-nav">
+    <nav>
+        <hr/>
+        <ul>
+            <li>
+                <a href="#/landing.html" class="active">
+                    <span class="svg-wrap"><span class="svg--overview"></span></span>
+                    <span class="nav-text">Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="#/support.html" class="active">
+                    <span class="svg-wrap"><span class="svg--support"></span></span>
+                    <span class="nav-text">{{ i("support") }}</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+{% endif %}

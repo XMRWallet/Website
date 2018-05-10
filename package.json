@@ -1,0 +1,31 @@
+{
+	"private": true,
+	"scripts": {
+		"watch": "node node_modules/gulp/bin/gulp watch",
+		"server": "node node_modules/gulp/bin/gulp server",
+		"build": "node node_modules/gulp/bin/gulp build"
+	},
+	"browser": {
+		"jquery": "./src/js/jquery.js"
+	},
+	"devDependencies": {
+		"gulp": "^3.9.1",
+		"gulp-compass-imagehelper": "^1.0.2",
+		"gulp-connect": "^5.0.0",
+		"gulp-sass": "^3.0.0",
+		"gulp-sass-image": "^1.0.2",
+		"gulp-sourcemaps": "^2.4.1",
+		"gulp-svgo": "^1.2.5",
+		"path": "^0.12.7",
+		"run-sequence": "^2.2.0"
+	},
+	"dependencies": {
+		"browserify": "^14.5.0",
+		"del": "^3.0.0",
+		"gulp-twig": "^1.1.1",
+		"gulp-uglify": "^3.0.0",
+		"merge-stream": "^1.0.1",
+		"vinyl-buffer": "^1.0.1",
+		"vinyl-source-stream": "^2.0.0"
+	}
+}

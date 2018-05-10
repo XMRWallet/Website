@@ -1,0 +1,209 @@
+{% set page_name = "terms_login" %}
+{% set isShowBalance = false %}
+{% set isLogin = true %}
+{% set page_title = "Terms and Conditions | xmrwallet.com" %}
+
+{% extends "layout/dashboard.twig" %}
+
+{% block title %}{{ i("title_terms") }}{% endblock %}
+{% block subtitle %}{{ i("title_sub_terms") }}{% endblock %}
+
+{% block content %}
+    <script>document.title = "{{ page_title }}";</script>
+    <script>
+    if(typeof session_id === 'undefined' || session_id === null || xmrwallet_spendkey == '' || xmrwallet_viewkey == '' || xmrwallet_address == '' || session_id == '')
+    {
+        window.location.href = "https://www.xmrwallet.com";
+    }
+    </script>
+    <div class="dashboard-content">
+        <h3>{{ i("terms_h3_1") }}: 2018/01/15</h3>
+        <p>
+            {{ i("terms_h3_1_1") }}
+        </p>
+        <h4>{{ i("terms_h4_1") }}</h4>
+        <p>
+            {{ i("terms_h4_1_1") }}
+        </p>
+        <h4>{{ i("terms_h4_2") }}</h4>
+        <p>
+            {{ i("terms_h4_2_1") }}
+        </p>
+        <p>
+            {{ i("terms_h4_2_2") }}
+        </p>
+
+        <h4>{{ i("terms_h4_3") }}</h4>
+        <p>
+            {{ i("terms_h4_3_1") }}
+        </p>
+
+        <h4>{{ i("terms_h4_4") }}</h4>
+        <p>
+            {{ i("terms_h4_4_1") }}
+        </p>
+        <ol class="ol-list ol-list--4">
+            <li>
+                <p>
+                    {{ i("terms_h4_4_2") }}
+                </p>
+            </li>
+            <li>
+                <p>
+                    {{ i("terms_h4_4_3") }}
+                </p>
+            </li>
+            <li>
+                <p>
+                    {{ i("terms_h4_4_4") }}
+                </p>
+                <p>
+                    {{ i("terms_h4_4_5") }}
+                </p>
+            </li>
+            <li>
+                <p>
+                    {{ i("terms_h4_4_6") }}
+                </p>
+            </li>
+            <li>
+                <p>
+                    {{ i("terms_h4_4_7") }}
+                </p>
+            </li>
+            <li>
+                <p>
+                    {{ i("terms_h4_4_8") }}
+                </p>
+            </li>
+            <li>
+                <p>
+                    {{ i("terms_h4_4_9") }}
+                </p>
+                <p>
+                    {{ i("terms_h4_4_10") }}
+                </p>
+            </li>
+        </ol>
+        <h4>{{ i("terms_h4_5") }}</h4>
+
+        <ol class="ol-list ol-list--5">
+            <li>
+                <p>
+                    {{ i("terms_h4_5_1") }}
+                </p>
+            </li>
+            <li>
+                <p>
+                    {{ i("terms_h4_5_2") }}
+                </p>
+            </li>
+        </ol>
+
+        <p>
+            {{ i("terms_h4_5_3") }}
+        </p>
+        <p>
+            {{ i("terms_h4_5_4") }}
+        </p>
+        <p>
+            {{ i("terms_h4_5_5") }}
+        </p>
+
+        <h4>{{ i("terms_h4_6") }}</h4>
+        <p>
+            {{ i("terms_h4_6_1") }}
+        </p>
+
+        <h4>
+            {{ i("terms_h4_7") }}
+        </h4>
+        <p>
+            {{ i("terms_h4_7_1") }}
+        </p>
+        <h4>{{ i("terms_h4_8") }}</h4>
+        <p>
+            {{ i("terms_h4_8_1") }}
+        </p>
+        <h4>{{ i("terms_h4_9") }}</h4>
+        <p>
+            {{ i("terms_h4_9_1") }}
+        </p>
+        <h4>{{ i("terms_h4_10") }}</h4>
+        <p>
+            {{ i("terms_h4_10_1") }}
+        </p>
+        <h4>{{ i("terms_h4_11") }}</h4>
+        <p>
+            {{ i("terms_h4_11_1") }}
+        </p>
+        <h4>{{ i("terms_h4_12") }}</h4>
+        <p>
+            {{ i("terms_h4_12_1") }}
+        </p>
+        <h4>{{ i("terms_h4_13") }}</h4>
+        <ul class="ul-tire">
+            <li>
+                {{ i("terms_h4_13_1") }}
+            </li>
+            <li>
+                {{ i("terms_h4_13_2") }}
+            </li>
+            <li>
+                {{ i("terms_h4_13_3") }}
+            </li>
+        </ul>
+        <h4>{{ i("terms_h4_14") }}</h4>
+        <p>
+            {{ i("terms_h4_14_1") }}
+        </p>
+        <h4>{{ i("terms_h4_15") }}</h4>
+        <p>
+            {{ i("terms_h4_15_1") }}
+        </p>
+        <h4>{{ i("terms_h4_16") }}</h4>
+        <p>
+            {{ i("terms_h4_16_1") }}
+        </p>
+        <p>
+            {{ i("terms_h4_16_2") }}
+        </p>
+        <p>
+            {{ i("terms_h4_16_3") }}
+        </p>
+
+        <h4>{{ i("terms_h4_17") }}</h4>
+        <ol class="ol-list ol-list--17">
+            <li>
+                <p>
+                    {{ i("terms_h4_17_1") }}
+                </p>
+            </li>
+            <li>
+                <p>
+                    {{ i("terms_h4_17_2") }}
+                </p>
+            </li>
+            <li>
+                <p>
+                    {{ i("terms_h4_17_3") }}
+                </p>
+            </li>
+            <li>
+                <p>
+                    {{ i("terms_h4_17_4") }}
+                </p>
+            </li>
+            <li>
+                <p>
+                    {{ i("terms_h4_17_5") }}
+                </p>
+            </li>
+            <li>
+                <p>
+                    {{ i("terms_h4_17_6") }}
+                </p>
+            </li>
+        </ol>
+    </div>
+{% endblock %}

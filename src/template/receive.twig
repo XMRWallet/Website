@@ -1,0 +1,143 @@
+{% set page_name = "receive" %}
+{% set isLogin = true %}
+{% set isShowBalance = true %}
+{% set page_title = "Receive Payments | xmrwallet.com" %}
+
+{% extends "layout/dashboard.twig" %}
+
+{% block title %}{{ i("title_receive") }}{% endblock %}
+{% block subtitle %}{{ i("title_sub_receive") }}{% endblock %}
+
+{% block content %}
+    <script>document.title = "{{ page_title }}";</script>
+    <script>
+    if(typeof session_id === 'undefined' || session_id === null || xmrwallet_spendkey == '' || xmrwallet_viewkey == '' || xmrwallet_address == '' || session_id == '')
+    {
+        window.location.href = "https://www.xmrwallet.com";
+    }
+    </script>
+    <div class="dashboard-panel">
+        <div class="dashboard-panel-body">
+            <div class="form-group">
+                <label class="label">{{ i("address") }}</label>
+                <div class="input-group">
+                    <input id="public_address" type="text" class="form-control" style="color: #474E5D; border-color: #D9DCE7; background-color: #F1F2F6;" readonly>
+                    <div class="input-group-btn">
+                        <button class="btn btn-group" data-clipboard-target="#public_address">
+                            <span class="svg svg--copy-white"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="label">{{ i("amount") }} (Optional)</label>
+                        <div class="input-group input-group--monero">
+                            <input id="r_xmr" oninput="updatemoneroqrtext(0)" type="text" class="form-control" value=""/>
+                            <div class="svg svg--monero-white"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="label">{{ i("label_payment_id") }}</label>
+                        <input id="r_pid" oninput="updatemoneroqrtext(0)" type="text" class="form-control" {{ d("label_payment_id_placeholder", "placeholder") }}/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-group-end">
+                <label class="label">{{ i("label_label") }} (Optional)</label>
+                <input id="r_label" oninput="updatemoneroqrtext(0)" type="text" class="form-control" {{ d("label_label_placeholder", "placeholder") }}/>
+            </div>
+            <div id="qr-code-head" style="color: #4E5459; font-size: 12px; font-weight: 500; margin-bottom: 15px; text-align: center;">Use this QR code to receive payments</div>
+            <div id="qrcode"></div>
+            <div id="qr-code-text" style="margin-top: 10px; text-align: center;"></div>
+            <script src="/js/qrcode.js"></script>
+            <script>
+            new ClipboardJS('.btn');
+            var qrcode = null;
+            function updatemoneroqrtext(init)
+            {
+                var finalqrtext = "monero:" + xmrwallet_address;
+                
+                var addedtext = 0;
+                
+                var content_xmr = document.getElementById("r_xmr").value;
+                var content_pid = document.getElementById("r_pid").value;
+                var content_label = document.getElementById("r_label").value;
+                
+                if(content_xmr)
+                {
+                    if(addedtext == 1)
+                    {
+                        finalqrtext += "&";
+                    }
+                    else
+                    {
+                        finalqrtext += "?";
+                        addedtext = 1;
+                    }
+                    finalqrtext += "tx_amount=" + content_xmr;
+                }
+                
+                if(content_pid)
+                {
+                    if(addedtext == 1)
+                    {
+                        finalqrtext += "&";
+                    }
+                    else
+                    {
+                        finalqrtext += "?";
+                        addedtext = 1;
+                    }
+                    finalqrtext += "tx_payment_id=" + content_pid;
+                }
+                
+                if(content_label)
+                {
+                    if(addedtext == 1)
+                    {
+                        finalqrtext += "&";
+                    }
+                    else
+                    {
+                        finalqrtext += "?";
+                        addedtext = 1;
+                    }
+                    finalqrtext += "tx_description=" + content_label;
+                }
+                
+                if(init == 1)
+                {
+                    qrcode = new QRCode(document.getElementById("qrcode"), {
+                    text: finalqrtext,
+                    width: 175,
+                    height: 175,
+                    colorDark : "#000000",
+                    colorLight : "#ffffff"
+                    });
+                }
+                else
+                {
+                    qrcode.clear();
+                    qrcode.makeCode(finalqrtext);
+                }
+                
+                $("#qrcode > img").css({"margin":"auto"});
+                
+                document.getElementById("qr-code-text").innerHTML = "<a style=\"color: #5F676E;\" href=\"unsafe:"+finalqrtext+"\" target=\"_blank\">" + finalqrtext + "</a>";
+            }
+            updatemoneroqrtext(1);
+            </script>
+        </div>
+    </div>
+    <script>
+    if(xmrwallet_address)
+    {
+        $("#public_address").val(xmrwallet_address);
+    }
+    </script>
+    {% include "dashboard/table.twig" %}
+{% endblock %}

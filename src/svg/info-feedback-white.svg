@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="34px" viewBox="0 0 40 34" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>info-feedback-white</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Dashboard_Support" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-900.000000, -179.000000)">
+        <g id="Content" transform="translate(374.000000, 30.000000)" fill="#474E5D" fill-rule="nonzero">
+            <g id="Email02" transform="translate(487.000000, 104.000000)">
+                <g id="info-feedback-white" transform="translate(40.000000, 45.000000)">
+                    <path d="M6,0 L33,7.10542736e-15 C36.3137085,0 39,2.6862915 39,6 L39,22 C39,25.3137085 36.3137085,28 33,28 L17,28 L8,34 L8,28 L6,28 C2.6862915,28 5.18696197e-13,25.3137085 5.18696197e-13,22 L0,6 C0,2.6862915 2.6862915,0 6,0 Z M16.3944487,26 L33,26 C35.209139,26 37,24.209139 37,22 L37,6 C37,3.790861 35.209139,2 33,2 L6,2 C3.790861,2 2,3.790861 2,6 L2,22 C2,24.209139 3.790861,26 6,26 L10,26 L10,30.2629658 L16.3944487,26 Z M20,7 C20.5522847,7 21,7.44771525 21,8 L21,15 C21,15.5522847 20.5522847,16 20,16 C19.4477153,16 19,15.5522847 19,15 L19,8 C19,7.44771525 19.4477153,7 20,7 Z M20,18 C20.5522847,18 21,18.4477153 21,19 L21,20 C21,20.5522847 20.5522847,21 20,21 C19.4477153,21 19,20.5522847 19,20 L19,19 C19,18.4477153 19.4477153,18 20,18 Z" id="Combined-Shape"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,377 @@
+<div id="pendingdiv" style="display: none;" class="dashboard-panel">
+    <div class="dashboard-panel-header">
+        <div class="dashboard-panel-header-title">
+            <span class="svg svg--transacrions-white"></span>
+            <span class="title-text">Pending Transactions</span>
+        </div>
+    </div>
+    <div class="dashboard-panel-body">
+        <table class="table table-offset">
+            <thead>
+            <tr>
+                <td>Date</td>
+                <td class="column-transaction">{{ i("table_transaction_id") }}</td>
+                <td>Confirmations</td>
+                <td class="column-right">{{ i("table_value_xmr") }}</td>
+            </tr>
+            </thead>
+            <tbody id="pendingtxdata">
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% if (page_name == "transactions") or (page_name == "dashboard") %}
+<div class="dashboard-panel">
+    <div class="dashboard-panel-header">
+        <div class="dashboard-panel-header-title">
+            <span class="svg svg--transacrions-white"></span>
+            <span class="title-text">{{ i("table_transaction_history") }}</span>
+        </div>
+    </div>
+    <div class="dashboard-panel-body">
+        <table class="table table-offset">
+            <thead>
+            <tr>
+                <td>Date</td>
+                <td class="column-transaction">{{ i("table_transaction_id") }}</td>
+                <td>Confirmations</td>
+                <td class="column-right">{{ i("table_value_xmr") }}</td>
+            </tr>
+            </thead>
+            <tbody id="txdata">
+            </tbody>
+        </table>
+        <div class="table-more">
+        </div>
+        <div class="table-pagination">
+            <div class="table-pagination-left">
+                <a id="page_back" class="apage btn btn-section">{{ i("table_back") }}</a>
+                <span id="p_b">&nbsp;</span>
+            </div>
+            <div class="table-pagination-center">
+                <div id="pagedata" class="btn-group-inline">
+                </div>
+            </div>
+            <div class="table-pagination-right">
+                <a id="page_next" class="apage btn btn-section">{{ i("table_next") }}</a>
+                <span id="p_n">&nbsp;</span>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<script>
+var current_time = XMR_DATE.getTime();
+
+function update_transaction_data(data)
+{
+    {% if (page_name == "transactions") or (page_name == "dashboard") %}
+    $('#pagedata').empty();
+    totalpages = parseInt(data[0]['pages']);
+
+    add_dots_start = 0;
+    add_dots_end = 0;
+    if(transaction_atpage > 6)
+    {
+        add_dots_start = 1;
+    }
+    if(totalpages - transaction_atpage > 6)
+    {
+        add_dots_end = 1;
+    }
+    
+    if(transaction_atpage == totalpages)
+    {
+        $('#page_next').hide();
+    }
+    else
+    {
+        $('#page_next').show();
+    }
+    
+    if(transaction_atpage == 1)
+    {
+        $('#page_back').hide();
+    }
+    else
+    {
+        $('#page_back').show();
+    }
+    
+    var finalpagedata = '';
+    
+    if(totalpages > 6)
+    {
+        for(var i = transaction_atpage-2; i < transaction_atpage+3; i++)
+        {
+            if(i > totalpages)
+            {
+                break;
+            }
+            if(i <= 0)
+            {
+                continue;
+            }
+            if(i==transaction_atpage-2 && transaction_atpage > 3)
+            {
+                finalpagedata += '<a id="page_' + (i-1).toString() + '" class="apage btn btn-section">...</a>';
+            }
+            finalpagedata += '<a id="page_' + i.toString() + '" class="apage btn btn-section';
+            if(transaction_atpage == i)
+            {
+                finalpagedata += ' active';
+            }
+            if(i == transaction_atpage+7)
+            {
+                finalpagedata += '">' + totalpages.toString() + '</a>';
+            }
+            else
+            {
+                finalpagedata += '">' +i.toString() + '</a>';
+            }
+            if(i==transaction_atpage+2 && i < totalpages)
+            {
+                finalpagedata += '<a id="page_' + (i+1).toString() + '" class="apage btn btn-section">...</a>';
+            }
+        }
+    }
+    else
+    {
+        for(var i = 1; i <= totalpages; i++)
+        {
+            finalpagedata += '<a id="page_' + i.toString() + '" class="apage btn btn-section';
+            if(transaction_atpage == i)
+            {
+                finalpagedata += ' active';
+            }
+            finalpagedata += '">' + i.toString() + '</a>';
+        }
+    }
+    
+    $("#pagedata").html(finalpagedata);
+    
+    $(".apage").unbind().click(
+      function(event) {
+         event.preventDefault();
+         account_timeout = new Date().getTime();
+         var nofire = 0;
+         var dataval = $(this).attr('id').slice(5);
+         if(dataval == 'next')
+         {
+            transaction_atpage += 1;
+         }
+         else if(dataval == 'back')
+         {
+            if(transaction_atpage > 1)
+            {
+                transaction_atpage -= 1;
+            }
+            else
+            {
+                transaction_atpage = 1;
+            }
+         }
+         else
+         {
+            if(transaction_atpage == parseInt(dataval))
+            {
+                nofire = 1;
+            }
+            transaction_atpage = parseInt(dataval);
+         }
+         if(nofire == 0)
+         {
+            update_transactions(0);
+         }
+      }
+    );
+    {% endif %}
+    
+    var finaltxdata = '';
+    var finalpendingtxdata = '';
+    
+    var unamount_total = new JSBigInt(0);
+    var amount_total = new JSBigInt(0);
+
+    for(var i = 1; i < data.length; i++)
+    {
+        var d = new Date(0);
+        d.setUTCSeconds(parseInt(data[i]['time']));
+        if(data[i]['type'] != 'pendingtx')
+        {
+            finaltxdata += '<tr>';
+            finaltxdata += '<td style="font-size: 10px;">' + d.toLocaleString() + '</td>';
+            finaltxdata += '<td><a target="_blank" ';
+            if(data[i]['type'] == 'in')
+            {
+                finaltxdata += 'class="payment-received" ';
+            }
+            else if(data[i]['type'] == 'out')
+            {
+                finaltxdata += 'class="payment-sent" ';
+            }
+            else if(data[i]['type'] == 'swept')
+            {
+                finaltxdata += 'class="payment-swept" ';
+            }
+            else if(data[i]['type'] == 'pool')
+            {
+                finaltxdata += 'class="payment-pool" ';
+            }
+            
+            if(data[i]['type'] == 'swept')
+            {
+                data[i]['payment_id'] = '0000000000000000';
+                //var txsplit = data[i]['txid'].split(":");
+                //data[i]['txid'] = txsplit[0];
+                data[i]['txid'] = 'Unknown transaction id (Swept Transaction)';
+            }
+            
+            finaltxdata += 'href="https://xmrchain.net/search?value=' + data[i]['txid'] + '">' + data[i]['txid'] + '</a>';
+            if(data[i]['payment_id'] != '0000000000000000')
+            {
+               finaltxdata += '<br><span style="font-size: 10px; color: #C9C9C9;">#' + data[i]['payment_id'] + '</span>'; 
+            }
+            finaltxdata += '</td>';
+            var datashowconfirm = data[i]['confirmations'];
+            if(datashowconfirm == "10/10")
+            {
+                datashowconfirm = "&#10004;";
+            }
+            finaltxdata += '<td>' + datashowconfirm + '</td>';
+            finaltxdata += '<td class="column-right">';
+            if(data[i]['type'] == 'in')
+            {
+                finaltxdata += '+';
+            }
+            else if(data[i]['type'] == 'out')
+            {
+                finaltxdata += '-';
+            }
+            else if(data[i]['type'] == 'pool')
+            {
+                finaltxdata += '+';
+            }
+            else if(data[i]['type'] == 'swept')
+            {
+                finaltxdata += '-';
+            }
+            finaltxdata += moneroBalance(data[i]['amount']) + '</td>';
+            finaltxdata += '</tr>';
+        }
+        else
+        {
+            finalpendingtxdata += '<tr>';
+            finalpendingtxdata += '<td style="font-size: 10px;">' + d.toLocaleString() + '</td>';
+            finalpendingtxdata += '<td><a target="_blank" ';
+            finalpendingtxdata += 'class="payment-pool" ';
+            
+            finalpendingtxdata += 'href="https://xmrchain.net/search?value=' + data[i]['txid'] + '">' + data[i]['txid'] + '</a>';
+            if(data[i]['payment_id'] != '0000000000000000')
+            {
+               finalpendingtxdata += '<br><span style="font-size: 10px; color: #C9C9C9;">#' + data[i]['payment_id'] + '</span>'; 
+            }
+            finalpendingtxdata += '</td>';
+            var datashowconfirm = data[i]['confirmations'];
+            if(datashowconfirm == "10/10")
+            {
+                datashowconfirm = "&#10004;";
+            }
+            finalpendingtxdata += '<td>' + datashowconfirm + '</td>';
+            finalpendingtxdata += '<td class="column-right">';
+            finalpendingtxdata += '-';
+            finalpendingtxdata += moneroBalance(data[i]['amount']) + '</td>';
+            finalpendingtxdata += '</tr>';
+            
+            amount_total = amount_total.add(data[i]['amount']);
+            amount_total = amount_total.add(data[i]['fee']);
+            unamount_total = unamount_total.add(data[i]['unamount']);
+            
+        }
+    }
+    
+    {% if (page_name == "transactions") or (page_name == "dashboard") %}
+    $("#txdata").html(finaltxdata);
+    {% endif %}
+    
+    real_xmr_balance_pending = amount_total;
+    real_xmr_unlocked_balance_pending = unamount_total;
+    
+    if(finalpendingtxdata)
+    {
+        $("#pendingtxdata").html(finalpendingtxdata);
+        $("#pendingdiv").show();
+    }
+    else
+    {
+        $("#pendingdiv").hide();
+    }
+    
+}
+
+function update_transactions(with_timeout)
+{
+    transactions_updated_value = XMR_DATE.getTime();
+    {% if (page_name == "transactions") or (page_name == "dashboard") %}
+    if(session_id && xmr_canget_transactions == 1 && document.getElementById("txdata") != null)
+    {
+    {% else %}
+    if(session_id && xmr_canget_transactions == 1 && document.getElementById("pendingtxdata") != null)
+    {
+    {% endif %}
+        $.ajax({
+            type: "POST",
+            url: '/gettransactions.php',
+            data: {
+               session_id: session_id,
+               page: transaction_atpage,
+               sort: 0
+            }
+        }).done(function(data){
+                if(data != '0' && data != '1')
+                {
+                    last_transactions = JSON.parse(data);
+                    update_transaction_data(last_transactions);
+                    if(with_timeout == 1)
+                    {
+                        setTimeout(function(){ update_transactions(1) }, 10000);
+                    }
+                }
+                else
+                {
+                    if(with_timeout == 1)
+                    {
+                        setTimeout(function(){ update_transactions(1) }, 1000);
+                    }
+                }
+            }).fail(function()
+            {
+                if(with_timeout == 1)
+                { 
+                    setTimeout(function(){ update_transactions(1) }, 1000);
+                }
+            });
+    }
+    else
+    {
+        if(with_timeout == 1)
+        {
+            setTimeout(function(){ update_transactions(1) }, 1000);
+        }
+    }
+}
+if(xmr_alreadyupdating_value == 0)
+{
+    xmr_alreadyupdating_value = 1;
+    update_transactions(1);
+}
+else
+{
+    if(last_transactions)
+    {
+        update_transaction_data(last_transactions);
+    }
+}
+</script>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="22px" viewBox="0 0 20 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>import-white</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="UI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-1254.000000, -213.000000)">
+        <g id="Icons" transform="translate(820.000000, 210.000000)" fill="#474E5D" fill-rule="nonzero">
+            <g id="import-white" transform="translate(430.000000, 0.000000)">
+                <path d="M15,16.3230659 L16.6329016,14.7799988 L17.9988251,16.2162428 L13.9999223,19.9987592 L10.0016327,16.2162428 L11.3670097,14.7800303 L13,16.3233231 L13,4 C13,3.44771525 13.4477153,3 14,3 C14.5522847,3 15,3.44771525 15,4 L15,16.3230659 Z M19,7 C18.4477153,7 18,6.55228475 18,6 C18,5.44771525 18.4477153,5 19,5 L21,5 C22.6568542,5 24,6.34314575 24,8 L24,22 C24,23.6568542 22.6568542,25 21,25 L7,25 C5.34314575,25 4,23.6568542 4,22 L4,8 C4,6.34314575 5.34314575,5 7,5 L9,5 C9.55228475,5 10,5.44771525 10,6 C10,6.55228475 9.55228475,7 9,7 L7,7 C6.44771525,7 6,7.44771525 6,8 L6,22 C6,22.5522847 6.44771525,23 7,23 L21,23 C21.5522847,23 22,22.5522847 22,22 L22,8 C22,7.44771525 21.5522847,7 21,7 L19,7 Z" id="Receive"></path>
+            </g>
+        </g>
+    </g>
+</svg>

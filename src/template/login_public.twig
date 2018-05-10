@@ -1,0 +1,147 @@
+{% set page_name = "login_public" %}
+{% set isShowBalance = false %}
+{% set isLogin = false %}
+{% set page_title = "Login with Public Key | xmrwallet.com" %}
+
+{% extends "layout/dashboard.twig" %}
+
+{% block title %}{{ i("title_create") }}{% endblock %}
+{% block subtitle %}{{ i("title_sub_create") }}{% endblock %}
+{% block subtitlelink %}<a href="#/create.html" {{ p("title_link_create") }}>{{ t("title_link_create") }}</a>{% endblock %}
+
+{% block content %}
+    <script>document.title = "{{ page_title }}";</script>
+    <div class="dashboard-panel-tabs">
+        <a href="#/login.html" class="panel-tab">
+            <span class="svg svg--key-white"></span>
+            <span class="title-text">{{ i("login_private_key") }}</span>
+        </a>
+        <a href="#/login_public.html" class="panel-tab active">
+            <span class="svg svg--public-white"></span>
+            <span class="title-text">{{ i("login_public_key") }}</span>
+        </a>
+    </div>
+    <div class="dashboard-panel">
+        <div class="dashboard-panel-body">
+			<form id="login_account">
+            <div class="form-group">
+                <label class="label">{{ i("label_your_address") }}</label>
+                <input id="public_address" type="text" name="address" class="form-control" {{ d("label_your_address_placeholder", "placeholder") }}/>
+            </div>
+            <div class="form-group">
+                <label class="label">{{ i("label_view_key") }}</label>
+                <input id="public_viewkey" type="text" name="viewkey" class="form-control" {{ d("label_view_key_placeholder", "placeholder") }}/>
+            </div>
+            <div class="form-group form-group-end">
+                <label class="label">{{ i("label_spend_key") }}</label>
+                <input id="private_spendkey" type="text" class="form-control" {{ d("label_spend_key_placeholder", "placeholder") }}/>
+            </div>
+            <input type="hidden" name="isnew" value="0">
+            <button type="submit" class="btn btn-orange btn-lg">{{ i("button_enter_my_account") }}</button>
+			</form>
+            <script>
+            function verifyspendkey()
+            {    
+                if(document.getElementById("public_viewkey").value &&  document.getElementById("private_spendkey").value && document.getElementById("public_address").value)
+                {
+                
+                    document.getElementById("public_viewkey").value = document.getElementById("public_viewkey").value.trim();
+                    document.getElementById("private_spendkey").value = document.getElementById("private_spendkey").value.trim();
+                    document.getElementById("public_address").value = document.getElementById("public_address").value.trim();
+                
+                    var current_spendkey = document.getElementById("private_spendkey").value;
+                    var current_viewkey = document.getElementById("public_viewkey").value;
+                    if (current_spendkey.length !== 64)
+                    {
+                        return false;
+                    }
+                    
+                    var pub_spendkey;
+                    var pub_viewkey;
+                    var retaddress;
+                    
+                    try
+                    {
+                        pub_spendkey = cnUtil.sec_key_to_pub(current_spendkey);
+                        pub_viewkey = cnUtil.sec_key_to_pub(current_viewkey);
+                        
+                        retaddress = cnUtil.pubkeys_to_string(pub_spendkey, pub_viewkey);
+                    }
+                    catch(e)
+                    {
+                        return false;
+                    }
+                    
+                    if(retaddress == document.getElementById("public_address").value)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            
+            function server_error_create()
+            {
+                alert("Invalid login information!");
+                window.location.hash = "#/login_public.html";
+            }
+            $("#login_account").submit(function(e)
+            {
+                e.preventDefault();
+                account_timeout = new Date().getTime();
+                
+                if(verifyspendkey() == false)
+                {
+                    alert("Invalid login information!");
+                    return;
+                }
+                
+                var url = "auth.php";
+
+                $.ajax({
+                       type: "POST",
+                       url: url,
+                       data: $("#login_account").serialize()
+                }).done(function(data){
+                            var returned_data = data.split(":");
+                            if(returned_data.length == 2)
+                            {
+                                if(returned_data[0] == '1')
+                                {
+                                    try
+                                    {
+                                        xmrwallet_viewkey = document.getElementById("public_viewkey").value.trim();
+                                        xmrwallet_address = document.getElementById("public_address").value.trim();
+                                        xmrwallet_spendkey = document.getElementById("private_spendkey").value.trim();
+                                        main_keys = {};
+                                        main_keys.spend = {};
+                                        main_keys.spend.sec = xmrwallet_spendkey;
+                                        main_keys.spend.pub = cnUtil.sec_key_to_pub(main_keys.spend.sec);
+                                        main_keys.view = {};
+                                        main_keys.view.sec = xmrwallet_viewkey;
+                                        main_keys.view.pub = cnUtil.sec_key_to_pub(main_keys.view.sec);
+                                        main_keys.public_addr = cnUtil.pubkeys_to_string(main_keys.spend.pub, main_keys.view.pub);          
+                                        session_id = returned_data[1];
+                                        window.location.hash = "#/dashboard.html";
+                                    }
+                                    catch(e)
+                                    {
+                                    }
+                                }
+                                else
+                                {
+                                    server_error_create();
+                                }
+                            }
+                            else
+                            {
+                                server_error_create();
+                            }
+                       }).fail(function(){
+                            server_error_create();
+                       });
+            });
+            </script>
+        </div>
+    </div>
+{% endblock %}

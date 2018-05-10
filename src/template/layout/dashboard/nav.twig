@@ -1,0 +1,102 @@
+<div id="dashboard-current" class="dashboard-current"></div>
+<script>
+var current_time = XMR_DATE.getTime();
+
+function update_xmr_value()
+{
+    xmr_updated_value = XMR_DATE.getTime();
+    if(session_id)
+    {
+        $.ajax({
+            url: 'https://min-api.cryptocompare.com/data/price?fsym=XMR&tsyms=USD',
+            dataType: 'json'
+        }).done(function(response){
+                var obj = response;
+                if(obj)
+                {
+                    var currentusdprice = cnUtil.parseMoney(obj['USD'].toString());
+                    last_usd_value = currentusdprice.divide('1000000000000');
+                    last_xmr_value = "1 XMR = $" + obj['USD'] + " USD";
+                    document.getElementById("dashboard-current").innerHTML = last_xmr_value;
+                }
+            }).fail(function(){ 
+        });
+    }
+    setTimeout(update_xmr_value, 60000);
+}
+if(current_time - xmr_updated_value > 60000)
+{
+    update_xmr_value();
+}
+else
+{   
+    document.getElementById("dashboard-current").innerHTML = last_xmr_value;
+}
+</script>
+<div class="dashboard-nav">
+    <nav>
+        <ul>
+            <li>
+                <a href="#/dashboard.html"{% if page_name == "dashboard" %} class="active"{% endif %}>
+                    <span class="svg-wrap"><span class="svg--overview"></span></span>
+                    <span class="nav-text">{{ i("overview") }}</span>
+                </a>
+            </li>
+            <li>
+                <a href="#/transactions.html"{% if page_name == "transactions" %} class="active"{% endif %}>
+                    <span class="svg-wrap"><span class="svg--transacrions"></span></span>
+                    <span class="nav-text">{{ i("transactions") }}</span>
+                </a>
+            </li>
+            <li>
+                <a href="#/send.html"{% if page_name == "send" %} class="active"{% endif %}>
+                    <span class="svg-wrap"><span class="svg--send"></span></span>
+                    <span class="nav-text">{{ i("send") }}</span>
+                </a>
+            </li>
+            <li>
+                <a href="#/receive.html"{% if page_name == "receive" %} class="active"{% endif %}>
+                    <span class="svg-wrap"><span class="svg--receive"></span></span>
+                    <span class="nav-text">{{ i("receive") }}</span>
+                </a>
+            </li>
+        </ul>
+        <hr/>
+        <ul>
+            <li>
+                <a href="#/account.html"{% if page_name == "account" %} class="active"{% endif %}>
+                    <span class="svg-wrap"><span class="svg--profile"></span></span>
+                    <span class="nav-text">{{ i("account") }}</span>
+                </a>
+            </li>
+            <li>
+                <a href="#/support_login.html"{% if page_name == "support_login" %} class="active"{% endif %}>
+                    <span class="svg-wrap"><span class="svg--support"></span></span>
+                    <span class="nav-text">{{ i("support") }}</span>
+                </a>
+            </li>
+            <li>
+                <a id="logout" href="#">
+                    <span class="svg-wrap"><span class="svg--quit"></span></span>
+                    <span class="nav-text">{{ i("quit") }}</span>
+                </a>
+                <script>
+                $("#logout").click(function(e)
+                {
+                    e.preventDefault();
+                    var url = "logout.php";
+
+                    $.ajax({
+                           type: "POST",
+                           url: url,
+                           data: {
+                            session_id: session_id
+                           }
+                         });  
+                    window.location.href = '/';
+                });
+                </script>
+            </li>
+        </ul>
+    </nav>
+</div>

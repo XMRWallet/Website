@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="56px" height="72px" viewBox="0 0 56 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>image-private</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M24,40.1679126 C20.4681904,38.6247994 18,35.1006381 18,31 C18,25.4771525 22.4771525,21 28,21 C33.5228475,21 38,25.4771525 38,31 C38,35.1006381 35.5318096,38.6247994 32,40.1679126 L32,42 L30,45 L32,48 L30,51 L32,54 L28,58 L24,54 L24,40.1679126 Z" id="path-1"></path>
+        <circle id="path-2" cx="28" cy="31" r="4"></circle>
+    </defs>
+    <g id="Dashboard_CreateAccount" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-451.000000, -951.000000)">
+        <g id="Content" transform="translate(374.000000, 28.000000)">
+            <g id="Take-Note-of-your-Private-Login-Key!" transform="translate(1.000000, 827.000000)">
+                <g id="image-private" transform="translate(76.000000, 96.000000)">
+                    <path d="M55,12.4142136 L43.5857864,1 L4,1 C2.34314575,1 1,2.34314575 1,4 L1,68 C1,69.6568542 2.34314575,71 4,71 L52,71 C53.6568542,71 55,69.6568542 55,68 L55,12.4142136 Z" id="Rectangle-4" stroke="#474E5D" stroke-width="2"></path>
+                    <rect id="Rectangle-2" fill="#474E5D" x="42" y="0" width="2" height="14"></rect>
+                    <rect id="Rectangle-3" fill="#474E5D" x="42" y="12" width="14" height="2"></rect>
+                    <g id="Combined-Shape">
+                        <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                        <path stroke="#474E5D" stroke-width="2" d="M25,53.5857864 L28,56.5857864 L30.7132043,53.8725821 L28.7981496,51 L30.7981496,48 L28.7981496,45 L31,41.6972244 L31,39.5135486 L31.5996284,39.2515598 C34.8528509,37.8301664 37,34.6120319 37,31 C37,26.0294373 32.9705627,22 28,22 C23.0294373,22 19,26.0294373 19,31 C19,34.6120319 21.1471491,37.8301664 24.4003716,39.2515598 L25,39.5135486 L25,53.5857864 Z"></path>
+                    </g>
+                    <g id="Oval-3">
+                        <use fill="#F1F2F6" fill-rule="evenodd" xlink:href="#path-2"></use>
+                        <circle stroke="#474E5D" stroke-width="2" cx="28" cy="31" r="3"></circle>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

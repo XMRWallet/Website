@@ -1,0 +1,11 @@
+@mixin fontFace($font-family , $file) {
+  @font-face {
+    font-family: $font-family;
+      src: url($file + '.eot');
+      src: url($file + '.eot?#iefix') format('embedded-opentype'),
+           url($file + '.svg') format('svg'),
+           url($file + '.woff2') format('woff2'),
+           url($file + '.woff') format('woff'),
+           url($file + '.ttf') format('truetype');
+  }
+}

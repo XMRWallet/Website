@@ -1,0 +1,162 @@
+{% set page_name = "dashboard" %}
+{% set isLogin = true %}
+{% set isShowBalance = true %}
+{% set page_title = "Dashboard | xmrwallet.com" %}
+
+{% extends "layout/dashboard.twig" %}
+
+{% block title %}{{ i("title_overview") }}{% endblock %}
+{% block subtitle %}{{ i("title_sub_overview") }}{% endblock %}
+
+{% block content %}
+    <script>document.title = "{{ page_title }}";</script>
+    <script>
+    if(typeof session_id === 'undefined' || session_id === null || xmrwallet_spendkey == '' || xmrwallet_viewkey == '' || xmrwallet_address == '' || session_id == '')
+    {
+        window.location.href = "https://www.xmrwallet.com";
+    }
+    </script>
+    <div id="heightprogress" style="width: 100%; background-color: #E08282; margin-bottom: 30px;">
+      <div id="heightbar" style="width: 100%; height: 30px; background-color: #92E094; text-align: center; padding-top:8px; font-size: 14px; color: #FFFFFF;"></div>
+      <div id="heightbartext" style="width: 100%; height: 30px; text-align: center; padding-top: 8px; font-size: 12px; color: rgb(255, 255, 255); margin-top:-30px;"></div>
+    </div>
+    
+    <script>
+    current_page = 'dashboard';
+    
+    if(old_syncing_height != '')
+    {
+        document.getElementById("heightbartext").innerHTML = old_syncing_height;
+    }
+    else
+    {
+        document.getElementById("heightbartext").innerHTML = 'syncing...';
+    }
+    
+    function update_xmr_height()
+    {
+        if(session_id && current_page == 'dashboard')
+        {
+            $.ajax({
+                type: "POST",
+                url: '/getheightsync.php',
+                data: {
+                   session_id: session_id,
+                }
+            }).done(function(data){
+                    if(data != '0' && current_page == 'dashboard')
+                    {
+                        var returned_data = data.split("/");
+                        
+                        var beg = parseInt(returned_data[0]);
+                        var end = parseInt(returned_data[1]);
+                        
+                        if(beg != 0 && end != 0)
+                        {
+                            if(end >= beg)
+                            {
+                                var finalv = Math.ceil((beg / end)*100);
+                                if(finalv > 100)
+                                {
+                                    finalv = 100;
+                                }
+                                var elem = document.getElementById("heightbar");
+                                elem.style.width = finalv + '%';
+                                var elem2 = document.getElementById("heightbartext");
+                                old_syncing_height = 'height (' + data + ')';
+                                elem2.innerHTML = old_syncing_height;
+                            }
+                        }
+                        
+                        if(beg != end)
+                        {
+                            setTimeout(update_xmr_height, 1000);
+                        }
+                        else
+                        {
+                            setTimeout(update_xmr_height, 5000);
+                        }
+                    }
+                    else
+                    {
+                        setTimeout(update_xmr_height, 5000);
+                    }
+                    
+            }).fail(function()
+            {
+                setTimeout(update_xmr_height, 1000);
+            });
+        }
+        else
+        {
+            setTimeout(update_xmr_height, 1000);
+        }
+    }
+    if(xmr_updating_height == 0)
+    {   
+        xmr_updating_height = 1;
+        update_xmr_height();
+    }
+    </script>
+
+    <div class="dashboard-widgets-sections">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4">
+                <div class="dashboard-widgets-section">
+                    <div class="section-title">
+                        {{ i("transactions") }}
+                    </div>
+                    <a href="#/transactions.html" class="btn btn-section">{{ i("view") }}</a>
+                    <div class="svg svg--section-transacrions"></div>
+                    <div class="svg svg--section-transacrions-white"></div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-4">
+                <div class="dashboard-widgets-section">
+                    <div class="section-title">
+                        {{ i("send") }}
+                    </div>
+                    <a href="#/send.html" class="btn btn-section">{{ i("view") }}</a>
+                    <div class="svg svg--section-send"></div>
+                    <div class="svg svg--section-send-white"></div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-4">
+                <div class="dashboard-widgets-section">
+                    <div class="section-title">
+                        {{ i("receive") }}
+                    </div>
+                    <a href="#/receive.html" class="btn btn-section">{{ i("view") }}</a>
+                    <div class="svg svg--section-receive"></div>
+                    <div class="svg svg--section-receive-white"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="dashboard-panel">
+        <div class="dashboard-panel-header">
+            <div class="dashboard-panel-header-title">
+                <span class="svg svg--address-white"></span>
+                <span class="title-text">{{ i("your_address") }}</span>
+            </div>
+        </div>
+        <div class="dashboard-panel-body">
+            <div class="input-group">
+                <input id="public_address" type="text" class="form-control" style="color: #474E5D; border-color: #D9DCE7; background-color: #F1F2F6;" readonly>
+                <div class="input-group-btn">
+                    <button class="btn btn-group" data-clipboard-target="#public_address">
+                        <span class="svg--copy-white"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+    new ClipboardJS('.btn');
+    if(xmrwallet_address)
+    {
+        $("#public_address").val(xmrwallet_address);
+    }
+    </script>
+    {% include "dashboard/table.twig" %}
+{% endblock %}

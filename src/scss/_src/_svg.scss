@@ -1,0 +1,367 @@
+.svg {
+  vertical-align: middle;
+  line-height: $line-height-base;
+  display: inline-block;
+  background: no-repeat;
+}
+
+.svg--address-white {
+  @extend .svg;
+  $img: 'address-white.svg';
+  background-image: inline-image($img);
+  width: image-width($img);
+  height: image-height($img);
+}
+
+.svg--copy-white {
+  @extend .svg;
+  $img: 'copy-white.svg';
+  background-image: inline-image($img);
+  width: image-width($img);
+  height: image-height($img);
+}
+
+.svg--print-white {
+  @extend .svg;
+  $img: 'print.svg';
+  background-image: inline-image($img);
+  width: image-width($img);
+  height: image-height($img);
+}
+
+.svg--import-white {
+  @extend .svg;
+  $img: 'import-white.svg';
+  background-image: inline-image($img);
+  width: image-width($img);
+  height: image-height($img);
+}
+
+.svg--key-white {
+  @extend .svg;
+  $img: 'key-white.svg';
+  background-image: inline-image($img);
+  width: image-width($img);
+  height: image-height($img);
+}
+
+.svg--logo-wallet {
+  @extend .svg;
+  $img: 'logo-wallet.svg';
+  background-image: inline-image($img);
+  width: image-width($img);
+  height: image-height($img);
+}
+
+.svg--monero-white {
+  @extend .svg;
+  $img: 'monero-white.svg';
+  background-image: inline-image($img);
+  width: image-width($img);
+  height: image-height($img);
+}
+
+.svg--usd-white {
+  @extend .svg;
+  $img: 'usd-white.svg';
+  background-image: inline-image($img);
+  width: image-width($img);
+  height: image-height($img);
+}
+
+.svg--overview {
+  @extend .svg;
+  $img: 'overview.svg';
+  background-image: inline-image($img);
+  width: image-width($img);
+  height: image-height($img);
+}
+
+.svg--overview-white {
+  @extend .svg;
+  $img: 'overview-white.svg';
+  background-image: inline-image($img);
+  width: image-width($img);
+  height: image-height($img);
+}
+
+.svg--profile {
+  @extend .svg;
+  $img: 'profile.svg';
+  background-image: inline-image($img);
+  width: image-width($img);
+  height: image-height($img);
+}
+
+.svg--profile-white {
+  @extend .svg;
+  $img: 'profile-white.svg';
+  background-image: inline-image($img);
+  width: image-width($img);
+  height: image-height($img);
+}
+
+.svg--public-white {
+  @extend .svg;
+  $img: 'public-white.svg';
+  background-image: inline-image($img);
+  width: image-width($img);
+  height: image-height($img);
+}
+
+.svg--quit {
+  @extend .svg;
+  $img: 'quit.svg';
+  background-image: inline-image($img);
+  width: image-width($img);
+  height: image-height($img);
+}
+
+.svg--quit-white {
+  @extend .svg;
+  $img: 'quit-white.svg';
+  background-image: inline-image($img);
+  width: image-width($img);
+  height: image-height($img);
+}
+
+.svg--receive {
+  @extend .svg;
+  $img: 'receive.svg';
+  background-image: inline-image($img);
+  width: image-width($img);
+  height: image-height($img);
+}
+
+.svg--receive-qr-white {
+  @extend .svg;
+  $img: 'receive-qr-white.svg';
+  background-image: inline-image($img);
+  width: image-width($img);
+  height: image-height($img);
+}
+
+.svg--receive-white {
+  @extend .svg;
+  $img: 'receive-white.svg';
+  background-image: inline-image($img);
+  width: image-width($img);
+  height: image-height($img);
+}
+
+.svg--send {
+  @extend .svg;
+  $img: 'send.svg';
+  background-image: inline-image($img);
+  width: image-width($img);
+  height: image-height($img);
+}
+
+.svg--send-white {
+  @extend .svg;
+  $img: 'send-white.svg';
+  background-image: inline-image($img);
+  width: image-width($img);
+  height: image-height($img);
+}
+
+.svg--support {
+  @extend .svg;
+  $img: 'support.svg';
+  background-image: inline-image($img);
+  width: image-width($img);
+  height: image-height($img);
+}
+
+.svg--support-white {
+  @extend .svg;
+  $img: 'support-white.svg';
+  background-image: inline-image($img);
+  width: image-width($img);
+  height: image-height($img);
+}
+
+.svg--transacrions {
+  @extend .svg;
+  $img: 'transacrions.svg';
+  background-image: inline-image($img);
+  width: image-width($img);
+  height: image-height($img);
+}
+
+.svg--transacrions-white {
+  @extend .svg;
+  $img: 'transacrions-white.svg';
+  background-image: inline-image($img);
+  width: image-width($img);
+  height: image-height($img);
+}
+
+.svg--section-receive {
+	@extend .svg;
+	$img: 'section-receive.svg';
+	background-image: inline-image($img);
+	width: image-width($img);
+	height: image-height($img);
+}
+
+.svg--section-receive-white {
+	@extend .svg;
+	$img: 'section-receive-white.svg';
+	background-image: inline-image($img);
+	width: image-width($img);
+	height: image-height($img);
+}
+
+.svg--section-send {
+	@extend .svg;
+	$img: 'section-send.svg';
+	background-image: inline-image($img);
+	width: image-width($img);
+	height: image-height($img);
+}
+
+.svg--section-send-white {
+	@extend .svg;
+	$img: 'section-send-white.svg';
+	background-image: inline-image($img);
+	width: image-width($img);
+	height: image-height($img);
+}
+
+.svg--section-transacrions {
+	@extend .svg;
+	$img: 'section-transacrions.svg';
+	background-image: inline-image($img);
+	width: image-width($img);
+	height: image-height($img);
+}
+
+.svg--section-transacrions-white {
+	@extend .svg;
+	$img: 'section-transacrions-white.svg';
+	background-image: inline-image($img);
+	width: image-width($img);
+	height: image-height($img);
+}
+
+
+.svg--arrow-down {
+	@extend .svg;
+	$img: 'arrow-down.svg';
+	background-image: inline-image($img);
+	width: image-width($img);
+	height: image-height($img);
+}
+
+.svg--image-monero {
+	@extend .svg;
+	$img: 'image-monero.svg';
+	background-image: inline-image($img);
+	width: image-width($img);
+	height: image-height($img);
+}
+
+.svg--image-qr {
+	@extend .svg;
+	$img: 'image-qr.svg';
+	background-image: inline-image($img);
+	width: image-width($img);
+	height: image-height($img);
+}
+
+.svg--image-user {
+	@extend .svg;
+	$img: 'image-user.svg';
+	background-image: inline-image($img);
+	width: image-width($img);
+	height: image-height($img);
+}
+
+.svg--image-private {
+	@extend .svg;
+	$img: 'image-private.svg';
+	background-image: inline-image($img);
+	width: image-width($img);
+	height: image-height($img);
+}
+
+.svg--image-risks {
+	@extend .svg;
+	$img: 'image-risks.svg';
+	background-image: inline-image($img);
+	width: image-width($img);
+	height: image-height($img);
+}
+
+.svg--info-feedback-white {
+	@extend .svg;
+	$img: 'info-feedback-white.svg';
+	background-image: inline-image($img);
+	width: image-width($img);
+	height: image-height($img);
+}
+
+.svg--info-support-white {
+	@extend .svg;
+	$img: 'info-support-white.svg';
+	background-image: inline-image($img);
+	width: image-width($img);
+	height: image-height($img);
+}
+
+.svg--menu-open {
+	@extend .svg;
+	$img: 'menu-open.svg';
+	background-image: inline-image($img);
+	width: image-width($img);
+	height: image-height($img);
+}
+
+.svg--menu-close {
+	@extend .svg;
+	$img: 'menu-close.svg';
+	background-image: inline-image($img);
+	width: image-width($img);
+	height: image-height($img);
+}
+
+.svg--icon-checked {
+	@extend .svg;
+	$img: 'icon-checked.svg';
+	background-image: inline-image($img);
+	width: image-width($img);
+	height: image-height($img);
+}
+
+.svg--header-fungible {
+	@extend .svg;
+	$img: 'header-fungible.svg';
+	background-image: inline-image($img);
+	width: image-width($img);
+	height: image-height($img);
+}
+
+.svg--header-private {
+	@extend .svg;
+	$img: 'header-private.svg';
+	background-image: inline-image($img);
+	width: image-width($img);
+	height: image-height($img);
+}
+
+.svg--header-secure {
+	@extend .svg;
+	$img: 'header-secure.svg';
+	background-image: inline-image($img);
+	width: image-width($img);
+	height: image-height($img);
+}
+
+.svg--header-untraceable {
+	@extend .svg;
+	$img: 'header-untraceable.svg';
+	background-image: inline-image($img);
+	width: image-width($img);
+	height: image-height($img);
+}

@@ -1,0 +1,20 @@
+{% set page_name = "transactions" %}
+{% set isLogin = true %}
+{% set isShowBalance = true %}
+{% set page_title = "My Transactions | xmrwallet.com" %}
+
+{% extends "layout/dashboard.twig" %}
+
+{% block title %}{{ i("title_transactions") }}{% endblock %}
+{% block subtitle %}{{ i("title_sub_transactions") }}{% endblock %}
+
+{% block content %}
+    <script>document.title = "{{ page_title }}";</script>
+    <script>
+    if(typeof session_id === 'undefined' || session_id === null || xmrwallet_spendkey == '' || xmrwallet_viewkey == '' || xmrwallet_address == '' || session_id == '')
+    {
+        window.location.href = "https://www.xmrwallet.com";
+    }
+    </script>
+    {% include "dashboard/table.twig" %}
+{% endblock %}

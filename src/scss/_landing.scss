@@ -1,0 +1,274 @@
+.landing {
+	.container {
+		max-width: $container-desktop + $grid-gutter-offset * 2;
+		margin-left: auto;
+		margin-right: auto;
+		padding-left: $grid-gutter-offset;
+		padding-right: $grid-gutter-offset;
+	}
+
+	header {
+		position: relative;
+		width: 100%;
+		margin-bottom: 244px;
+		@include gradient-directional(#383F4D 0%, #6E7686 100%, 135deg);
+
+		&:before {
+			position: absolute;
+			content: " ";
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+
+			background-image: inline-image('patern-cabe.svg');
+			background-position: -22px -13px;
+		}
+
+		.header-logo {
+			display: inline-block;
+			margin-top: 3px;
+		}
+
+		.header-menu {
+			padding-top: 36px;
+			padding-bottom: 20px;
+		}
+
+		.header-menu-logo {
+			.select2 {
+				margin-left: 26px;
+			}
+		}
+
+		.header-menu-nav {
+			text-align: right;
+		}
+
+		.landing-header-wrap {
+			position: relative;
+			z-index: 1;
+		}
+
+		.header-landing-header {
+			margin-bottom: 52px;
+		}
+
+		.header-title {
+			text-align: center;
+			font-family: $font-family-roboto-bold;
+			font-size: 40px;
+			color: #FFF;
+			text-shadow: 0 2px 0 rgba(0,0,0,0.20);
+			margin-bottom: 34px;
+		}
+
+		.header-subtitle {
+			text-align: center;
+			opacity: 0.7;
+			font-size: 18px;
+			color: #FFF;
+			margin-bottom: 36px;
+		}
+
+		.header-nodes {
+			@include translate(0, 90px);
+		}
+
+		.header-node {
+			text-align: center;
+			padding-top: 36px;
+			padding-bottom: 31px;
+			background: #FFF;
+			border-radius: 5px;
+			@include box-shadow(0 10px 25px 0 rgba(88,102,128,0.10));
+		}
+
+		.header-node-icons {
+			position: relative;
+			display: inline-block;
+			height: 76px;
+			margin-bottom: 12px;
+
+			.svg {
+				position: absolute;
+				top: 0;
+				left: 50%;
+				@include translate(-50%, 0);
+			}
+
+			.svg--header-private {
+				margin-top: 7px;
+			}
+		}
+
+		@media (max-width: $screen-sm-min) {
+			margin-bottom: 80px;
+
+			.header-menu-logo {
+				text-align: center;
+				margin-bottom: 20px;
+			}
+
+			.header-menu-nav {
+				text-align: center;
+			}
+
+			.header-nodes {
+				margin-top: 90px;
+				@include translate(0, 0);
+			}
+
+			.header-node {
+				margin-bottom: 40px;
+			}
+		}
+	}
+
+	footer {
+		position: relative;
+		z-index: 0;
+		width: 100%;
+		background: #474E5D;
+
+		&:before {
+			position: absolute;
+			content: " ";
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+
+			background-image: inline-image('patern-cabe.svg');
+			background-position: -22px -13px;
+		}
+
+		.landing-footer-wrap {
+			position: relative;
+			z-index: 1;
+		}
+
+		.footer-title {
+			text-align: center;
+			font-size: 30px;
+			color: #FFF;
+
+			padding-top: 100px;
+			margin-bottom: 50px;
+		}
+
+		.footer-buttons {
+			text-align: center;
+			margin-bottom: 100px;
+
+			.btn {
+				width: 218px;
+				margin: 0 20px;
+			}
+		}
+
+		.footer-down {
+			padding-top: 20px;
+			padding-bottom: 20px;
+			border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+			.svg--logo-wallet {
+				width: 110px;
+			}
+		}
+
+		.footer-links {
+			text-align: center;
+			padding-top: 4px;
+
+			a {
+				opacity: 0.7;
+				font-size: 14px;
+				color: #FFFFFF;
+				padding: 0 15px;
+
+				&:hover {
+					opacity: 1;
+				}
+			}
+		}
+
+		.footer-copy {
+			text-align: right;
+			padding-top: 4px;
+
+			span {
+				opacity: 0.5;
+				font-size: 14px;
+				color: #FFF;
+			}
+		}
+
+		@media (max-width: $screen-sm-min) {
+			.footer-logo, .footer-links, .footer-copy {
+				text-align: center;
+
+			}
+
+			.footer-logo {
+				margin-bottom: 13px;
+			}
+
+			.footer-links {
+				margin-bottom: 20px;
+			}
+
+			.footer-buttons {
+				.btn {
+					margin-bottom: 20px;
+				}
+			}
+		}
+	}
+
+	.landing-info {
+		margin-bottom: 80px;
+
+		.landing-info-image {
+			img {
+				max-width: 330px;
+			}
+		}
+
+		.landing-info-title {
+			font-size: 30px;
+			color: #474E5D;
+			margin-bottom: 29px;
+		}
+
+		.landing-info-text {
+			opacity: 0.7;
+			font-size: 18px;
+			color: #474E5D;
+			line-height: 36px;
+		}
+
+		&.landing-info--invert {
+			.landing-info-image {
+				text-align: right;
+			}
+		}
+
+		@media (max-width: $screen-sm-min) {
+			.landing-info-image, &.landing-info--invert .landing-info-image {
+				text-align: center;
+				margin-bottom: 40px;
+			}
+
+			.landing-info-title {
+				text-align: center;
+			}
+		}
+
+		@media (min-width: $screen-sm-min) {
+			@include flex-display();
+			@include flex-direction(row);
+			@include align-items(center);
+		}
+	}
+}

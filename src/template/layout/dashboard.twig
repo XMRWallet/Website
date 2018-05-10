@@ -1,0 +1,309 @@
+<div class="dashboard">
+    <div class="dashboard-menu close">
+        <div class="dashboard-menu-logo">
+		{% if isLogin != false %}
+            <a href="#/dashboard.html">
+		{% else %}
+			<a href="#/login.html">
+		{% endif %}
+                <div class="svg--logo-wallet"></div>
+            </a>
+        </div>
+        <div class="dashboard-menu-burger">
+            <div class="svg svg--menu-open"></div>
+            <div class="svg svg--menu-close"></div>
+        </div>
+        {% if isLogin != false %}
+            {% include "dashboard/nav.twig" %}
+        {% else %}
+            {% include "dashboard/login.twig" %}
+        {% endif %}
+    </div>
+    <div class="dashboard-root">
+        <div class="dashboard-body-wrap">
+            <div class="dashboard-body">
+                <div class="dashboard-body-header">
+                    <div class="header-group">
+                        <div class="header-title">{% block title %}{% endblock %}</div>
+                        <div class="header-subtitle">
+                            <span class="header-subtitle-text">{% block subtitle %}{% endblock %}</span>
+                            {% block subtitlelink %}{% endblock %}
+                        </div>
+                    </div>
+                    {% if isShowBalance != false %}
+                        <div class="header-balance">
+                            <div id="xmrbal_logo" class="header-balance-logo" style="cursor:pointer;">
+                                <span id="curimg" class="svg svg--monero-white"></span>
+                            </div>
+                            <div class="header-balance-hr"></div>
+                            <div class="header-balance-current">
+                                <div id="xmr_balance" class="header-balance-count" style="cursor:pointer;"><div class="wave"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+                                <div id="xmr_unlocked_balance" class="header-balance-desc" style="cursor:pointer;">XMR Balance</div>
+                            </div>
+                            <script>
+                            var current_time = XMR_DATE.getTime();
+                            
+                            function update_xmr_balance(timeout)
+                            {
+                                xmr_balance_updated_value = XMR_DATE.getTime();
+                                if(session_id && xmr_canget_transactions == 1)
+                                {
+                                    $.ajax({
+                                        type: "POST",
+                                        url: '/getbalance.php',
+                                        data: {
+                                           session_id: session_id,
+                                        }
+                                    }).done(function(data){
+                                    
+                                            var check_timeout = 10000;
+                                            var returned_data = data.split(":");
+                                            if(returned_data.length == 2)
+                                            {
+                                                if(returned_data[0] != returned_data[1])
+                                                {
+                                                    real_xmr_balance = JSBigInt(returned_data[0]);
+                                                    real_xmr_unlocked_balance = JSBigInt(returned_data[1]);
+                                                    if(show_currency == 1)
+                                                    {
+                                                        last_xmr_balance = "$" + parseFloat(moneroBalance(real_xmr_balance.subtract(real_xmr_balance_pending).multiply(last_usd_value))).toLocaleString(undefined, {maximumFractionDigits:2});
+                                                        last_xmr_unlocked_balance = "$" + parseFloat(moneroBalance(real_xmr_unlocked_balance.subtract(real_xmr_unlocked_balance_pending).multiply(last_usd_value))).toLocaleString(undefined, {maximumFractionDigits:2}) + " Unlocked";
+                                                    }
+                                                    else
+                                                    {
+                                                        last_xmr_balance = (moneroBalance(real_xmr_balance.subtract(real_xmr_balance_pending)) + " XMR");
+                                                        last_xmr_unlocked_balance = (moneroBalance(real_xmr_unlocked_balance.subtract(real_xmr_unlocked_balance_pending)) + " Unlocked");
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    real_xmr_balance = JSBigInt(returned_data[0]);
+                                                    real_xmr_unlocked_balance = JSBigInt(returned_data[0]);
+                                                                                                      
+                                                    if(show_currency == 1)
+                                                    {
+                                                        last_xmr_balance = "$" + parseFloat(moneroBalance(real_xmr_balance.subtract(real_xmr_balance_pending).multiply(last_usd_value))).toLocaleString(undefined, {maximumFractionDigits:2});
+                                                        last_xmr_unlocked_balance = "USD Balance";
+                                                    }
+                                                    else
+                                                    {
+                                                        last_xmr_balance = moneroBalance(real_xmr_balance.subtract(real_xmr_balance_pending));
+                                                        last_xmr_unlocked_balance = "XMR Balance";
+                                                    }
+                                                }
+                                                var finalshowbalsup = "";
+ 
+                                                var finalshowbal = last_xmr_balance;
+                                                if(show_currency == 0 && last_xmr_balance.length > 7)
+                                                {
+                                                    finalshowbalsup = last_xmr_balance.substr(7);
+                                                    finalshowbal = last_xmr_balance.substr(0, 7)  + "<sup style=\"color: #B1B8C7; font-size: 18px; margin-left: 5px;\">" + finalshowbalsup + "</sup>";
+                                                }
+                                                if(show_currency == 1)
+                                                {
+                                                    if($('#curimg').hasClass('svg--monero-white'))
+                                                    {
+                                                        $('#curimg').removeClass('svg--monero-white').addClass('svg--usd-white');
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    if($('#curimg').hasClass('svg--usd-white'))
+                                                    {
+                                                        $('#curimg').removeClass('svg--usd-white').addClass('svg--monero-white');
+                                                    }
+                                                }
+                                                document.getElementById("xmr_balance").innerHTML = finalshowbal;
+                                                document.getElementById("xmr_unlocked_balance").innerHTML = last_xmr_unlocked_balance;
+                                                last_xmr_bal_init = 1;
+                                            }
+                                            else
+                                            {
+                                                check_timeout = 1000;
+                                            }
+                                            if(timeout == 1)
+                                            {
+                                                setTimeout(function(){ update_xmr_balance(1) }, check_timeout);
+                                            }
+                                            
+                                    }).fail(function()
+                                    {
+                                        if(timeout == 1)
+                                        {
+                                            setTimeout(function(){ update_xmr_balance(1) }, 1000);
+                                        }
+                                    });
+                                }
+                                else
+                                {
+                                    if(timeout == 1)
+                                    {
+                                        setTimeout(function(){ update_xmr_balance(1) }, 1000);
+                                    }
+                                }
+                            }
+                            
+                            $("#xmr_balance").unbind().click(function(){ if(show_currency == 0 && last_usd_value.compare("0") > 0){ show_currency = 1; }else{ show_currency = 0; } update_xmr_balance(0); });
+                            $("#xmr_unlocked_balance").unbind().click(function(){ if(show_currency == 0 && last_usd_value.compare("0") > 0){ show_currency = 1; }else{ show_currency = 0; } update_xmr_balance(0); });
+                            $("#xmrbal_logo").unbind().click(function(){ if(show_currency == 0 && last_usd_value.compare("0") > 0){ show_currency = 1; }else{ show_currency = 0; } update_xmr_balance(0); });
+                            function update_xmr_outputs()
+                            {
+                                if(session_id)
+                                {
+                                    $.ajax({
+                                        type: "POST",
+                                        url: '/getoutputs.php',
+                                        data: {
+                                           session_id: session_id,
+                                        }
+                                    }).done(function(data){
+                                    
+                                            var check_timeout = 60000;
+                                            
+                                            if(data != "0")
+                                            {
+                                                if(data != "1")
+                                                {
+                                                    var finaldata = JSON.parse(data);
+                                                    if(finaldata)
+                                                    {
+                                                        var finalkeyimages = {}; 
+                                                        finalkeyimages.content = new Array();
+                                                        for(var i = 0; i < finaldata.length; i++)
+                                                        {
+                                                            if(finaldata[i].tx_pubkeys.length > 0)
+                                                            {
+                                                                finalkeyimages.content.push({});
+                                                                var image_ret = cnUtil.generate_key_image_helper_rct(main_keys, finaldata[i].tx_pubkeys[0], finaldata[i].m_internal_output_index, finaldata[i].m_mask);
+                                                                
+                                                                var src_keys = [];
+                                                                src_keys.push(image_ret.in_ephemeral.pub);
+                                                                var sig_ret = cnUtil.generate_ring_signature(image_ret.image, image_ret.image, src_keys, image_ret.in_ephemeral.sec, 0);
+                                                                
+                                                                finalkeyimages.content[finalkeyimages.content.length-1].key_image = image_ret.image;
+                                                                finalkeyimages.content[finalkeyimages.content.length-1].signature = sig_ret;
+                                                            }
+                                                            else
+                                                            {
+                                                                console.log("invalid transactions, please contact support");
+                                                                break;
+                                                            }
+                                                        }
+                                                        if(finalkeyimages.content.length == finaldata.length)
+                                                        {
+                                                            finalsend = JSON.stringify(finalkeyimages);
+                                                            
+                                                            $.ajax({
+                                                                url: '/updateoutputs.php',
+                                                                type: 'POST',
+                                                                data: { session_id: session_id,
+                                                                        keys : finalsend }
+                                                            }).done(function(data){}).fail(function(){ console.log("failed to update outputs"); });
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        check_timeout = 1000;
+                                                    }
+                                                }
+                                            }
+                                            else
+                                            {
+                                                check_timeout = 1000;
+                                            }
+                                            
+                                            setTimeout(update_xmr_outputs, check_timeout);
+                                            
+                                    }).fail(function()
+                                    {
+                                        setTimeout(update_xmr_outputs, 1000);
+                                    });
+                                }
+                                else
+                                {
+                                    setTimeout(update_xmr_outputs, 1000);
+                                }
+                            }
+                            
+                            if(xmr_alreadyupdating_balance == 0)
+                            {
+                                xmr_alreadyupdating_balance = 1;
+                                update_xmr_balance(1);
+                            }
+                            else
+                            {   
+                                if(last_xmr_bal_init == 1)
+                                {
+                                    var finalshowbalsup = "";
+
+                                    var finalshowbal = last_xmr_balance;
+                                    if(show_currency == 0 && last_xmr_balance.length > 7)
+                                    {
+                                        finalshowbalsup = last_xmr_balance.substr(7);
+                                        finalshowbal = last_xmr_balance.substr(0, 7)  + "<sup style=\"color: #B1B8C7; font-size: 18px; margin-left: 5px;\">" + finalshowbalsup + "</sup>";
+                                    }
+                                    if(show_currency == 1)
+                                    {
+                                        if($('#curimg').hasClass('svg--monero-white'))
+                                        {
+                                            $('#curimg').removeClass('svg--monero-white').addClass('svg--usd-white');
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if($('#curimg').hasClass('svg--usd-white'))
+                                        {
+                                            $('#curimg').removeClass('svg--usd-white').addClass('svg--monero-white');
+                                        }
+                                    }
+                                    document.getElementById("xmr_balance").innerHTML = finalshowbal;
+                                    document.getElementById("xmr_unlocked_balance").innerHTML = last_xmr_unlocked_balance;
+                                }
+                            }
+                            
+                            if(xmr_alreadyupdating_outputs == 0)
+                            {
+                                xmr_alreadyupdating_outputs = 1;
+                                update_xmr_outputs();
+                            }
+                            
+                            </script>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="dashboard-body-content">
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
+            <div class="dashboard-footer">
+                <div class="dashboard-footer-links">
+                    <select class="js-select-footer" name="">
+                        {% for language in languages %}
+                            <option {{ language.selected ? 'selected' }} value="{{ language.key }}">{{ language.value }}</option>
+                        {% endfor %}
+                    </select>
+					{% if page_name != "maintenance" %}
+						{% if isLogin != false %}
+						<a href="#/terms_login.html">{{ i("terms_of_use") }}</a>
+						<a href="#/policy_login.html">{{ i("privacy_policy") }}</a>
+						{% else %}
+						<a href="#/terms.html">{{ i("terms_of_use") }}</a>
+						<a href="#/policy.html">{{ i("privacy_policy") }}</a>
+						{% endif %}
+                        <a target="_blank" href="https://twitter.com/xmrwalletcom">Twitter</a>
+					{% endif %}
+                </div>
+                <!-- Global site tag (gtag.js) - Google Analytics -->
+                <script async src="https://www.googletagmanager.com/gtag/js?id=UA-116766241-1"></script>
+                <script>
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+
+                  gtag('config', 'UA-116766241-1');
+                </script>
+                <div class="dashboard-footer-copy">© 2018 XMRWALLET.COM</div>
+            </div>
+        </div>
+    </div>
+</div>

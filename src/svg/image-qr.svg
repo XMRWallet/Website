@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="61px" height="61px" viewBox="0 0 61 61" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>image-qr</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="8" y="8" width="21" height="21"></rect>
+        <rect id="path-2" x="14" y="14" width="9" height="9"></rect>
+        <rect id="path-3" x="33" y="8" width="21" height="21"></rect>
+        <rect id="path-4" x="8" y="33" width="21" height="21"></rect>
+        <rect id="path-5" x="33" y="33" width="21" height="21"></rect>
+        <rect id="path-6" x="39" y="14" width="9" height="9"></rect>
+        <rect id="path-7" x="39" y="39" width="9" height="9"></rect>
+        <rect id="path-8" x="14" y="39" width="9" height="9"></rect>
+    </defs>
+    <g id="Dashboard_Receive02" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-449.000000, -606.000000)">
+        <g id="Content" transform="translate(374.000000, 29.000000)">
+            <g id="QR-Code" transform="translate(1.000000, 501.000000)">
+                <g id="image-qr" transform="translate(74.000000, 76.000000)">
+                    <rect id="Rectangle-11" fill="#474E5D" x="0" y="2" width="2" height="15"></rect>
+                    <g id="Rectangle-18">
+                        <use fill="#F1F2F6" fill-rule="evenodd" xlink:href="#path-1"></use>
+                        <rect stroke="#474E5D" stroke-width="2" x="9" y="9" width="19" height="19"></rect>
+                    </g>
+                    <g id="Rectangle-18">
+                        <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-2"></use>
+                        <rect stroke="#474E5D" stroke-width="2" x="15" y="15" width="7" height="7"></rect>
+                    </g>
+                    <g id="Rectangle-18">
+                        <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-3"></use>
+                        <rect stroke="#474E5D" stroke-width="2" x="34" y="9" width="19" height="19"></rect>
+                    </g>
+                    <g id="Rectangle-18">
+                        <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-4"></use>
+                        <rect stroke="#474E5D" stroke-width="2" x="9" y="34" width="19" height="19"></rect>
+                    </g>
+                    <g id="Rectangle-18">
+                        <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-5"></use>
+                        <rect stroke="#474E5D" stroke-width="2" x="34" y="34" width="19" height="19"></rect>
+                    </g>
+                    <g id="Rectangle-18">
+                        <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-6"></use>
+                        <rect stroke="#474E5D" stroke-width="2" x="40" y="15" width="7" height="7"></rect>
+                    </g>
+                    <g id="Rectangle-18">
+                        <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-7"></use>
+                        <rect stroke="#474E5D" stroke-width="2" x="40" y="40" width="7" height="7"></rect>
+                    </g>
+                    <g id="Rectangle-18">
+                        <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-8"></use>
+                        <rect stroke="#474E5D" stroke-width="2" x="15" y="40" width="7" height="7"></rect>
+                    </g>
+                    <rect id="Rectangle-14" fill="#474E5D" x="0" y="0" width="17" height="2"></rect>
+                    <rect id="Rectangle-11" fill="#474E5D" x="0" y="44" width="2" height="15"></rect>
+                    <rect id="Rectangle-14" fill="#474E5D" x="0" y="59" width="17" height="2"></rect>
+                    <rect id="Rectangle-11" fill="#474E5D" x="59" y="44" width="2" height="15"></rect>
+                    <rect id="Rectangle-14" fill="#474E5D" x="44" y="59" width="17" height="2"></rect>
+                    <rect id="Rectangle-11" fill="#474E5D" x="59" y="2" width="2" height="15"></rect>
+                    <rect id="Rectangle-14" fill="#474E5D" x="44" y="0" width="17" height="2"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

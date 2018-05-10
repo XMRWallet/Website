@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="66px" height="66px" viewBox="0 0 66 66" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>image-user</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <ellipse id="path-1" cx="33" cy="33" rx="11" ry="14"></ellipse>
+        <circle id="path-2" cx="56" cy="56" r="10"></circle>
+    </defs>
+    <g id="Dashboard_Support" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-446.000000, -636.000000)">
+        <g id="Content" transform="translate(374.000000, 30.000000)">
+            <g id="What-is-MyMonero" transform="translate(1.000000, 520.000000)">
+                <g id="image-user" transform="translate(71.000000, 86.000000)">
+                    <circle id="Oval-7" stroke="#474E5D" stroke-width="2" cx="33" cy="33" r="32"></circle>
+                    <g id="Oval-7">
+                        <use fill="#F1F2F6" fill-rule="evenodd" xlink:href="#path-1"></use>
+                        <ellipse stroke="#474E5D" stroke-width="2" cx="33" cy="33" rx="10" ry="13"></ellipse>
+                    </g>
+                    <path d="M40,42 C49.3333333,46 54,51 54,57" id="Path-2" stroke="#474E5D" stroke-width="2"></path>
+                    <path d="M12,42 C21.3333333,46 26,51 26,57" id="Path-2" stroke="#474E5D" stroke-width="2" transform="translate(19.000000, 49.500000) scale(-1, 1) translate(-19.000000, -49.500000) "></path>
+                    <g id="Oval-7">
+                        <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-2"></use>
+                        <circle stroke="#474E5D" stroke-width="2" cx="56" cy="56" r="9"></circle>
+                    </g>
+                    <polyline id="Path-3" stroke="#474E5D" stroke-width="2" points="52 56 55 59 60 54"></polyline>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

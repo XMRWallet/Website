@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="26px" height="18px" viewBox="0 0 26 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>public-white</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="UI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-1294.000000, -216.000000)">
+        <g id="Icons" transform="translate(820.000000, 210.000000)" fill="#474E5D" fill-rule="nonzero">
+            <g id="public-white" transform="translate(473.000000, 0.000000)">
+                <path d="M14,24 C9.94991183,24 5.6165785,21 1,15 C5.6165785,9 9.94991183,6 14,6 C18.0500882,6 22.3834215,9 27,15 C22.3834215,21 18.0500882,24 14,24 Z M14,8 C10.957461,8 7.4436941,10.2721652 3.55465377,15 C7.4436941,19.7278348 10.957461,22 14,22 C17.042539,22 20.5563059,19.7278348 24.4453462,15 C20.5563059,10.2721652 17.042539,8 14,8 Z M14,19 C11.790861,19 10,17.209139 10,15 C10,12.790861 11.790861,11 14,11 C16.209139,11 18,12.790861 18,15 C18,17.209139 16.209139,19 14,19 Z M14,17 C15.1045695,17 16,16.1045695 16,15 C16,13.8954305 15.1045695,13 14,13 C12.8954305,13 12,13.8954305 12,15 C12,16.1045695 12.8954305,17 14,17 Z" id="Public"></path>
+            </g>
+        </g>
+    </g>
+</svg>

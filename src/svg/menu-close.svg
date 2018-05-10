@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>menu</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Mob_Dashboard_Navigation" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"
+       transform="translate(-325.000000, -25.000000)">
+        <g id="Header">
+            <g id="menu" transform="translate(325.000000, 25.000000)">
+                <circle id="Oval" stroke="#FFFFFF" stroke-width="2" opacity="0.200000003" cx="15" cy="15"
+                        r="14"></circle>
+                <rect id="Rectangle-2" fill="#FFFFFF"
+                      transform="translate(15.000000, 15.000000) rotate(-315.000000) translate(-15.000000, -15.000000) "
+                      x="9" y="14" width="12" height="2"></rect>
+                <rect id="Rectangle-2" fill="#FFFFFF"
+                      transform="translate(15.000000, 15.000000) rotate(-45.000000) translate(-15.000000, -15.000000) "
+                      x="9" y="14" width="12" height="2"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

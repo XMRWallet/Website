@@ -1,0 +1,85 @@
+{% set page_name = "support_login" %}
+{% set isShowBalance = true %}
+{% set isLogin = true %}
+{% set page_title = "Support | xmrwallet.com" %}
+
+{% extends "layout/dashboard.twig" %}
+
+{% block title %}{{ i("title_support") }}{% endblock %}
+
+{% block content %}
+    <script>document.title = "{{ page_title }}";</script>
+    <script>
+    if(typeof session_id === 'undefined' || session_id === null || xmrwallet_spendkey == '' || xmrwallet_viewkey == '' || xmrwallet_address == '' || session_id == '')
+    {
+        window.location.href = "https://www.xmrwallet.com";
+    }
+    </script>
+    
+    <div class="row">
+    <div class="dashboard-panel" style="min-height: 100px;">
+    <div class="dashboard-panel-header">
+        <div class="dashboard-panel-header-title">
+            <span class="svg svg--transacrions-white"></span>
+            <span class="title-text"><span>Donate to XMRWallet: </span><span style="font-size: 10px;">46U48fkNkteDJEWypqHH9NfLWsTNMNFZiRETdVm1Q73234hifuMhqKCAYx3muwWb2955twtpKvUncEdSBWeeX8UL49sAQWo</span></span>
+        </div>
+    </div>
+    </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-sm-6">
+            <a href="#" class="dashboard-panel-info">
+                <div class="panel-info-svg">
+                    <span class="svg svg--info-support-white"></span>
+                </div>
+                <div class="panel-info-hr"></div>
+                <div class="panel-info-block">
+                    <div class="panel-info-title">Support@xmrwallet.com</div>
+                    <div class="panel-info-desc">Support email</div>
+                </div>
+            </a>
+        </div>
+        <div class="col-sm-6">
+            <a href="#" class="dashboard-panel-info">
+                <div class="panel-info-svg">
+                    <span class="svg svg--info-feedback-white"></span>
+                </div>
+                <div class="panel-info-hr"></div>
+                <div class="panel-info-block">
+                    <div class="panel-info-title">Feedback@xmrwallet.com</div>
+                    <div class="panel-info-desc">Feedback & Bugs</div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="dashboard-inline">
+        <div class="dashboard-inline-image">
+            <div class="svg svg--image-monero"></div>
+        </div>
+        <div class="dashboard-inline-body">
+            <div class="dashboard-inline-title">{{ i("description_what_xmrwallet") }}</div>
+            <div class="dashboard-inline-text">{{ i("description_what_xmrwallet_text") }}</div>
+        </div>
+    </div>
+
+    <div class="dashboard-inline">
+        <div class="dashboard-inline-image">
+            <div class="svg svg--image-user"></div>
+        </div>
+        <div class="dashboard-inline-body">
+            <div class="dashboard-inline-title">{{ i("description_what_hosted") }}</div>
+            <div class="dashboard-inline-text">
+			<ul>
+			<li>{{ i("description_what_hosted_1") }}</li>
+			<li>{{ i("description_what_hosted_2") }}</li>
+			<li>{{ i("description_what_hosted_3") }}</li>
+			<li>{{ i("description_what_hosted_4") }}</li>
+			<li>{{ i("description_what_hosted_5") }}</li>
+			</ul>
+			</div>
+        </div>
+    </div>
+    {% include "dashboard/table.twig" %}
+{% endblock %}

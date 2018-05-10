@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>XMRWALLET</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <script>
+    window.onpopstate = function(e){
+        if(e.state)
+        {
+            document.getElementById("content").innerHTML = e.state.html;
+            document.title = e.state.pageTitle;
+        }
+    };
+    function website_process(response, url_path){
+        document.getElementById("content").innerHTML = response.html;
+        document.title = response.pageTitle;
+        window.history.pushState({"html":response.html,"pageTitle":response.pageTitle},"", url_path);
+    }
+    </script>
+</head>
+<body>
+<div class="dashboard">
+    <div class="dashboard-menu close">
+        <div class="dashboard-menu-logo">
+		{% if isLogin != false %}
+            <a href="#/dashboard.html">
+		{% else %}
+			<a href="#/">
+		{% endif %}
+                <div class="svg--logo-wallet"></div>
+            </a>
+        </div>
+        <div class="dashboard-menu-burger">
+            <div class="svg svg--menu-open"></div>
+            <div class="svg svg--menu-close"></div>
+        </div>
+        {% if isLogin != false %}
+            {% include "dashboard/nav.twig" %}
+        {% else %}
+            {% include "dashboard/login.twig" %}
+        {% endif %}
+    </div>
+    <div class="dashboard-root">
+        <div class="dashboard-body-wrap">
+            <div class="dashboard-body">
+                <div class="dashboard-body-header">
+                    <div class="header-group">
+                        <div class="header-title">{% block title %}{% endblock %}</div>
+                        <div class="header-subtitle">
+                            <span class="header-subtitle-text">{% block subtitle %}{% endblock %}</span>
+                            {% block subtitlelink %}{% endblock %}
+                        </div>
+                    </div>
+                    {% if isShowBalance != false %}
+                        <div class="header-balance">
+                            <div class="header-balance-logo">
+                                <span class="svg svg--monero-white"></span>
+                            </div>
+                            <div class="header-balance-hr"></div>
+                            <div class="header-balance-current">
+                                <div class="header-balance-count">...</div>
+                                <div class="header-balance-desc">{{ i("balance_xmr") }}</div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="dashboard-body-content">
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
+            <div class="dashboard-footer">
+                <div class="dashboard-footer-links">
+                    <select class="js-select-footer" name="">
+                        {% for language in languages %}
+                            <option {{ language.selected ? 'selected' }} value="{{ language.key }}">{{ language.value }}</option>
+                        {% endfor %}
+                    </select>
+					{% if page_name != "maintenance" %}
+						{% if isLogin != false %}
+						<a href="#/terms_login.html">{{ i("terms_of_use") }}</a>
+						<a href="#/policy_login.html">{{ i("privacy_policy") }}</a>
+						{% else %}
+						<a href="#/terms.html">{{ i("terms_of_use") }}</a>
+						<a href="#/policy.html">{{ i("privacy_policy") }}</a>
+						{% endif %}
+					{% endif %}
+                </div>
+                <!-- Global site tag (gtag.js) - Google Analytics -->
+                <script async src="https://www.googletagmanager.com/gtag/js?id=UA-116766241-1"></script>
+                <script>
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+
+                  gtag('config', 'UA-116766241-1');
+                </script>
+                <div class="dashboard-footer-copy">© 2018 XMRWALLET.COM</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/app.js"></script>
+</body>
+</html>

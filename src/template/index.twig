@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>XMRWALLET</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <script>
+    window.onpopstate = function(e){
+        if(e.state)
+        {
+            document.getElementById("content").innerHTML = e.state.html;
+            document.title = e.state.pageTitle;
+        }
+    };
+    function website_process(response, url_path){
+        document.getElementById("content").innerHTML = response.html;
+        document.title = response.pageTitle;
+        window.history.pushState({"html":response.html,"pageTitle":response.pageTitle},"", url_path);
+    }
+    </script>
+</head>
+<body>
+<div id="loading-page" style="display: none;"></div>
+<div id="content">
+
+</div>
+<script src="/js/app.js"></script>
+<script src="/js/monero.js"></script>
+<script>
+
+var version = 0.1;
+
+var spend_key = '';
+var session_id = '';
+var current_page = '';
+
+var old_syncing_height = '';
+
+var XMR_DATE = new Date();
+
+var xmr_updating_value = 0;
+var xmr_updating_balance = 0;
+
+var xmr_updating_height = 0;
+
+var xmr_alreadyupdating_balance = 0;
+var xmr_alreadyupdating_value = 0;
+var xmr_alreadyupdating_outputs = 0;
+
+var xmr_canget_transactions = 1;
+
+var xmr_updated_value = 0;
+var xmr_balance_updated_value = 0;
+var transactions_updated_value = 0;
+
+var show_currency = 0;
+var last_usd_value = new JSBigInt(0);
+var last_xmr_value = '';
+var last_xmr_bal_init = 0;
+var last_xmr_balance = '<div class="wave"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>';
+var last_xmr_unlocked_balance = 'XMR Balance';
+
+var real_xmr_balance = new JSBigInt(0);
+var real_xmr_unlocked_balance = new JSBigInt(0);
+
+var real_xmr_balance_pending = new JSBigInt(0);
+var real_xmr_unlocked_balance_pending = new JSBigInt(0);
+
+var last_transactions = null;
+
+var transaction_atpage = 1;
+
+var xmrwallet_seed = '';
+var xmrwallet_realseed = '';
+var xmrwallet_address = '';
+var xmrwallet_viewkey = '';
+var xmrwallet_spendkey = '';
+
+var main_keys = null;
+
+var last_timeload = 0;
+var last_timeloadx = 0;
+
+var account_timeout = new Date().getTime();
+
+setInterval(function(){ if(session_id != ''){ var currenttimetimeout = new Date().getTime(); if(currenttimetimeout >= account_timeout + 1800000){  window.location.href = "https://www.xmrwallet.com";  } } }, 1000);
+
+var old_hash = '';
+var current_hash = location.hash;
+
+var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+if (!requestAnimationFrame) {
+	requestAnimationFrame = function(callback) {
+		setTimeout(callback, 1000 / 60);
+	}
+}
+
+function formatState (state) {
+	if (!state.id) {
+		return state.text;
+	}
+	var baseUrl = "/i/flags";
+	var $state = $(
+		'<span class="select2-flags"><img src="' + baseUrl + '/' + state.element.value.toLowerCase() + '.png" class="img-flag" /> ' + state.text + '</span>'
+	);
+	return $state;
+};
+
+function check_last_timeload(x)
+{
+    if(x == last_timeload)
+    {
+        $('#loading-page').show();
+    }
+}
+
+function check_timeout()
+{
+    
+}
+
+function load_page()
+{
+    account_timeout = new Date().getTime();
+    last_timeload++;
+    last_timeloadx = last_timeload;
+    setTimeout(check_last_timeload.bind(null, last_timeloadx), 2000);
+    current_page = '';
+    old_hash = current_hash;
+    current_hash = location.hash;
+    var url_parts = current_hash.slice(1).split('?');
+    if(!url_parts)
+    {
+        window.location.hash = old_hash;
+        current_hash = old_hash;
+        last_timeload++;
+        $('#loading-page').hide();
+        return;
+    }
+    if(url_parts[0] == '' || url_parts[0] == '/index.html' || url_parts[0] == 'index.html')
+    {   
+        window.location.hash = old_hash;
+        current_hash = old_hash;
+        last_timeload++;
+        $('#loading-page').hide();
+        return;
+    }
+    $.ajax({
+        type: "POST",
+        url: current_hash.slice(1),
+        data: {
+          session_id: session_id,
+        }
+    }).done(function(response){
+        $('#content').html(response);
+        $(function() {
+            $('.js-select-footer, .js-select-landing')
+                .val($.i18n.getLang())
+                .on('change', function() {
+                    $.i18n.setLang($(this).val() || 'en');
+                    $.i18n.dom($('body'));
+                });
+            $.i18n.dom($('body'));
+
+            $('.dashboard-menu-burger').on('click', function() {
+                $('.dashboard-menu').toggleClass('close');
+            });
+
+            $('.js-select-footer').select2({
+                width: '174px',
+                minimumResultsForSearch: Infinity,
+                theme: "footer",
+                templateSelection: formatState,
+                templateResult: formatState,
+            });
+
+            $('.js-select-landing').select2({
+                minimumResultsForSearch: Infinity,
+                width: '174px',
+                theme: "landing",
+                templateSelection: formatState,
+                templateResult: formatState,
+            });
+        });
+        last_timeload++;
+        $('#loading-page').hide();
+    }).fail(function(){ 
+        if(last_hash != current_hash)
+        {
+            window.location.hash = old_hash;
+            current_hash = old_hash;
+        }
+        last_timeload++;
+        $('#loading-page').hide();
+    });
+}
+
+$(window).on('hashchange',function(){
+    load_page();
+});
+
+$(document).ready(function()
+{
+if(!window.location.hash || window.location.hash == '#' || window.location.hash == '#/' || window.location.hash == "#/index.html")
+{
+    window.location.hash = "#/login.html";
+    current_hash = location.hash;
+}
+else
+{
+    load_page();
+}
+});
+
+</script>
+</body>
+</html>

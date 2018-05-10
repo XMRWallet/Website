@@ -1,0 +1,182 @@
+{% set page_name = "landing" %}
+{% extends "layout/landing.twig" %}
+
+{% block title %}Account overview{% endblock %}
+{% block subtitle %}Your account overview and recent transactions.{% endblock %}
+
+{% block content %}
+    <div class="landing">
+        <header>
+            <div class="landing-header-wrap">
+                <div class="container">
+                    <div class="row header-menu">
+                        <div class="col-xs-12 col-sm-6 header-menu-logo">
+                            <a href="#/login.html" class="header-logo">
+                                <div class="svg--logo-wallet"></div>
+                            </a>
+                            <select class="js-select-landing" name="">
+                                {% for language in languages %}
+                                    <option {{ language.selected ? 'selected' }} value="{{ language.key }}">{{ language.value }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 header-menu-nav">
+                            <nav class="landing-nav">
+                                <ul>
+                                    <li>
+                                        <a href="#/support.html" class="link">{{ i("support") }}</a>
+                                    </li>
+                                    <li>
+                                        <a href="#/login.html" class="btn btn-gray">{{ i("login") }}</a>
+                                    </li>
+                                    <li>
+                                        <a href="#/create.html" class="btn btn-white">{{ i("create_account") }}</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="header-landing-header text-center">
+                                <img src="/i/landing-header.svg"/>
+                            </div>
+                            <div class="header-title">
+                                {{ i("landing_header_title") }}
+                            </div>
+                            <div class="header-subtitle">
+                                {{ i("landing_header_subitle") }}
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-offset-3 col-xs-6 col-sm-offset-4 col-sm-4">
+                                    <a href="#/create.html" class="btn btn-orange btn-lg btn-orange--gray">
+                                        {{ i("button_create_account") }}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="header-nodes">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-3">
+                                <div class="header-node">
+                                    <div class="header-node-icons">
+                                        <div class="svg svg--header-secure"></div>
+                                    </div>
+                                    <div class="header-node-text">{{ i("landing_header_secure") }}</div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-3">
+                                <div class="header-node">
+                                    <div class="header-node-icons">
+                                        <div class="svg svg--header-untraceable"></div>
+                                    </div>
+                                    <div class="header-node-text">{{ i("landing_header_untraceable") }}</div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-3">
+                                <div class="header-node">
+                                    <div class="header-node-icons">
+                                        <div class="svg svg--header-private"></div>
+                                    </div>
+                                    <div class="header-node-text">{{ i("landing_header_private") }}</div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-3">
+                                <div class="header-node">
+                                    <div class="header-node-icons">
+                                        <div class="svg svg--header-fungible"></div>
+                                    </div>
+                                    <div class="header-node-text">{{ i("landing_header_fungible") }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="container">
+            <div class="row landing-info">
+                <div class="col-xs-12 col-sm-6 landing-info-image">
+                    <img src="/i/landing-secure.svg" alt="">
+                </div>
+                <div class="col-xs-12 col-sm-6 landing-info-body">
+                    <div class="landing-info-title">
+                        {{ i("landing_description_security") }}
+                    </div>
+                    <div class="landing-info-text">
+                        {{ i("landing_description_security_text") }}
+                    </div>
+                </div>
+            </div>
+            <div class="row landing-info landing-info--invert">
+                <div class="col-sm-push-6 col-xs-12 col-sm-6 landing-info-image">
+                    <img src="/i/landing-untraceable.svg" alt="">
+                </div>
+                <div class="col-sm-pull-6 col-xs-12 col-sm-6">
+                    <div class="landing-info-title">
+                        {{ i("landing_description_nobody") }}
+                    </div>
+                    <div class="landing-info-text">
+                        {{ i("landing_description_nobody_text") }}
+                    </div>
+                </div>
+            </div>
+            <div class="row landing-info">
+                <div class="col-xs-12 col-sm-6 landing-info-image">
+                    <img src="/i/landing-private.svg" alt="">
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                    <div class="landing-info-title">
+                        {{ i("landing_description_privacy") }}
+                    </div>
+                    <div class="landing-info-text">
+                        {{ i("landing_description_privacy_text") }}
+                    </div>
+                </div>
+            </div>
+            <div class="row landing-info landing-info--invert">
+                <div class="col-sm-push-6 col-xs-12 col-sm-6 landing-info-image">
+                    <img src="/i/landing-fungible.svg" alt="">
+                </div>
+                <div class="col-sm-pull-6 col-xs-12 col-sm-6">
+                    <div class="landing-info-title">
+                        {{ i("landing_description_changeable") }}
+                    </div>
+                    <div class="landing-info-text">
+                        {{ i("landing_description_changeable_text") }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <div class="landing-footer-wrap">
+                <div class="container">
+                    <div class="footer-title">
+                        {{ i("landing_footer_title") }}
+                    </div>
+                    <div class="footer-buttons">
+                        <a href="#/create.html" class="btn btn-orange btn-orange--gray">{{ i("button_create_account") }}</a>
+                        <a href="#/login.html" class="btn btn-white-letar">{{ i("button_login") }}</a>
+                    </div>
+                    <div class="footer-down">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-4 footer-logo">
+                                <span class="svg svg--logo-wallet"></span>
+                            </div>
+                            <div class="col-xs-12 col-sm-4 footer-links">
+                                <a href="#/terms.html">{{ i("terms_of_use") }}</a>
+                                <a href="#/policy.html">{{ i("privacy_policy") }}</a>
+                            </div>
+                            <div class="col-xs-12 col-sm-4 footer-copy">
+                                <span>© 2018 XMRWALLET.COM</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+{% endblock %}

@@ -1,0 +1,101 @@
+{% set page_name = "account" %}
+{% set page_title = "Account Information | xmrwallet.com" %}
+
+{% extends "layout/dashboard.twig" %}
+
+{% block title %}{{ i("title_account") }}{% endblock %}
+{% block subtitle %}{{ i("title_sub_account") }}{% endblock %}
+
+{% block content %}
+    <script>document.title = "{{ page_title }}";</script>
+    <script>
+    if(typeof session_id === 'undefined' || session_id === null || xmrwallet_spendkey == '' || xmrwallet_viewkey == '' || xmrwallet_address == '' || session_id == '')
+    {
+        window.location.href = "https://www.xmrwallet.com";
+    }
+    </script>
+    <div id="seed_view" class="dashboard-panel">
+        <div class="dashboard-panel-header">
+            <div class="dashboard-panel-header-title">
+                <span class="svg svg--key-white"></span>
+                <span class="title-text">{{ i("private_login_key") }}</span>
+            </div>
+        </div>
+        <div class="dashboard-panel-body">
+            <label class="label">{{ i("review_private_login_key") }}</label>
+            <div class="input-group">
+                <input id="private_seed" type="text" class="form-control" style="color: #474E5D; border-color: #D9DCE7; background-color: #F1F2F6;" readonly>
+                <div class="input-group-btn">
+                    <button class="btn btn-group" data-clipboard-target="#private_seed">
+                        <span class="svg--copy-white"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="dashboard-panel">
+        <div class="dashboard-panel-header">
+            <div class="dashboard-panel-header-title">
+                <span class="svg svg--profile-white"></span>
+                <span class="title-text">{{ i("review_account_details") }}</span>
+            </div>
+        </div>
+        <div class="dashboard-panel-body">
+            <div class="form-group">
+                <label class="label">{{ i("account_address_public") }}</label>
+                <div class="input-group">
+                    <input id="public_address" type="text" class="form-control" style="color: #474E5D; border-color: #D9DCE7; background-color: #F1F2F6;" readonly>
+                    <div class="input-group-btn">
+                        <button class="btn btn-group" data-clipboard-target="#public_address">
+                            <span class="svg--copy-white"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="label">{{ i("view_key_private") }}</label>
+                <div class="input-group">
+                    <input id="public_viewkey" type="text" class="form-control" style="color: #474E5D; border-color: #D9DCE7; background-color: #F1F2F6;" readonly>
+                    <div class="input-group-btn">
+                        <button class="btn btn-group" data-clipboard-target="#public_viewkey">
+                            <span class="svg--copy-white"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <label class="label">{{ i("spend_key_private") }}</label>
+            <div class="input-group">
+                <input id="private_spendkey" type="text" class="form-control" style="color: #474E5D; border-color: #D9DCE7; background-color: #F1F2F6;" readonly>
+                <div class="input-group-btn">
+                    <button class="btn btn-group" data-clipboard-target="#private_spendkey">
+                        <span class="svg--copy-white"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+    new ClipboardJS('.btn');
+    if(!xmrwallet_seed)
+    {
+        $("#seed_view").hide();
+    }
+    else
+    {
+        $("#private_seed").val(xmrwallet_seed);
+    }
+    if(xmrwallet_address)
+    {
+        $("#public_address").val(xmrwallet_address);
+    }
+    if(xmrwallet_viewkey)
+    {
+        $("#public_viewkey").val(xmrwallet_viewkey);
+    }
+    if(xmrwallet_spendkey)
+    {
+        $("#private_spendkey").val(xmrwallet_spendkey);
+    }
+    </script>
+    {% include "dashboard/table.twig" %}
+{% endblock %}

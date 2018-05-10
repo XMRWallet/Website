@@ -1,0 +1,37 @@
+{% set page_name = "maintenance" %}
+{% set isShowBalance = false %}
+{% set isLogin = false %}
+{% extends "layout/maintenance_dashboard.twig" %}
+
+{% block title %}{{ i("title_maintenance") }}{% endblock %}
+
+{% block content %}
+ 
+    <div class="dashboard-inline">
+        <div class="dashboard-inline-image">
+            <div class="svg svg--image-monero"></div>
+        </div>
+        <div class="dashboard-inline-body">
+            <div class="dashboard-inline-title">{{ i("description_what_xmrwallet") }}</div>
+            <div class="dashboard-inline-text">{{ i("description_what_xmrwallet_text") }}</div>
+        </div>
+    </div>
+
+    <div class="dashboard-inline">
+        <div class="dashboard-inline-image">
+            <div class="svg svg--image-user"></div>
+        </div>
+        <div class="dashboard-inline-body">
+            <div class="dashboard-inline-title">{{ i("description_what_hosted") }}</div>
+            <div class="dashboard-inline-text">
+			<ul>
+			<li>{{ i("description_what_hosted_1") }}</li>
+			<li>{{ i("description_what_hosted_2") }}</li>
+			<li>{{ i("description_what_hosted_3") }}</li>
+			<li>{{ i("description_what_hosted_4") }}</li>
+			<li>{{ i("description_what_hosted_5") }}</li>
+			</ul>
+			</div>
+        </div>
+    </div>
+{% endblock %}

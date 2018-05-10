@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="18px" viewBox="0 0 14 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>copy-white</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="UI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-905.000000, -272.000000)">
+        <g id="Menu" transform="translate(818.000000, 268.000000)" fill="#474E5D" fill-rule="nonzero">
+            <path d="M99,8 C100.104569,8 101,8.8954305 101,10 L101,20 C101,21.1045695 100.104569,22 99,22 L93,22 C91.8954305,22 91,21.1045695 91,20 L99,20 L99,8 Z M89,4 L95,4 C96.1045695,4 97,4.8954305 97,6 L97,16 C97,17.1045695 96.1045695,18 95,18 L89,18 C87.8954305,18 87,17.1045695 87,16 L87,6 C87,4.8954305 87.8954305,4 89,4 Z M89,6 L89,16 L95,16 L95,6 L89,6 Z" id="copy-white"></path>
+        </g>
+    </g>
+</svg>

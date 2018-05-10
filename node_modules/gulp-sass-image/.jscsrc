@@ -1,0 +1,6 @@
+{
+    "preset": "node-style-guide",
+    "requireCamelCaseOrUpperCaseIdentifiers": false,
+    "maximumLineLength": 120,
+    "requireSemicolons": true
+}
