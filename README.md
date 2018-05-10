@@ -1,5 +1,7 @@
 More information coming soon!
 
+Website: https://www.xmrwallet.com/#/landing.html
+
 Source language files - /src/i18n
 Public html/css/js - public
 
