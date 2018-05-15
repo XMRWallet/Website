@@ -1,10 +1,14 @@
 {% set page_name = "landing" %}
 {% extends "layout/landing.twig" %}
+{% set isShowBalance = false %}
+{% set isLogin = false %}
+{% set page_title = "Monero Wallet - Open Source Monero Web Wallet | xmrwallet.com" %}
 
 {% block title %}Account overview{% endblock %}
 {% block subtitle %}Your account overview and recent transactions.{% endblock %}
 
 {% block content %}
+    <script>document.title = "{{ page_title }}";</script>
     <div class="landing">
         <header>
             <div class="landing-header-wrap">
