@@ -123,6 +123,7 @@
                     </div>
                 </div>
             </div>
+            <!--
             <div class="form-group form-group-end">
                 <label class="label">{{ i("label_receiver_address") }}</label>
                 <div class="select-style">
@@ -137,7 +138,8 @@
                     </button>
                 </div>
             </div>
-            <button id="sendpaymentbutton" class="btn btn-orange btn-lg">{{ i("button_send_payment") }}</button>
+            -->
+            <button id="sendpaymentbutton" class="btn btn-orange btn-lg" style="margin-top: 20px;">{{ i("button_send_payment") }}</button>
             <div id="confirmBox">
                 <div class="message"></div>
                 <button class="yes">Yes</button>
@@ -187,7 +189,7 @@
                 transaction_amount = new JSBigInt(tempamount);
                 transaction_address = $("#send_address").val();
                 transaction_payment_id = $("#send_payment_id").val();
-                transaction_mixin = $("#send_mixin").val();
+                transaction_mixin = "1"; //$("#send_mixin").val();
                 var pid_encrypt = false;
                 
                 if(transaction_address)
