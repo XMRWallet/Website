@@ -8,7 +8,7 @@ function update_xmr_value()
     if(session_id)
     {
         $.ajax({
-            url: 'https://min-api.cryptocompare.com/data/price?fsym=XMR&tsyms=USD',
+            url: 'https://min-api.cryptocompare.com/data/price?fsym=XMR&tsyms=USD,BTC',
             dataType: 'json'
         }).done(function(response){
                 var obj = response;
@@ -16,7 +16,7 @@ function update_xmr_value()
                 {
                     var currentusdprice = cnUtil.parseMoney(obj['USD'].toString());
                     last_usd_value = currentusdprice.divide('1000000000000');
-                    last_xmr_value = "1 XMR = $" + obj['USD'] + " USD";
+                    last_xmr_value = "1 XMR = $" + obj['USD'] + " USD<br><br>"+"1 XMR = " + obj['BTC'] + " BTC";
                     document.getElementById("dashboard-current").innerHTML = last_xmr_value;
                 }
             }).fail(function(){ 
