@@ -31,6 +31,7 @@ gulp.task('build', function() {
 	runSequence(
 		['clean-css', 'compile-js'],
 		['compile-svg', 'compile-template'],
-		['compile-css']
+		['compile-css'],
+        ['bundle-js']
 	);
 });

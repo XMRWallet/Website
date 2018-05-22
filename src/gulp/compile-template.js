@@ -75,9 +75,9 @@ gulp.task('compile-template', function () {
 				}
 			]
 		}))
-        .pipe(gulp.dest('../Library/website/'))
+        .pipe(gulp.dest('./out/website/'))
 });
 
 gulp.task('watch-template', function () {
-    gulp.watch(['./src/template/**/*', '../Library/website/svg/**/*'], ['compile-template'])
+    gulp.watch(['./src/template/**/*', './out/website/svg/**/*'], ['compile-template'])
 });

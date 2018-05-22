@@ -3,7 +3,7 @@ var util = require('gulp-util');
 var isProduction = !!util.env.production;
 
 const config = {
-  buildDir: '../Library/website/',
+  buildDir: './out/website/',
   production: isProduction,
   css: {
     src: 'src/scss/style.scss',
