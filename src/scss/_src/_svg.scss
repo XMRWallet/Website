@@ -5,6 +5,15 @@
   background: no-repeat;
 }
 
+.svg--home {
+	@extend .svg;
+	$img: 'home.svg';
+	background-image: inline-image($img);
+	width: image-width($img);
+	height: image-height($img);
+	margin-top: -2px;
+}
+
 .svg--address-white {
   @extend .svg;
   $img: 'address-white.svg';

@@ -1,0 +1,13 @@
+<svg width="20" height="17" xmlns="http://www.w3.org/2000/svg">
+    <g fill="none" fill-rule="evenodd">
+        <g>
+            <g>
+                <g>
+                    <path d="M4 16h12V8h2.1985991l-8.1985659-6.70793905L1.80141478 8H4v8z" stroke="#FFF"
+                          stroke-width="2"/>
+                    <path fill="#FFF" d="M9 10h2v5H9z"/>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
