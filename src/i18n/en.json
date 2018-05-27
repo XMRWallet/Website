@@ -96,6 +96,7 @@
 	"your_address": "Your address",
 	"payment_status": "Payment status:",
 	"payment_status_value": "Payment not yet received",
+	"donate_wallet": "Donate to XMRWallet",
 
 	"receive_funds": "Receive funds",
 	"receive_funds_qr": "Receive funds via QR-code",
