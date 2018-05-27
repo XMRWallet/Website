@@ -16,7 +16,8 @@ function update_xmr_value()
                 {
                     var currentusdprice = cnUtil.parseMoney(obj['USD'].toString());
                     last_usd_value = currentusdprice.divide('1000000000000');
-                    last_xmr_value = "1 XMR = $" + obj['USD'] + " USD<br><br>"+"1 XMR = " + obj['BTC'] + " BTC";
+					last_xmr_value = "<div class=\"dashboard-current-item\"><span><strong>1 XMR</strong> = $" + obj['USD'] + "</span> USD</div>" +
+						"<div class=\"dashboard-current-item\"><span><strong>1 XMR</strong> = " + obj['BTC'] + " </span>BTC</div>";
                     document.getElementById("dashboard-current").innerHTML = last_xmr_value;
                 }
             }).fail(function(){ 
