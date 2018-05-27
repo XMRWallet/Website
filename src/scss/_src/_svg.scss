@@ -374,3 +374,19 @@
 	width: image-width($img);
 	height: image-height($img);
 }
+
+.svg--status-checked {
+	@extend .svg;
+	$img: 'status-checked.svg';
+	background-image: inline-image($img);
+	width: image-width($img);
+	height: image-height($img);
+}
+
+.svg--status-process {
+	@extend .svg;
+	$img: 'status-process.svg';
+	background-image: inline-image($img);
+	width: image-width($img);
+	height: image-height($img);
+}

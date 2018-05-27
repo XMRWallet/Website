@@ -16,11 +16,18 @@
         window.location.href = "https://www.xmrwallet.com";
     }
     </script>
-    <div id="heightprogress" style="width: 100%; background-color: #E08282; margin-bottom: 30px;">
-      <div id="heightbar" style="width: 100%; height: 30px; background-color: #92E094; text-align: center; padding-top:8px; font-size: 14px; color: #FFFFFF;"></div>
-      <div id="heightbartext" style="width: 100%; height: 30px; text-align: center; padding-top: 8px; font-size: 12px; color: rgb(255, 255, 255); margin-top:-30px;"></div>
+
+    <div class="dashboard-sync-progress">
+        <div class="dashboard-sync-progress-bg">
+            <div id="heightbar-left" class="bg-left"></div>
+            <div id="heightbar-right" class="bg-right"></div>
+        </div>
+        <div class="dashboard-sync-progress-bar">
+            <div id="heightbar" class="bar"></div>
+        </div>
+        <div id="heightbartext" class="dashboard-sync-progress-text"></div>
     </div>
-    
+
     <script>
     current_page = 'dashboard';
     
@@ -32,7 +39,17 @@
     {
         document.getElementById("heightbartext").innerHTML = 'syncing...';
     }
-    
+
+	function setHeightNar(progress)
+    {
+		var left = document.getElementById("heightbar-left"),
+			right = document.getElementById("heightbar-right"),
+			elem = document.getElementById("heightbar");
+		left.style.width = progress + '%';
+		right.style.width = 100 - progress + '%';
+		elem.style.width = progress + '%';
+    }
+
     function update_xmr_height()
     {
         if(session_id && current_page == 'dashboard')
@@ -60,10 +77,12 @@
                                 {
                                     finalv = 100;
                                 }
-                                var elem = document.getElementById("heightbar");
-                                elem.style.width = finalv + '%';
+								setHeightNar(finalv);
                                 var elem2 = document.getElementById("heightbartext");
-                                old_syncing_height = 'height (' + data + ')';
+                                var sprite = beg === end
+                                    ? '<span class="svg svg--status-checked"></span>'
+                                    : '<span class="svg svg--status-process"></span>';
+                                old_syncing_height = sprite + ' Height (' + data + ')';
                                 elem2.innerHTML = old_syncing_height;
                             }
                         }

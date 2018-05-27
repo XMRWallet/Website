@@ -863,6 +863,76 @@ input:focus:-ms-input-placeholder { color:transparent; }
 		}
 	}
 
+	.dashboard-sync-progress {
+		position: relative;
+		z-index: 0;
+		height: 50px;
+		margin-bottom: 30px;
+
+		.dashboard-sync-progress-bg, .dashboard-sync-progress-bar {
+			position: absolute;
+			z-index: 0;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			border-radius: 5px;
+		}
+
+		.dashboard-sync-progress-bg {
+
+			.bg-left, .bg-right {
+				position: absolute;
+				z-index: 0;
+				top: 0;
+				bottom: 0;
+				border-radius: 5px;
+			}
+
+			.bg-left {
+				left: 0;
+				width: 0;
+				box-shadow: 0 5px 5px 0 rgba(106, 163, 39, 0.15);
+			}
+
+			.bg-right {
+				right: 0;
+				width: 100%;
+				box-shadow: 0 5px 5px 0 rgba(234, 123, 49, 0.15);
+			}
+		}
+
+		.dashboard-sync-progress-bar {
+			overflow: hidden;
+			z-index: 1;
+			background: #EA7B31;
+
+			.bar {
+				height: 100%;
+				width: 0;
+				background-color: #6AA327;
+			}
+		}
+
+		.dashboard-sync-progress-text {
+			position: relative;
+			text-align: center;
+			z-index: 2;
+			width: 100%;
+			height: 50px;
+			padding-top: 17px;
+
+			font-family: $font-family-roboto-medium;
+			font-size: 14px;
+			color: #FFF;
+
+			.svg {
+				margin-top: -3px;
+				margin-right: 10px;
+			}
+		}
+	}
+
 	.dashboard-content {
 		h3 {
 			font-weight: normal;
