@@ -34,6 +34,8 @@
 	"table_back": "Back",
 	"table_next": "Next",
 
+	"transferring": "Transferring",
+	"to": "to",
 	"send_funds": "Send funds",
 	"receiver_address": "Receiver Address",
 	"receiver_address_placeholder": "",

@@ -16,6 +16,35 @@
         window.location.href = "https://www.xmrwallet.com";
     }
     </script>
+
+    <dialog id="dialog_send" class="dashboard-dialog">
+        <div class="dashboard-dialog-title">
+            Confirmation
+        </div>
+        <div class="dashboard-dialog-body">
+            <div class="dashboard-dialog-value">{{ i("transferring") }} <strong>0.01 XMR </strong> {{ i("to") }}:</div>
+            <div class="dashboard-dialog-value-id">45VQuhyqd9J643tL3bgUVQJtFa5P6RiwgWNP3RM3S7</div>
+            <div class="dashboard-dialog-value-id">ndihQLz3ADB5GHV4YUiRHNx8XBztfN2NaPz1SaBeeo6HBdHgrBu7Q</div>
+        </div>
+        <div class="dashboard-dialog-buttons">
+            <button id="button-dialog-cancel" class="btn btn-section">
+                Cancel
+            </button>
+            <button id="button-dialog-send" class="btn btn-orange btn-orange--small">
+                Send
+            </button>
+        </div>
+    </dialog>
+    <script>
+		var dialog = document.getElementById('dialog_send');
+		document.getElementById('button-dialog-cancel').onclick = function() {
+			dialog.close();
+		};
+		document.getElementById('button-dialog-send').onclick = function() {
+			dialog.close();
+		};
+    </script>
+
     <div class="dashboard-panel">
         <div class="dashboard-panel-header">
             <div class="dashboard-panel-header-title">
@@ -157,6 +186,7 @@
             }
             $("#sendpaymentbutton").one('click', function(event) {
                 event.preventDefault();
+                //dashboardShowModal('#dialog_send');
                 account_timeout = new Date().getTime();
                 if(sendpaymentenabled == false)
                 {

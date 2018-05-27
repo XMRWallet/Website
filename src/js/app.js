@@ -1,3 +1,4 @@
+window.dialogPolyfill = require('../../node_modules/dialog-polyfill/dialog-polyfill');
 window.$ = window.jQuery = require('./jquery.js');
 window.select2 = require('./select2.js')(window.$);
 
@@ -29,6 +30,17 @@ function formatState (state) {
 		'<span class="select2-flags"><img src="' + baseUrl + '/' + state.element.value.toLowerCase() + '.png" class="img-flag" /> ' + state.text + '</span>'
 	);
 	return $state;
+};
+
+window.dashboardShowModal = function dashboardShowModal(selector) {
+	var dialogs = $(selector);
+	if(!dialogs.length) {
+		return;
+	}
+	var dialog = dialogs[0];
+	dialogPolyfill.registerDialog(dialog);
+
+	dialog.showModal();
 };
 
 $(function() {

@@ -196,6 +196,62 @@ input:focus:-ms-input-placeholder { color:transparent; }
 		}
 	}
 
+	.dashboard-dialog {
+		width: auto;
+		height: auto;
+
+		padding: 40px;
+		max-width: 512px;
+		background: #FFFFFF;
+		box-shadow: 0 10px 25px 0 rgba(71,78,93,0.30);
+		border-radius: 5px;
+		border: 0;
+
+		&::backdrop, & + .backdrop {
+			background-color: rgba(71,78,93,0.50);
+		}
+
+		.dashboard-dialog-title {
+			text-align: center;
+			font-size: 20px;
+			color: #474E5D;
+			margin-bottom: 19px;
+		}
+
+		.dashboard-dialog-value {
+			text-align: center;
+			font-size: 14px;
+			color: #474E5D;
+
+			line-height: 26px;
+			margin-bottom: 2px;
+
+			span {
+				opacity: 0.7;
+			}
+
+			strong {
+				font-family: $font-family-roboto-bold;
+			}
+		}
+
+		.dashboard-dialog-value-id {
+			font-size: 14px;
+			color: #474E5D;
+			text-align: center;
+			line-height: 26px;
+		}
+
+		.dashboard-dialog-buttons {
+			text-align: center;
+			margin-top: 22px;
+
+			.btn {
+				margin: 0 15px;
+			}
+		}
+	}
+
 	.dashboard-menu {
 		overflow: hidden;
 		overflow-y: auto;
