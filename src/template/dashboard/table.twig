@@ -30,19 +30,77 @@
         </div>
     </div>
     <div class="dashboard-panel-body">
+        <div class="table-horizontal-scroll">
         <table class="table table-offset">
             <thead>
             <tr>
                 <td>Date</td>
                 <td class="column-transaction">{{ i("table_transaction_id") }}</td>
-                <td>Confirmations</td>
+                <td>Confirm.</td>
                 <td class="column-right">{{ i("table_value_xmr") }}</td>
             </tr>
             </thead>
             <tbody id="txdata">
+
+            <tr class="data-status--checking">
+                <td data-label="Date received" data-i18n-key="table_date_received" data-i18n-name="data-label">
+                    <div class="data-received">12.10.2017, 12:02:20</div>
+                </td>
+                <td data-label="Transaction ID" data-i18n-key="table_transaction_id" data-i18n-name="data-label">
+                    <div class="data-id">4837d9bacb6665a24de01b88811035bcf4d47036b1ea5353138c8da7764dad46</div>
+                </td>
+                <td data-label="Mixin" data-i18n-key="table_mixin" data-i18n-name="data-label">
+                    <div class="data-mixin">1/4</div>
+                </td>
+                <td data-label="Value XMR" data-i18n-key="table_value_xmr" data-i18n-name="data-label" class="column-right">
+                    <div class="data-value">+0.857483930000</div>
+                </td>
+            </tr>
+            <tr class="data-status--pending">
+                <td data-label="Date received" data-i18n-key="table_date_received" data-i18n-name="data-label">
+                    <div class="data-received">12.10.2017, 12:02:20</div>
+                </td>
+                <td data-label="Transaction ID" data-i18n-key="table_transaction_id" data-i18n-name="data-label">
+                    <div class="data-id">4837d9bacb6665a24de01b88811035bcf4d47036b1ea5353138c8da7764dad46</div>
+                </td>
+                <td data-label="Mixin" data-i18n-key="table_mixin" data-i18n-name="data-label">
+                    <div class="data-mixin">Pending</div>
+                </td>
+                <td data-label="Value XMR" data-i18n-key="table_value_xmr" data-i18n-name="data-label" class="column-right">
+                    <div class="data-value">+10.857483930000</div>
+                </td>
+            </tr>
+            <tr class="data-status--received">
+                <td data-label="Date received" data-i18n-key="table_date_received" data-i18n-name="data-label">
+                    <div class="data-received">12.10.2017, 12:02:20</div>
+                </td>
+                <td data-label="Transaction ID" data-i18n-key="table_transaction_id" data-i18n-name="data-label">
+                    <div class="data-id">4837d9bacb6665a24de01b88811035bcf4d47036b1ea5353138c8da7764dad46</div>
+                </td>
+                <td data-label="Mixin" data-i18n-key="table_mixin" data-i18n-name="data-label">
+                    <div class="data-mixin">✔</div>
+                </td>
+                <td data-label="Value XMR" data-i18n-key="table_value_xmr" data-i18n-name="data-label" class="column-right">
+                    <div class="data-value">+10.857483930000</div>
+                </td>
+            </tr>
+            <tr class="data-status--send">
+                <td data-label="Date received" data-i18n-key="table_date_received" data-i18n-name="data-label">
+                    <div class="data-received">12.10.2017, 12:02:20</div>
+                </td>
+                <td data-label="Transaction ID" data-i18n-key="table_transaction_id" data-i18n-name="data-label">
+                    <div class="data-id">4837d9bacb6665a24de01b88811035bcf4d47036b1ea5353138c8da7764dad46</div>
+                </td>
+                <td data-label="Mixin" data-i18n-key="table_mixin" data-i18n-name="data-label">
+                    <div class="data-mixin">✔</div>
+                </td>
+                <td data-label="Value XMR" data-i18n-key="table_value_xmr" data-i18n-name="data-label" class="column-right">
+                    <div class="data-value">-10.857483930000</div>
+                </td>
+            </tr>
+
             </tbody>
         </table>
-        <div class="table-more">
         </div>
         <div class="table-pagination">
             <div class="table-pagination-left">
