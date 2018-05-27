@@ -691,7 +691,8 @@ input:focus:-ms-input-placeholder { color:transparent; }
 
 			.panel-body-qr-image {
 				float: left;
-				width: 168px;
+				width: 175px;
+				margin-right: 40px;
 
 				img {
 					display: block;
@@ -701,7 +702,7 @@ input:focus:-ms-input-placeholder { color:transparent; }
 
 			.panel-body-qr-content {
 				float: left;
-				width: calc(100% - 168px);
+				width: calc(100% - 215px);
 
 				.panel-body-qr-group {
 					@include flex-display();
@@ -716,6 +717,8 @@ input:focus:-ms-input-placeholder { color:transparent; }
 					border: 1px solid #D9DCE7;
 					border-right: 0;
 					padding: 12px 16px 11px;
+					width: 100%;
+					min-height: 151px;
 					@include border-left-radius(5px);
 				}
 

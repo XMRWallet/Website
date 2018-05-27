@@ -33,7 +33,7 @@
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label class="label">{{ i("amount") }} (Optional)</label>
-                        <div class="input-group input-group--monero">
+                        <div class="input-group--monero">
                             <input id="r_xmr" oninput="updatemoneroqrtext(0)" type="text" class="form-control" value=""/>
                             <div class="svg svg--monero-white"></div>
                         </div>
@@ -50,9 +50,20 @@
                 <label class="label">{{ i("label_label") }} (Optional)</label>
                 <input id="r_label" oninput="updatemoneroqrtext(0)" type="text" class="form-control" {{ d("label_label_placeholder", "placeholder") }}/>
             </div>
-            <div id="qr-code-head" style="color: #4E5459; font-size: 12px; font-weight: 500; margin-bottom: 15px; text-align: center;">Use this QR code to receive payments</div>
-            <div id="qrcode"></div>
-            <div id="qr-code-text" style="margin-top: 10px; text-align: center;"></div>
+            <div class="panel-body-qr">
+                <div class="panel-body-qr-image">
+                    <div id="qrcode"></div>
+                </div>
+                <div class="panel-body-qr-content">
+                    <label class="label label-top">{{ i("label_receive_use_qr") }}</label>
+                    <div class="panel-body-qr-group">
+                        <div id="qr-code-text" class="qr-group-text"></div>
+                        <button class="btn btn-group">
+                            <span class="svg svg--copy-white"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
             <script>
             new ClipboardJS('.btn');
             var qrcode = null;

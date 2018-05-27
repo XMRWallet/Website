@@ -108,23 +108,25 @@ textarea {
 	}
 }
 
+.input-group--monero {
+	position: relative;
+
+	.svg {
+		position: absolute;
+		z-index: 2;
+		top: 12px;
+		left: 20px;
+	}
+
+	input[type="text"].form-control {
+		padding-left: 60px;
+	}
+}
+
 .input-group {
 	position: relative;
 	display: table;
 	border-collapse: separate;
-
-	&.input-group--monero {
-		.svg {
-			position: absolute;
-			z-index: 2;
-			top: 12px;
-			left: 20px;
-		}
-
-		.form-control {
-			padding-left: 60px;
-		}
-	}
 }
 
 .input-group .form-control {
