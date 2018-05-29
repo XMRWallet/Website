@@ -16,15 +16,25 @@
     }
     </script>
     
-    <div class="row">
-    <div class="dashboard-panel" style="min-height: 100px;">
-    <div class="dashboard-panel-header">
-        <div class="dashboard-panel-header-title">
-            <span class="svg svg--transacrions-white"></span>
-            <span class="title-text"><span>Donate to XMRWallet: </span><span style="font-size: 10px;">46U48fkNkteDJEWypqHH9NfLWsTNMNFZiRETdVm1Q73234hifuMhqKCAYx3muwWb2955twtpKvUncEdSBWeeX8UL49sAQWo</span></span>
+    <div class="dashboard-panel">
+        <div class="dashboard-panel-header">
+            <div class="dashboard-panel-header-title">
+                <span class="title-text">{{ i("donate_wallet") }}</span>
+            </div>
         </div>
-    </div>
-    </div>
+        <div class="dashboard-panel-body">
+            <div class="form-group">
+                <div class="input-group">
+                    <input type="text" class="form-control" readonly
+                           value="46U48fkNkteDJEWypqHH9NfLWsTNMNFZiRETdVm1Q73234hifuMhqKCAYx3muwWb2955twtpKvUncEdSBWeeX8UL49sAQWo"/>
+                    <div class="input-group-btn">
+                        <button class="btn btn-group">
+                            <span class="svg--copy-white"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     
     <div class="row">
