@@ -34,6 +34,8 @@
 	"table_back": "Back",
 	"table_next": "Next",
 
+	"transferring": "Transferring",
+	"to": "to",
 	"send_funds": "Send funds",
 	"receiver_address": "Receiver Address",
 	"receiver_address_placeholder": "",
@@ -78,6 +80,8 @@
 
 	"terms_of_use": "Terms of Use",
 	"privacy_policy": "Privacy Policy",
+	"github": "Github",
+	"twitter": "Twitter",
 
 	"overview": "Overview",
 	"transactions": "Transactions",
@@ -94,6 +98,7 @@
 	"your_address": "Your address",
 	"payment_status": "Payment status:",
 	"payment_status_value": "Payment not yet received",
+	"donate_wallet": "Donate to XMRWallet",
 
 	"receive_funds": "Receive funds",
 	"receive_funds_qr": "Receive funds via QR-code",

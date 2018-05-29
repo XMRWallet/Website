@@ -30,19 +30,19 @@
         </div>
     </div>
     <div class="dashboard-panel-body">
+        <div class="table-horizontal-scroll">
         <table class="table table-offset">
             <thead>
             <tr>
                 <td>Date</td>
                 <td class="column-transaction">{{ i("table_transaction_id") }}</td>
-                <td>Confirmations</td>
+                <td>Confirm.</td>
                 <td class="column-right">{{ i("table_value_xmr") }}</td>
             </tr>
             </thead>
             <tbody id="txdata">
             </tbody>
         </table>
-        <div class="table-more">
         </div>
         <div class="table-pagination">
             <div class="table-pagination-left">
@@ -201,9 +201,29 @@ function update_transaction_data(data)
         d.setUTCSeconds(parseInt(data[i]['time']));
         if(data[i]['type'] != 'pendingtx')
         {
-            finaltxdata += '<tr>';
-            finaltxdata += '<td style="font-size: 10px;">' + d.toLocaleString() + '</td>';
-            finaltxdata += '<td><a target="_blank" ';
+            var datashowconfirm = data[i]['confirmations'];
+            if(data[i]['type'] == 'in' && datashowconfirm == "10/10")
+            {
+                finaltxdata += '<tr class="data-status--received">';
+            }
+            else if(data[i]['type'] == 'in')
+            {
+                finaltxdata += '<tr class="data-status--checking">';
+            }
+            else if(data[i]['type'] == 'out')
+            {
+                finaltxdata += '<tr class="data-status--send">';
+            }
+            else if(data[i]['type'] == 'pool')
+            {
+                finaltxdata += '<tr class="data-status--pending">';
+            }
+            else if(data[i]['type'] == 'swept')
+            {
+                finaltxdata += '<tr class="data-status--send">';
+            }
+            finaltxdata += '<td data-label="Date received" data-i18n-key="table_date_received" data-i18n-name="data-label"><div class="data-received">' + d.toLocaleString() + '</div></td>';
+            finaltxdata += '<td data-label="Transaction ID" data-i18n-key="table_transaction_id" data-i18n-name="data-label"><div class="data-id"><a target="_blank" ';
             if(data[i]['type'] == 'in')
             {
                 finaltxdata += 'class="payment-received" ';
@@ -234,14 +254,13 @@ function update_transaction_data(data)
             {
                finaltxdata += '<br><span style="font-size: 10px; color: #C9C9C9;">#' + data[i]['payment_id'] + '</span>'; 
             }
-            finaltxdata += '</td>';
-            var datashowconfirm = data[i]['confirmations'];
+            finaltxdata += '</div></td>';
             if(datashowconfirm == "10/10")
             {
                 datashowconfirm = "&#10004;";
             }
-            finaltxdata += '<td>' + datashowconfirm + '</td>';
-            finaltxdata += '<td class="column-right">';
+            finaltxdata += '<td data-label="Mixin" data-i18n-key="table_mixin" data-i18n-name="data-label"><div class="data-mixin">' + datashowconfirm + '</div></td>';
+            finaltxdata += '<td data-label="Value XMR" data-i18n-key="table_value_xmr" data-i18n-name="data-label" class="column-right"><div class="data-value">';
             if(data[i]['type'] == 'in')
             {
                 finaltxdata += '+';
@@ -258,7 +277,7 @@ function update_transaction_data(data)
             {
                 finaltxdata += '-';
             }
-            finaltxdata += moneroBalance(data[i]['amount']) + '</td>';
+            finaltxdata += moneroBalance(data[i]['amount']) + '</div></td>';
             finaltxdata += '</tr>';
         }
         else

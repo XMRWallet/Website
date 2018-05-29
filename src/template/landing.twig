@@ -28,6 +28,9 @@
                             <nav class="landing-nav">
                                 <ul>
                                     <li>
+                                        <a href="#/login.html" class="link"><div class="svg--home"></div></a>
+                                    </li>
+                                    <li>
                                         <a href="#/support.html" class="link">{{ i("support") }}</a>
                                     </li>
                                     <li>
@@ -167,14 +170,21 @@
                     </div>
                     <div class="footer-down">
                         <div class="row">
-                            <div class="col-xs-12 col-sm-4 footer-logo">
+                            <div class="col-xs-12 col-sm-1 footer-logo">
                                 <span class="svg svg--logo-wallet"></span>
                             </div>
-                            <div class="col-xs-12 col-sm-4 footer-links">
+                            <div class="col-xs-12 col-sm-8 footer-links">
+                                <select class="js-select-footer" name="">
+                                    {% for language in languages %}
+                                        <option {{ language.selected ? 'selected' }} value="{{ language.key }}">{{ language.value }}</option>
+                                    {% endfor %}
+                                </select>
                                 <a href="#/terms.html">{{ i("terms_of_use") }}</a>
                                 <a href="#/policy.html">{{ i("privacy_policy") }}</a>
+                                <a target="_blank" href="https://github.com/XMRWallet">{{ i("github") }}</a>
+                                <a target="_blank" href="https://twitter.com/xmrwalletcom">{{ i("twitter") }}</a>
                             </div>
-                            <div class="col-xs-12 col-sm-4 footer-copy">
+                            <div class="col-xs-12 col-sm-2 footer-copy">
                                 <span>© 2018 XMRWALLET.COM</span>
                             </div>
                         </div>

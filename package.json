@@ -11,19 +11,20 @@
 	"devDependencies": {
 		"gulp": "^3.9.1",
 		"gulp-compass-imagehelper": "^1.0.2",
-		"gulp-connect": "^5.0.0",
-		"gulp-sass": "^3.0.0",
+		"gulp-connect": "^5.5.0",
+		"gulp-sass": "^3.2.1",
 		"gulp-sass-image": "^1.0.2",
-		"gulp-sourcemaps": "^2.4.1",
-		"gulp-svgo": "^1.2.5",
+		"gulp-sourcemaps": "^2.6.4",
+		"gulp-svgo": "^1.5.4",
 		"path": "^0.12.7",
-		"run-sequence": "^2.2.0"
+		"run-sequence": "^2.2.1"
 	},
 	"dependencies": {
 		"browserify": "^14.5.0",
 		"del": "^3.0.0",
+		"dialog-polyfill": "^0.4.9",
 		"gulp-concat": "^2.6.1",
-		"gulp-twig": "^1.1.1",
+		"gulp-twig": "^1.2.0",
 		"gulp-uglify": "^3.0.0",
 		"merge-stream": "^1.0.1",
 		"vinyl-buffer": "^1.0.1",

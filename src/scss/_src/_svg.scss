@@ -5,6 +5,15 @@
   background: no-repeat;
 }
 
+.svg--home {
+	@extend .svg;
+	$img: 'home.svg';
+	background-image: inline-image($img);
+	width: image-width($img);
+	height: image-height($img);
+	margin-top: -2px;
+}
+
 .svg--address-white {
   @extend .svg;
   $img: 'address-white.svg';
@@ -361,6 +370,22 @@
 .svg--header-untraceable {
 	@extend .svg;
 	$img: 'header-untraceable.svg';
+	background-image: inline-image($img);
+	width: image-width($img);
+	height: image-height($img);
+}
+
+.svg--status-checked {
+	@extend .svg;
+	$img: 'status-checked.svg';
+	background-image: inline-image($img);
+	width: image-width($img);
+	height: image-height($img);
+}
+
+.svg--status-process {
+	@extend .svg;
+	$img: 'status-process.svg';
 	background-image: inline-image($img);
 	width: image-width($img);
 	height: image-height($img);
