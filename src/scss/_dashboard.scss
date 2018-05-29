@@ -24,7 +24,8 @@ input:focus:-ms-input-placeholder { color:transparent; }
 
 	.table-horizontal-scroll {
 		@media (min-width: $screen-sm-min) {
-			overflow-y: auto;
+			overflow-y: hidden;
+			overflow-x: auto;
 		}
 	}
 
