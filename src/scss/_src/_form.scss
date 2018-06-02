@@ -169,6 +169,19 @@ textarea {
 	border-bottom-left-radius: 0;
 }
 
+.input-group--flex {
+	@include flex-display();
+	@include flex-direction(row);
+
+	.input-group-btn {
+		width: auto;
+
+		button {
+			height: 100%;
+		}
+	}
+}
+
 .btn-group-inline {
 	position: relative;
 	display: inline-block;
