@@ -67,7 +67,7 @@ textarea {
 	select {
 		font-size: 14px;
 
-		padding: 13px 16px 15px;
+		padding: 18px 16px 18px;
 		width: 100%;
 		border: none;
 		box-shadow: none;
@@ -167,6 +167,19 @@ textarea {
 .input-group-btn:last-child > .btn {
 	border-top-left-radius: 0;
 	border-bottom-left-radius: 0;
+}
+
+.input-group--flex {
+	@include flex-display();
+	@include flex-direction(row);
+
+	.input-group-btn {
+		width: auto;
+
+		button {
+			height: 100%;
+		}
+	}
 }
 
 .btn-group-inline {
