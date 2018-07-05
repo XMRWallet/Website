@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>XMRWALLET</title>
+    <title>Monero Web Wallet - Send and Receive Monero Instantly | xmrwallet.com</title>
+    <meta name="description" content="XMRWallet is a web-based interface. It helps you use Monero without running a full Monero node.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/style.css">
     <script>
@@ -185,10 +186,15 @@ function load_page()
         last_timeload++;
         $('#loading-page').hide();
     }).fail(function(){ 
-        if(last_hash != current_hash)
+        if(old_hash != current_hash)
         {
             window.location.hash = old_hash;
             current_hash = old_hash;
+        }
+        else
+        {
+            window.location.hash = "#/login.html";
+            current_hash = location.hash;
         }
         last_timeload++;
         $('#loading-page').hide();

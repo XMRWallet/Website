@@ -11,7 +11,7 @@
             <tr>
                 <td>Date</td>
                 <td class="column-transaction">{{ i("table_transaction_id") }}</td>
-                <td>Confirmations</td>
+                <td>Confirm.</td>
                 <td class="column-right">{{ i("table_value_xmr") }}</td>
             </tr>
             </thead>
@@ -30,7 +30,7 @@
         </div>
     </div>
     <div class="dashboard-panel-body">
-        <div class="table-horizontal-scroll">
+    <div class="table-horizontal-scroll">
         <table class="table table-offset">
             <thead>
             <tr>
@@ -43,7 +43,6 @@
             <tbody id="txdata">
             </tbody>
         </table>
-        </div>
         <div class="table-pagination">
             <div class="table-pagination-left">
                 <a id="page_back" class="apage btn btn-section">{{ i("table_back") }}</a>
@@ -58,6 +57,7 @@
                 <span id="p_n">&nbsp;</span>
             </div>
         </div>
+    </div>
     </div>
 </div>
 {% endif %}
@@ -277,7 +277,14 @@ function update_transaction_data(data)
             {
                 finaltxdata += '-';
             }
-            finaltxdata += moneroBalance(data[i]['amount']) + '</div></td>';
+            if(data[i]['amount'] != -1)
+            {
+                finaltxdata += moneroBalance(data[i]['amount']) + '</div></td>';
+            }
+            else
+            {
+                finaltxdata += 'Error</div></td>';
+            }
             finaltxdata += '</tr>';
         }
         else

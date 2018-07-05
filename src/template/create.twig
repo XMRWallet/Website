@@ -37,6 +37,70 @@
             </div>
         </div>
         <div class="dashboard-panel-body">
+            <script>
+            function findseedlanguage(seed)
+            {
+                if(seed)
+                {
+                    seed_data = seed.split(" ");
+                    if(seed_data.length == 25)
+                    {
+                        found_key = '';
+                        for (var key in mn_words)
+                        {
+                            for(var i = 0; i < seed_data.length; i++)
+                            {
+                                if(mn_words[key].words.indexOf(seed_data[i]) == -1)
+                                {
+                                   break;
+                                }
+                                else
+                                {
+                                   if(i == seed_data.length - 1)
+                                   {
+                                        found_key = key;
+                                        break;
+                                   }
+                                }
+                            }
+                            if(found_key != '')
+                            {
+                                break;
+                            }
+                        }
+                        return found_key;
+                    }
+                    else if(seed_data.length == 13)
+                    {
+                        found_key = '';
+                        for (var key in mn_words)
+                        {
+                            for(var i = 0; i < seed_data.length; i++)
+                            {
+                                if(mn_words[key].words.indexOf(seed_data[i]) == -1)
+                                {
+                                   break;
+                                }
+                                else
+                                {
+                                   if(i == seed_data.length - 1)
+                                   {
+                                        found_key = key;
+                                        break;
+                                   }
+                                }
+                            }
+                            if(found_key != '')
+                            {
+                                break;
+                            }
+                        }
+                        return found_key;
+                    }
+                }
+                return '';
+            }
+            </script>
             <div class="form-group form-group">
                 <label class="label">{{ i("label_language") }}</label>
                 <div class="select-style">
@@ -108,6 +172,10 @@
                             xmrwallet_address = document.getElementById("public_address").value;
                             xmrwallet_spendkey = document.getElementById("private_spendkey").value;
                             xmrwallet_seed = document.getElementById("private_seed").value;
+                            xmrwallet_realseed = xmrwallet_seed.trim();
+                            var seedlang = findseedlanguage(xmrwallet_realseed);
+                            xmrwallet_realseed = mn_decode(xmrwallet_realseed, seedlang);
+                            main_keys = cnUtil.create_address(xmrwallet_realseed);
                             session_id = returned_data[1];
                             window.location.hash = "#/dashboard.html";
                         }

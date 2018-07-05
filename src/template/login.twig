@@ -107,7 +107,7 @@
             <div class="form-group">
                 <label class="label">{{ i("label_private_login_key") }}</label>
                 <input id="private_seed" type="text" class="form-control"
-                       placeholder="Enter your Seed here"/>
+                       placeholder="Enter your Seed here" autocomplete="off"/>
             </div>
             <div class="form-group form-group-end">
                 <label class="label">{{ i("label_language") }}</label>
@@ -120,16 +120,16 @@
                     </button>
                 </div>
             </div>
-            <input id="public_address" type="hidden" name="address" class="form-control" {{ d("label_your_address_placeholder", "placeholder") }}/>
-            <input id="public_viewkey" type="hidden" name="viewkey" class="form-control" {{ d("label_view_key_placeholder", "placeholder") }}/>
-            <input type="hidden" name="isnew" value="0">
-            <input id="private_spendkey" type="hidden">
+            <input id="public_address" type="hidden" name="address" autocomplete="off" class="form-control" {{ d("label_your_address_placeholder", "placeholder") }}/>
+            <input id="public_viewkey" type="hidden" name="viewkey" autocomplete="off" class="form-control" {{ d("label_view_key_placeholder", "placeholder") }}/>
+            <input type="hidden" name="isnew" value="0" autocomplete="off">
+            <input id="private_spendkey" type="hidden" autocomplete="off">
             <button type="submit" class="btn btn-orange btn-lg">{{ i("button_enter_my_account") }}</button>
             </form>
             <script>
-            function server_error_create()
+            function server_error_create(errormsg)
             {
-                alert("Invalid login information!");
+                alert(errormsg);
                 window.location.hash = "#/login.html";
             }
             $("#login_account").submit(function(e)
@@ -157,33 +157,33 @@
                                 {
                                     try
                                     {
-                                    xmrwallet_viewkey = document.getElementById("public_viewkey").value.trim();
-                                    xmrwallet_address = document.getElementById("public_address").value.trim();
-                                    xmrwallet_spendkey = document.getElementById("private_spendkey").value.trim();
-                                    xmrwallet_seed = document.getElementById("private_seed").value.trim();
-                                    xmrwallet_realseed = xmrwallet_seed.trim();
-                                    var seedlang = findseedlanguage(xmrwallet_realseed);
-                                    xmrwallet_realseed = mn_decode(xmrwallet_realseed, seedlang);
-                                    main_keys = cnUtil.create_address(xmrwallet_realseed);
-                                    session_id = returned_data[1];
-                                    window.location.hash = "#/dashboard.html";
+                                        xmrwallet_viewkey = document.getElementById("public_viewkey").value.trim();
+                                        xmrwallet_address = document.getElementById("public_address").value.trim();
+                                        xmrwallet_spendkey = document.getElementById("private_spendkey").value.trim();
+                                        xmrwallet_seed = document.getElementById("private_seed").value.trim();
+                                        xmrwallet_realseed = xmrwallet_seed.trim();
+                                        var seedlang = findseedlanguage(xmrwallet_realseed);
+                                        xmrwallet_realseed = mn_decode(xmrwallet_realseed, seedlang);
+                                        main_keys = cnUtil.create_address(xmrwallet_realseed);
+                                        session_id = returned_data[1];
+                                        window.location.hash = "#/dashboard.html";
                                     }
                                     catch(e)
                                     {
-                                        server_error_create();
+                                        server_error_create("Invalid Login Information!");
                                     }
                                 }
                                 else
                                 {
-                                    server_error_create();
+                                    server_error_create(returned_data[1]);
                                 }
                             }
                             else
                             {
-                                server_error_create();
+                                server_error_create("Unknown Error, Try again");
                             }
                 }).fail(function(){
-                    server_error_create();
+                    server_error_create("Server Error, Try again later");
                 });
             });
             </script>

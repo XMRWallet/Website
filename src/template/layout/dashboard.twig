@@ -66,8 +66,8 @@
                                                     real_xmr_unlocked_balance = JSBigInt(returned_data[1]);
                                                     if(show_currency == 1)
                                                     {
-                                                        last_xmr_balance = "$" + parseFloat(moneroBalance(real_xmr_balance.subtract(real_xmr_balance_pending).multiply(last_usd_value))).toLocaleString(undefined, {maximumFractionDigits:2});
-                                                        last_xmr_unlocked_balance = "$" + parseFloat(moneroBalance(real_xmr_unlocked_balance.subtract(real_xmr_unlocked_balance_pending).multiply(last_usd_value))).toLocaleString(undefined, {maximumFractionDigits:2}) + " Unlocked";
+                                                        last_xmr_balance = "$" + parseFloat(moneroBalance(real_xmr_balance.subtract(real_xmr_balance_pending).multiply(last_usd_value))).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                                                        last_xmr_unlocked_balance = "$" + parseFloat(moneroBalance(real_xmr_unlocked_balance.subtract(real_xmr_unlocked_balance_pending).multiply(last_usd_value))).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + " Unlocked";
                                                     }
                                                     else
                                                     {
@@ -82,7 +82,7 @@
                                                                                                       
                                                     if(show_currency == 1)
                                                     {
-                                                        last_xmr_balance = "$" + parseFloat(moneroBalance(real_xmr_balance.subtract(real_xmr_balance_pending).multiply(last_usd_value))).toLocaleString(undefined, {maximumFractionDigits:2});
+                                                        last_xmr_balance = "$" + parseFloat(moneroBalance(real_xmr_balance.subtract(real_xmr_balance_pending).multiply(last_usd_value))).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
                                                         last_xmr_unlocked_balance = "USD Balance";
                                                     }
                                                     else
@@ -169,12 +169,25 @@
                                                     {
                                                         var finalkeyimages = {}; 
                                                         finalkeyimages.content = new Array();
+                                                        var donotprocessthis = 0;
                                                         for(var i = 0; i < finaldata.length; i++)
                                                         {
                                                             if(finaldata[i].tx_pubkeys.length > 0)
                                                             {
                                                                 finalkeyimages.content.push({});
-                                                                var image_ret = cnUtil.generate_key_image_helper_rct(main_keys, finaldata[i].tx_pubkeys[0], finaldata[i].m_internal_output_index, finaldata[i].m_mask);
+                                                                var image_ret;
+                                                                
+                                                                try
+                                                                {
+                                                                    image_ret = cnUtil.generate_key_image_helper_rct(main_keys, finaldata[i].tx_pubkeys[0], finaldata[i].m_internal_output_index, finaldata[i].m_mask);
+                                                                }
+                                                                catch(e)
+                                                                {
+                                                                    console.log("trying to get outputs again...");
+                                                                    donotprocessthis = 1;
+                                                                    check_timeout = 1000;
+                                                                    break;
+                                                                }
                                                                 
                                                                 var src_keys = [];
                                                                 src_keys.push(image_ret.in_ephemeral.pub);
@@ -189,7 +202,7 @@
                                                                 break;
                                                             }
                                                         }
-                                                        if(finalkeyimages.content.length == finaldata.length)
+                                                        if(donotprocessthis == 0 && finalkeyimages.content.length == finaldata.length)
                                                         {
                                                             finalsend = JSON.stringify(finalkeyimages);
                                                             

@@ -8,7 +8,7 @@ function update_xmr_value()
     if(session_id)
     {
         $.ajax({
-            url: 'https://min-api.cryptocompare.com/data/price?fsym=XMR&tsyms=USD,BTC',
+            url: 'https://www.xmrwallet.com/getprice.php',
             dataType: 'json'
         }).done(function(response){
                 var obj = response;
@@ -16,8 +16,7 @@ function update_xmr_value()
                 {
                     var currentusdprice = cnUtil.parseMoney(obj['USD'].toString());
                     last_usd_value = currentusdprice.divide('1000000000000');
-					last_xmr_value = "<div class=\"dashboard-current-item\"><span><strong>1 XMR</strong> = $" + obj['USD'] + "</span> USD</div>" +
-						"<div class=\"dashboard-current-item\"><span><strong>1 XMR</strong> = " + obj['BTC'] + " </span>BTC</div>";
+                    last_xmr_value = "<div class=\"dashboard-current-item\"><span><strong>1 XMR</strong> = $" + obj['USD'] + "</span> USD</div>" + "<div class=\"dashboard-current-item\"><span><strong>1 XMR</strong> = " + obj['BTC'] + " </span>BTC</div>";
                     document.getElementById("dashboard-current").innerHTML = last_xmr_value;
                 }
             }).fail(function(){ 

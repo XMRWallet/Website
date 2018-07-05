@@ -77,6 +77,10 @@
                                 {
                                     finalv = 100;
                                 }
+                                else if(((beg / end)*100) >= 99 && ((beg / end)*100) < 100)
+                                {
+                                    finalv = 99;
+                                }
 								setHeightNar(finalv);
                                 var elem2 = document.getElementById("heightbartext");
                                 var sprite = beg === end

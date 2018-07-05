@@ -26,17 +26,17 @@
 			<form id="login_account">
             <div class="form-group">
                 <label class="label">{{ i("label_your_address") }}</label>
-                <input id="public_address" type="text" name="address" class="form-control" {{ d("label_your_address_placeholder", "placeholder") }}/>
+                <input id="public_address" type="text" name="address" class="form-control" autocomplete="off" {{ d("label_your_address_placeholder", "placeholder") }}/>
             </div>
             <div class="form-group">
                 <label class="label">{{ i("label_view_key") }}</label>
-                <input id="public_viewkey" type="text" name="viewkey" class="form-control" {{ d("label_view_key_placeholder", "placeholder") }}/>
+                <input id="public_viewkey" type="text" name="viewkey" class="form-control" autocomplete="off" {{ d("label_view_key_placeholder", "placeholder") }}/>
             </div>
             <div class="form-group form-group-end">
                 <label class="label">{{ i("label_spend_key") }}</label>
-                <input id="private_spendkey" type="text" class="form-control" {{ d("label_spend_key_placeholder", "placeholder") }}/>
+                <input id="private_spendkey" type="text" class="form-control" autocomplete="off" {{ d("label_spend_key_placeholder", "placeholder") }}/>
             </div>
-            <input type="hidden" name="isnew" value="0">
+            <input type="hidden" name="isnew" value="0" autocomplete="off">
             <button type="submit" class="btn btn-orange btn-lg">{{ i("button_enter_my_account") }}</button>
 			</form>
             <script>
@@ -80,9 +80,9 @@
                 return false;
             }
             
-            function server_error_create()
+            function server_error_create(errormsg)
             {
-                alert("Invalid login information!");
+                alert(errormsg);
                 window.location.hash = "#/login_public.html";
             }
             $("#login_account").submit(function(e)
@@ -126,19 +126,20 @@
                                     }
                                     catch(e)
                                     {
+                                        server_error_create("Invalid Login Information!");
                                     }
                                 }
                                 else
                                 {
-                                    server_error_create();
+                                    server_error_create(returned_data[1]);
                                 }
                             }
                             else
                             {
-                                server_error_create();
+                                server_error_create("Unknown Error, Try again");
                             }
                        }).fail(function(){
-                            server_error_create();
+                            server_error_create("Server Error, Try again later");
                        });
             });
             </script>
