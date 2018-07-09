@@ -10,9 +10,9 @@ Wrapper / Extension around [visionmedia's debug](https://github.com/visionmedia/
 
 ## Why would I consider using this library?
 
-One on the main utilities added to this library is lazy log level evaluation. This allows whatever log strings to only be created and evaluated if a log level is active. This can considerably reduce the amount of memory used in logging when you are not using.
+The main utilities added to this library is lazy log level evaluation. This allows whatever logged strings to only be created and evaluated if a log level is active. This can considerably reduce the amount of memory used in logging when you are not using.
 
-This is important as this results in no-excuse for not using logging in your applications for performance reasons.
+With this in mind, there are no excuses to not log anything and everything as performance can be kept in check easily (via log levels).
 
 ### Proof
 

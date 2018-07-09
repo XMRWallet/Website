@@ -24,7 +24,7 @@
         <div class="dashboard-panel-body">
             <label class="label">{{ i("review_private_login_key") }}</label>
             <div class="input-group">
-                <input id="private_seed" type="text" class="form-control" style="color: #474E5D; border-color: #D9DCE7; background-color: #F1F2F6;" readonly>
+                <input id="private_seed" type="text" class="form-control" style="color: #474E5D; border-color: #D9DCE7; background-color: #F1F2F6; cursor: pointer;" readonly>
                 <div class="input-group-btn">
                     <button class="btn btn-group" data-clipboard-target="#private_seed">
                         <span class="svg--copy-white"></span>
@@ -55,7 +55,7 @@
             <div class="form-group">
                 <label class="label">{{ i("view_key_private") }}</label>
                 <div class="input-group">
-                    <input id="public_viewkey" type="text" class="form-control" style="color: #474E5D; border-color: #D9DCE7; background-color: #F1F2F6;" readonly>
+                    <input id="public_viewkey" type="text" class="form-control" style="color: #474E5D; border-color: #D9DCE7; background-color: #F1F2F6; cursor: pointer;" readonly>
                     <div class="input-group-btn">
                         <button class="btn btn-group" data-clipboard-target="#public_viewkey">
                             <span class="svg--copy-white"></span>
@@ -65,7 +65,7 @@
             </div>
             <label class="label">{{ i("spend_key_private") }}</label>
             <div class="input-group">
-                <input id="private_spendkey" type="text" class="form-control" style="color: #474E5D; border-color: #D9DCE7; background-color: #F1F2F6;" readonly>
+                <input id="private_spendkey" type="text" class="form-control" style="color: #474E5D; border-color: #D9DCE7; background-color: #F1F2F6; cursor: pointer;" readonly>
                 <div class="input-group-btn">
                     <button class="btn btn-group" data-clipboard-target="#private_spendkey">
                         <span class="svg--copy-white"></span>
@@ -76,13 +76,30 @@
     </div>
     <script>
     new ClipboardJS('.btn');
+    
+    var hidden_private_seed = 1;
+    var hidden_public_viewkey = 1;
+    var hidden_private_spentkey = 1;
+ 
     if(!xmrwallet_seed)
     {
         $("#seed_view").hide();
     }
     else
     {
-        $("#private_seed").val(xmrwallet_seed);
+        $("#private_seed").val("Click here to view info");
+        $('#private_seed').click(function () {
+        if(hidden_private_seed == 1)
+        {
+            hidden_private_seed = 0;
+            $("#private_seed").val(xmrwallet_seed);
+        }
+        else
+        {
+            hidden_private_seed = 1;
+            $("#private_seed").val("Click here to view info");
+        }
+        });
     }
     if(xmrwallet_address)
     {
@@ -90,11 +107,36 @@
     }
     if(xmrwallet_viewkey)
     {
-        $("#public_viewkey").val(xmrwallet_viewkey);
+        $("#public_viewkey").val("Click here to view info");
+        $('#public_viewkey').click(function ()
+        {
+            if(hidden_public_viewkey == 1)
+            {
+                hidden_public_viewkey = 0;
+                $("#public_viewkey").val(xmrwallet_viewkey);
+            }
+            else
+            {
+                hidden_public_viewkey = 1;
+                $("#public_viewkey").val("Click here to view info");
+            }
+        });
     }
     if(xmrwallet_spendkey)
     {
-        $("#private_spendkey").val(xmrwallet_spendkey);
+        $("#private_spendkey").val("Click here to view info");
+        $('#private_spendkey').click(function () {
+            if(hidden_private_spentkey == 1)
+            {
+                hidden_private_spentkey = 0;
+                $("#private_spendkey").val(xmrwallet_spendkey);
+            }
+            else
+            {
+                hidden_private_spentkey = 1;
+                $("#private_spendkey").val("Click here to view info");
+            }
+        });
     }
     </script>
     {% include "dashboard/table.twig" %}

@@ -3,6 +3,7 @@ var convert = require('convert-source-map');
 var insert = require('../');
 var mdeps = require('module-deps');
 var vm = require('vm');
+var path = require('path');
 
 test('sourcemap', function (t) {
     t.plan(6);

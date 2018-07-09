@@ -1,11 +1,17 @@
 function spawnFactory(_namespace, _debugFabFactory) {
-  var memoize = require('memoizee');
   var namespace = _namespace || '';
   var debugFabFactory = _debugFabFactory;
 
   if(!debugFabFactory){
     debugFabFactory = require('./debugFabFactory')();
   }
+
+  function spawn(ns) {
+    // this is this.debug (from Debugger)
+    var dbg = new Debugger(this.namespace, ns);
+
+    return dbg.debug;
+  };
 
   function Debugger(_base, _ns){
     var base = _base || '';
@@ -15,16 +21,8 @@ function spawnFactory(_namespace, _debugFabFactory) {
     var debug = debugFabFactory(newNs);
 
     this.debug = debug;
-    this.debug.spawn = this.spawn;
+    this.debug.spawn = spawn;
   }
-
-  Debugger.prototype.spawn = function(ns) {
-    var dbg = new Debugger(this.namespace, ns);
-
-    return dbg.debug;
-  };
-
-  Debugger.prototype.spawn = memoize(Debugger.prototype.spawn);
 
   var rootDebug = (new Debugger(namespace)).debug;
 

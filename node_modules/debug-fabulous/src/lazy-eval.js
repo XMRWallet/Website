@@ -16,28 +16,24 @@ function _resolveOutput(func, bindThis) {
   objectAssign(wrapped, func);
 
   return wrapped;
-};
-
+}
 
 function wrapEval(_debug) {
-
   var debugOrig = _debug;
-  var noop = function(){};
 
   function debug(namespace) {
-
+    function noop() {}
     var instance = debugOrig(namespace);
-
-    // if we're not enabled then don't attempt to log anything
-    // if a debug namespace wraps its debug in a closure then it never allocates anything but the function itself
-    if (!instance.enabled){
+    /*
+      If we're not enabled then don't attempt to log anything.
+      Therefore when a  debug namespace wraps its debug in a
+      closure then it never allocates anything but the function itself
+    */
+    if (!instance.enabled) {
       objectAssign(noop, instance);
-      instance = noop;
+      return noop;
     }
-    else {
-      instance = _resolveOutput(instance);
-    }
-    return instance;
+    return _resolveOutput(instance);
   }
 
   var debugMemoized = memoize(debug);
