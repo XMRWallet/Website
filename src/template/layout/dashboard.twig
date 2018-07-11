@@ -43,102 +43,128 @@
                             <script>
                             var current_time = XMR_DATE.getTime();
                             
+                            function update_xmr_balance_helper(data)
+                            {
+                                
+                                var check_timeout = 10000;
+                                var returned_data = [];
+                                if(data != "")
+                                {
+                                    returned_data = data.split(":");
+                                }
+                                else
+                                {
+                                    returned_data.push("!");
+                                    returned_data.push("!");
+                                }
+                                if(returned_data.length == 2)
+                                {
+                                    if(returned_data[0] != returned_data[1])
+                                    {
+                                        real_xmr_balance = JSBigInt(returned_data[0]);
+                                        real_xmr_unlocked_balance = JSBigInt(returned_data[1]);
+                                        if(show_currency == 1)
+                                        {
+                                            last_xmr_balance = "$" + parseFloat(moneroBalance(real_xmr_balance.subtract(real_xmr_balance_pending).multiply(last_usd_value))).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                                            last_xmr_unlocked_balance = "$" + parseFloat(moneroBalance(real_xmr_unlocked_balance.subtract(real_xmr_unlocked_balance_pending).multiply(last_usd_value))).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + " Unlocked";
+                                        }
+                                        else
+                                        {
+                                            last_xmr_balance = (moneroBalance(real_xmr_balance.subtract(real_xmr_balance_pending)) + " XMR");
+                                            last_xmr_unlocked_balance = (moneroBalance(real_xmr_unlocked_balance.subtract(real_xmr_unlocked_balance_pending)) + " Unlocked");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if(returned_data[0] != "!")
+                                        {
+                                            real_xmr_balance = JSBigInt(returned_data[0]);
+                                            real_xmr_unlocked_balance = JSBigInt(returned_data[0]);
+                                        }                                                  
+                                        if(show_currency == 1)
+                                        {
+                                            last_xmr_balance = "$" + parseFloat(moneroBalance(real_xmr_balance.subtract(real_xmr_balance_pending).multiply(last_usd_value))).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                                            last_xmr_unlocked_balance = "USD Balance";
+                                        }
+                                        else
+                                        {
+                                            last_xmr_balance = moneroBalance(real_xmr_balance.subtract(real_xmr_balance_pending));
+                                            last_xmr_unlocked_balance = "XMR Balance";
+                                        }
+                                    }
+                                    var finalshowbalsup = "";
+
+                                    var finalshowbal = last_xmr_balance;
+                                    if(show_currency == 0 && last_xmr_balance.length > 7)
+                                    {
+                                        finalshowbalsup = last_xmr_balance.substr(7);
+                                        finalshowbal = last_xmr_balance.substr(0, 7)  + "<sup class=\"header-balance-pennies\">" + finalshowbalsup + "</sup>";
+                                    }
+                                    if(show_currency == 1)
+                                    {
+                                        if($('#curimg').hasClass('svg--monero-white'))
+                                        {
+                                            $('#curimg').removeClass('svg--monero-white').addClass('svg--usd-white');
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if($('#curimg').hasClass('svg--usd-white'))
+                                        {
+                                            $('#curimg').removeClass('svg--usd-white').addClass('svg--monero-white');
+                                        }
+                                    }
+                                    document.getElementById("xmr_balance").innerHTML = finalshowbal;
+                                    document.getElementById("xmr_unlocked_balance").innerHTML = last_xmr_unlocked_balance;
+                                    last_xmr_bal_init = 1;
+                                }
+                                else
+                                {
+                                    check_timeout = 1000;
+                                }
+                                
+                                return check_timeout;
+                                
+                            }
+                            
                             function update_xmr_balance(timeout)
                             {
-                                xmr_balance_updated_value = XMR_DATE.getTime();
-                                if(session_id && xmr_canget_transactions == 1)
+                                if(timeout == 2)
                                 {
-                                    $.ajax({
-                                        type: "POST",
-                                        url: '/getbalance.php',
-                                        data: {
-                                           session_id: session_id,
-                                        }
-                                    }).done(function(data){
-                                    
-                                            var check_timeout = 10000;
-                                            var returned_data = data.split(":");
-                                            if(returned_data.length == 2)
-                                            {
-                                                if(returned_data[0] != returned_data[1])
-                                                {
-                                                    real_xmr_balance = JSBigInt(returned_data[0]);
-                                                    real_xmr_unlocked_balance = JSBigInt(returned_data[1]);
-                                                    if(show_currency == 1)
-                                                    {
-                                                        last_xmr_balance = "$" + parseFloat(moneroBalance(real_xmr_balance.subtract(real_xmr_balance_pending).multiply(last_usd_value))).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-                                                        last_xmr_unlocked_balance = "$" + parseFloat(moneroBalance(real_xmr_unlocked_balance.subtract(real_xmr_unlocked_balance_pending).multiply(last_usd_value))).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + " Unlocked";
-                                                    }
-                                                    else
-                                                    {
-                                                        last_xmr_balance = (moneroBalance(real_xmr_balance.subtract(real_xmr_balance_pending)) + " XMR");
-                                                        last_xmr_unlocked_balance = (moneroBalance(real_xmr_unlocked_balance.subtract(real_xmr_unlocked_balance_pending)) + " Unlocked");
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    real_xmr_balance = JSBigInt(returned_data[0]);
-                                                    real_xmr_unlocked_balance = JSBigInt(returned_data[0]);
-                                                                                                      
-                                                    if(show_currency == 1)
-                                                    {
-                                                        last_xmr_balance = "$" + parseFloat(moneroBalance(real_xmr_balance.subtract(real_xmr_balance_pending).multiply(last_usd_value))).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-                                                        last_xmr_unlocked_balance = "USD Balance";
-                                                    }
-                                                    else
-                                                    {
-                                                        last_xmr_balance = moneroBalance(real_xmr_balance.subtract(real_xmr_balance_pending));
-                                                        last_xmr_unlocked_balance = "XMR Balance";
-                                                    }
-                                                }
-                                                var finalshowbalsup = "";
- 
-                                                var finalshowbal = last_xmr_balance;
-                                                if(show_currency == 0 && last_xmr_balance.length > 7)
-                                                {
-                                                    finalshowbalsup = last_xmr_balance.substr(7);
-                                                    finalshowbal = last_xmr_balance.substr(0, 7)  + "<sup class=\"header-balance-pennies\">" + finalshowbalsup + "</sup>";
-                                                }
-                                                if(show_currency == 1)
-                                                {
-                                                    if($('#curimg').hasClass('svg--monero-white'))
-                                                    {
-                                                        $('#curimg').removeClass('svg--monero-white').addClass('svg--usd-white');
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    if($('#curimg').hasClass('svg--usd-white'))
-                                                    {
-                                                        $('#curimg').removeClass('svg--usd-white').addClass('svg--monero-white');
-                                                    }
-                                                }
-                                                document.getElementById("xmr_balance").innerHTML = finalshowbal;
-                                                document.getElementById("xmr_unlocked_balance").innerHTML = last_xmr_unlocked_balance;
-                                                last_xmr_bal_init = 1;
+                                    update_xmr_balance_helper("");
+                                }
+                                else
+                                {
+                                    xmr_balance_updated_value = XMR_DATE.getTime();
+                                    if(session_id && xmr_canget_transactions == 1)
+                                    {
+                                        $.ajax({
+                                            type: "POST",
+                                            url: '/getbalance.php',
+                                            data: {
+                                               session_id: session_id,
                                             }
-                                            else
-                                            {
-                                                check_timeout = 1000;
-                                            }
+                                        }).done(function(data){
+                                                var check_timeout = update_xmr_balance_helper(data);
+                                                if(timeout == 1)
+                                                {
+                                                    setTimeout(function(){ update_xmr_balance(1) }, check_timeout);
+                                                }
+                                                
+                                        }).fail(function()
+                                        {
                                             if(timeout == 1)
                                             {
-                                                setTimeout(function(){ update_xmr_balance(1) }, check_timeout);
+                                                setTimeout(function(){ update_xmr_balance(1) }, 1000);
                                             }
-                                            
-                                    }).fail(function()
+                                        });
+                                    }
+                                    else
                                     {
                                         if(timeout == 1)
                                         {
                                             setTimeout(function(){ update_xmr_balance(1) }, 1000);
                                         }
-                                    });
-                                }
-                                else
-                                {
-                                    if(timeout == 1)
-                                    {
-                                        setTimeout(function(){ update_xmr_balance(1) }, 1000);
                                     }
                                 }
                             }
