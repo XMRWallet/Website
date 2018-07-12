@@ -31,7 +31,7 @@
                         </div>
                     </div>
                     {% if isShowBalance != false %}
-                        <div class="header-balance">
+                        <div id="xmrbal_full" class="header-balance" style="cursor:pointer;">
                             <div id="xmrbal_logo" class="header-balance-logo" style="cursor:pointer;">
                                 <span id="curimg" class="svg svg--monero-white"></span>
                             </div>
@@ -169,9 +169,10 @@
                                 }
                             }
                             
-                            $("#xmr_balance").unbind().click(function(){ if(show_currency == 0 && last_usd_value.compare("0") > 0){ show_currency = 1; }else{ show_currency = 0; } update_xmr_balance(0); });
-                            $("#xmr_unlocked_balance").unbind().click(function(){ if(show_currency == 0 && last_usd_value.compare("0") > 0){ show_currency = 1; }else{ show_currency = 0; } update_xmr_balance(0); });
-                            $("#xmrbal_logo").unbind().click(function(){ if(show_currency == 0 && last_usd_value.compare("0") > 0){ show_currency = 1; }else{ show_currency = 0; } update_xmr_balance(0); });
+                            //$("#xmr_balance").unbind().click(function(){ if(show_currency == 0 && last_usd_value.compare("0") > 0){ show_currency = 1; }else{ show_currency = 0; } update_xmr_balance(0); });
+                            //$("#xmr_unlocked_balance").unbind().click(function(){ if(show_currency == 0 && last_usd_value.compare("0") > 0){ show_currency = 1; }else{ show_currency = 0; } update_xmr_balance(0); });
+                            //$("#xmrbal_logo").unbind().click(function(){ if(show_currency == 0 && last_usd_value.compare("0") > 0){ show_currency = 1; }else{ show_currency = 0; } update_xmr_balance(0); });
+                            $("#xmrbal_full").unbind().click(function(){ if(show_currency == 0 && last_usd_value.compare("0") > 0){ show_currency = 1; }else{ show_currency = 0; } update_xmr_balance(2); });
                             function update_xmr_outputs()
                             {
                                 if(session_id)

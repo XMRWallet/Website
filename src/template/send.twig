@@ -16,15 +16,15 @@
         window.location.href = "https://www.xmrwallet.com";
     }
     </script>
-
+    
     <dialog id="dialog_send" class="dashboard-dialog">
         <div class="dashboard-dialog-title">
             Confirmation
         </div>
         <div class="dashboard-dialog-body">
-            <div class="dashboard-dialog-value">{{ i("transferring") }} <strong>0.01 XMR </strong> {{ i("to") }}:</div>
-            <div class="dashboard-dialog-value-id">45VQuhyqd9J643tL3bgUVQJtFa5P6RiwgWNP3RM3S7</div>
-            <div class="dashboard-dialog-value-id">ndihQLz3ADB5GHV4YUiRHNx8XBztfN2NaPz1SaBeeo6HBdHgrBu7Q</div>
+            <div class="dashboard-dialog-value">{{ i("transferring") }} <strong id="confirm_xmr"></strong> XMR {{ i("to") }}:</div>
+            <div class="dashboard-dialog-value-id" id="confirm_address" style="word-wrap: break-word; color: #D95700;"></div>
+            <div class="dashboard-dialog-value-id" id="confirm_pid" style="word-wrap: break-word; color: #A1A1A1; font-size: 12px;"></div>
         </div>
         <div class="dashboard-dialog-buttons">
             <button id="button-dialog-cancel" class="btn btn-section">
@@ -35,16 +35,7 @@
             </button>
         </div>
     </dialog>
-    <script>
-		var dialog = document.getElementById('dialog_send');
-		document.getElementById('button-dialog-cancel').onclick = function() {
-			dialog.close();
-		};
-		document.getElementById('button-dialog-send').onclick = function() {
-			dialog.close();
-		};
-    </script>
-
+    
     <div class="dashboard-panel">
         <div class="dashboard-panel-header">
             <div class="dashboard-panel-header-title">
@@ -61,18 +52,155 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label class="label">{{ i("amount") }}</label>
+                        <label class="label">XMR Amount</label>
                         <div class="input-group input-group--monero">
-                            <input id="send_xmr" oninput="setsendingmax(0)" type="text" class="form-control" value="0"/>
-                            <div class="svg svg--monero-white"></div>
+                            <input id="send_xmr" oninput="setsendingmaxxmr(0)" type="text" class="form-control" placeholder="0"/>
+                            <div class="svg svg--monero-white" style="margin-top: 2px;"></div>
                             <div class="input-group-btn">
                                 <button id="xmr_max" class="btn btn-group btn-group--text">{{ i("max") }}</button>
                                 <script>
                                 var sending_max = 0;
                                 var sending_max_fees = JSBigInt('0');
+                                var last_xmr_send = "0";
+                                var last_usd_send = "0";
                                 function setsendingmax(val)
                                 {
                                     sending_max = val;
+                                }
+                                function setsendingmaxxmr(val)
+                                {
+                                    sending_max = val;
+                                    var check_amount = $("#send_xmr").val();
+                                    var check_amount_valid = 1;
+                                    var total_dots = 0;
+                                    if(check_amount.length == 0)
+                                    {
+                                        last_xmr_send = "0";
+                                        last_usd_send = "0";
+                                        $("#send_xmr").val("");
+                                        $("#send_usd").val("");
+                                    }
+                                    else if(check_amount.length >= 16 && val == 0)
+                                    {
+                                        if(check_amount.length < last_xmr_send.length)
+                                        {
+                                            last_xmr_send = $("#send_xmr").val();
+                                            var lastChar = last_xmr_send.substr(last_xmr_send.length - 1);
+                                            if(lastChar == '.')
+                                            {
+                                                last_xmr_send = last_xmr_send.substring(0, last_xmr_send.length - 1);
+                                                $("#send_xmr").val(last_xmr_send);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            check_amount_valid = 0;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        for(var v = 0; v < check_amount.length; v++)
+                                        {
+                                            if(check_amount[v] >= '0' && check_amount[v] <= '9')
+                                            {
+                                                
+                                            }
+                                            else if(check_amount[v] == '.')
+                                            {
+                                                if(total_dots == 0)
+                                                {
+                                                    total_dots++;
+                                                }
+                                                else
+                                                {
+                                                    check_amount_valid = 0;
+                                                    break;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                check_amount_valid = 0;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    if(check_amount_valid == 0)
+                                    {
+                                        $("#send_xmr").val(last_xmr_send);
+                                        $("#send_usd").val(last_usd_send);
+                                    }
+                                    else
+                                    {
+                                        last_xmr_send = $("#send_xmr").val();
+                                        last_usd_send = parseFloat(last_xmr_send * last_usd_value).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}).replace(/,/g, "");
+                                        $("#send_usd").val(last_usd_send);
+                                    }
+                                }
+                                function setsendingmaxusd(val)
+                                {
+                                    sending_max = val;
+                                    var check_amount = $("#send_usd").val();
+                                    var check_amount_valid = 1;
+                                    var total_dots = 0;
+                                    if(check_amount.length == 0)
+                                    {
+                                        check_amount_valid = 0;
+                                    }
+                                    else if(check_amount.length >= 16 && val == 0)
+                                    {
+                                        if(check_amount.length < last_usd_send.length)
+                                        {
+                                            last_usd_send = $("#send_usd").val();
+                                            var lastChar = last_usd_send.substr(last_usd_send.length - 1);
+                                            if(lastChar == '.')
+                                            {
+                                                last_usd_send = last_usd_send.substring(0, last_usd_send.length - 1);
+                                                $("#send_usd").val(last_usd_send);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            check_amount_valid = 0;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        for(var v = 0; v < check_amount.length; v++)
+                                        {
+                                            if(check_amount[v] >= '0' && check_amount[v] <= '9')
+                                            {
+                                                
+                                            }
+                                            else if(check_amount[v] == '.')
+                                            {
+                                                if(total_dots == 0)
+                                                {
+                                                    total_dots++;
+                                                }
+                                                else
+                                                {
+                                                    check_amount_valid = 0;
+                                                    break;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                check_amount_valid = 0;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    if(check_amount_valid == 0)
+                                    {
+                                        $("#send_xmr").val(last_xmr_send);
+                                        $("#send_usd").val(last_usd_send);
+                                    }
+                                    else
+                                    {
+                                        last_usd_send = $("#send_usd").val();
+                                        last_xmr_send = parseFloat(last_usd_send / last_usd_value).toString();
+                                        $("#send_xmr").val(last_xmr_send);
+                                    }
                                 }
                                 $("#xmr_max").unbind().click(function(event) {
                                    event.preventDefault();
@@ -120,6 +248,10 @@
                                                 sending_max_fees = required_fee;
                                             }
                                             $("#send_xmr").val(moneroBalance(showfinalbal));
+                                            if(sending_max == 1)
+                                            {
+                                                setsendingmaxxmr(1);
+                                            }
                                         }
                                         
                                         }).fail(function(){
@@ -147,8 +279,23 @@
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
+                        <label class="label">USD Amount</label>
+                        <div class="input-group input-group--monero" style="width: 100%;">
+                            <input id="send_usd" oninput="setsendingmaxusd(0)" type="text" class="form-control" placeholder="0"/>
+                            <div class="svg svg--usd-white" style="margin-top: 2px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
                         <label class="label">{{ i("label_payment_id") }}</label>
                         <input id="send_payment_id" type="text" class="form-control" placeholder="e.g. 473a2db4afec7bb0f89fac3a917ae5632763272f9..." }}/>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
                     </div>
                 </div>
             </div>
@@ -169,11 +316,6 @@
             </div>
             -->
             <button id="sendpaymentbutton" class="btn btn-orange btn-lg" style="margin-top: 20px;">{{ i("button_send_payment") }}</button>
-            <div id="confirmBox">
-                <div class="message"></div>
-                <button class="yes">Yes</button>
-                <button class="no">No</button>
-            </div>
             <script>
             sendpaymentenabled = true;
             function sendpayment(){
@@ -186,7 +328,6 @@
             }
             $("#sendpaymentbutton").one('click', function(event) {
                 event.preventDefault();
-                //dashboardShowModal('#dialog_send');
                 account_timeout = new Date().getTime();
                 if(sendpaymentenabled == false)
                 {
@@ -582,47 +723,28 @@
                             }
                        }
                        
-                        function doConfirm(msg, yesFn, noFn)
-                        {
-                            var confirmBox = $("#confirmBox");
-                            confirmBox.find(".message").text(msg);
-                            confirmBox.find(".yes,.no").unbind().click(function()
-                            {
-                                confirmBox.hide();
-                            });
-                            confirmBox.find(".yes").click(yesFn);
-                            confirmBox.find(".no").click(noFn);
-                            confirmBox.show();
-                        }
-                        
-                        function doConfirm(msg, yesFn, noFn)
-                        {
-                            var confirmBox = $("#confirmBox");
-                            confirmBox.find(".message").text(msg);
-                            confirmBox.find(".yes,.no").unbind().click(function()
-                            {
-                                confirmBox.hide();
-                            });
-                            confirmBox.find(".yes").click(yesFn);
-                            confirmBox.find(".no").click(noFn);
-                            confirmBox.show();
-                        }
-                       
-                       confirm_msg = "Are you sure you want to send " + $("#send_xmr").val().trim() + " Monero to " + $("#send_address").val().trim();
+                       var dialog = document.getElementById('dialog_send');
+                       document.getElementById('button-dialog-cancel').onclick = function() {
+                            sendpayment();
+                            dialog.close();
+                       };
+                       document.getElementById('button-dialog-send').onclick = function() {
+                            processpayment1(data);
+                            dialog.close();
+                       };
+
+                       $("#confirm_xmr").html($("#send_xmr").val().trim());
+                       $("#confirm_address").html($("#send_address").val().trim());
                        if(transaction_payment_id)
                        {
-                          confirm_msg += " #" + transaction_payment_id;
+                          $("#confirm_pid").html("#" + transaction_payment_id);
+                       }
+                       else
+                       {
+                          $("#confirm_pid").html("");
                        }
                        
-                       confirm_msg += "?";
-                       
-                       doConfirm(confirm_msg, function()
-                       {
-                            processpayment1(data);
-                       }, function()
-                       {
-                            sendpayment();
-                       });
+                       dashboardShowModal('#dialog_send');
      
                 }).fail(function()
                 {
