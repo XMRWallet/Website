@@ -221,3 +221,14 @@ a.payment-pool:visited {
     line-height: 1;
     color: #000;
 }
+
+@media print {
+    @page {
+        size: auto; 
+        margin: 0; 
+    }
+
+    #printdiv { display: block !important; -webkit-print-color-adjust: exact !important; color-adjust: exact !important; }
+    #printdiv_header {  display: block !important; background-image: linear-gradient(135deg, #383F4D 0%, #6E7686 100%) !important; text-align:center; height: 50px; padding-top:10px; -webkit-print-color-adjust: exact !important; color-adjust: exact !important; }
+    #maindashboard { display: none; }
+} 

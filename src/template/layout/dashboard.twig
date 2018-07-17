@@ -1,4 +1,36 @@
-<div class="dashboard">
+{% if page_name == "create" %}
+<div id="printdiv" style="display: none;">
+  <div id="printdiv_header">
+      <div class="dashboard-menu-logo">
+        <div class="svg--logo-wallet"></div>
+      </div>
+  </div>
+  <p readonly="" id="private_seed_print" style="color: #474E5D; border-color: #D9DCE7; background-color: #F1F2F6; padding: 30px; font-size: 20px; font-family: Arial, Helvetica, sans-serif;"></p>
+  <div class="dashboard">
+      <div class="dashboard-body-content">
+          <div class="dashboard-panel">
+            <div class="dashboard-panel-header">
+                <div class="dashboard-panel-header-title">
+                    <span class="svg svg--key-white"></span>
+                    <span class="title-text"><span>Important Information</span></span>
+                </div>
+            </div>
+            <div class="dashboard-panel-body">
+                <div class="form-group form-group" style="font-family: 'Roboto-Regular', sans-serif;">
+                    <ul>
+                        <li>Store your printed seed in a safe place.</li>
+                        <li>Seeds cannot be recovered if lost. Ever.</li>
+                        <li>Login with your seed by going to www.xmrwallet.com</li>
+                        <li>If you require any assistance please email support@xmrwallet.com</li>
+                    </ul>
+                </div>
+            </div>
+          </div>
+      </div>
+  </div>
+</div>
+{% endif %}
+<div {% if page_name == "create" %}id="maindashboard" {% endif %}class="dashboard">
     <div class="dashboard-menu close">
         <div class="dashboard-menu-logo">
 		{% if isLogin != false %}
