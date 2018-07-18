@@ -35,6 +35,7 @@
             <div class="dashboard-panel-header-title">
                 <span class="svg svg--key-white"></span>
                 <span class="title-text">{{ i("panel_private_login_key") }}</span>
+                <button id="newseedgen" class="btn" style="margin-left: 3px; float:right; font-family: 'Roboto-Bold', sans-serif; font-size: 12px; letter-spacing: 1px; color: #FFF; padding: 5px 5px 5px; background: #31B3EB; border: 0; border-radius: 5px;" onclick="generatenewseed($('#selseedlang').val());"><span>Generate new seed</span></button>
             </div>
         </div>
         <div class="dashboard-panel-body">
@@ -105,7 +106,7 @@
             <div class="form-group form-group">
                 <label class="label">{{ i("label_language") }}</label>
                 <div class="select-style">
-                    <select onchange="generatenewseed_select(this)">
+                    <select id="selseedlang" onchange="generatenewseed_select(this)">
                         <option value="english" selected>English</option>
                         <option value="esperanto">Esperanto</option>
                         <option value="lojban">Lojban</option>
