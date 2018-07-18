@@ -144,7 +144,10 @@
                                     var total_dots = 0;
                                     if(check_amount.length == 0)
                                     {
-                                        check_amount_valid = 0;
+                                        last_xmr_send = "0";
+                                        last_usd_send = "0";
+                                        $("#send_xmr").val("");
+                                        $("#send_usd").val("");
                                     }
                                     else if(check_amount.length >= 16 && val == 0)
                                     {
