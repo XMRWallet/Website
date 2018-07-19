@@ -101,7 +101,7 @@ var last_timeloadx = 0;
 
 var account_timeout = new Date().getTime();
 
-setInterval(function(){ if(session_id != ''){ var currenttimetimeout = new Date().getTime(); if(currenttimetimeout >= account_timeout + 1800000){  window.location.href = "https://www.xmrwallet.com";  } } }, 1000);
+setInterval(function(){ if(session_id != ''){ var currenttimetimeout = new Date().getTime(); if(currenttimetimeout >= account_timeout + 1800000){  window.location.href = "/";  } } }, 1000);
 
 var old_hash = '';
 var current_hash = location.hash;

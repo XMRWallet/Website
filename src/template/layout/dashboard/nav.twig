@@ -8,7 +8,7 @@ function update_xmr_value()
     if(session_id)
     {
         $.ajax({
-            url: 'https://www.xmrwallet.com/getprice.php',
+            url: 'getprice.php',
             dataType: 'json'
         }).done(function(response){
                 var obj = response;
