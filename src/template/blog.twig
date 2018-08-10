@@ -1,0 +1,62 @@
+{% set page_name = "blog" %}
+{% set isShowBalance = false %}
+{% set isLogin = false %}
+{% set page_title = "Blog | xmrwallet.com" %}
+
+{% extends "layout/dashboard.twig" %}
+
+{% block title %}{{ i("title_blog") }}{% endblock %}
+{% block subtitle %}25{{ i("title_sub_blog") }}{% endblock %}
+
+{% block content %}
+    <script>document.title = "{{ page_title }}";</script>
+
+    <div class="blog">
+        <div class="row blog-item">
+            <div class="col-xs-12 col-sm-4">
+                <img src="/i/blog/posts/1/cover@2x.jpg" class="blog-cover">
+            </div>
+            <div class="col-xs-12 col-sm-8">
+                <div class="blog-created">July 24, 2018</div>
+                <a href="#" class="blog-title">Bitcoin ETF: It's Getting Hot in Here</a>
+                <div class="blog-text">
+                    Everyone who is even remotely interested in cryptocurrencies, has its gaze fixed on the SEC
+                    (The U.S. Securities and Exchange Commission) in these past couple of days. For those of you
+                    who have been living under a rock lately.
+                </div>
+                <div class="blog-more"><a href="#">Read more</a></div>
+            </div>
+        </div>
+        <div class="row blog-item">
+            <div class="col-xs-12 col-sm-4">
+                <img src="/i/blog/posts/2/cover@2x.jpg" class="blog-cover">
+            </div>
+            <div class="col-xs-12 col-sm-8">
+                <div class="blog-created">July 24, 2018</div>
+                <a href="#" class="blog-title">Cryptoeconomics Is Just Economics, Says Vitalik
+                    one two three</a>
+                <div class="blog-text">
+                    Everyone who is even remotely interested in cryptocurrencies, has its gaze fixed on the SEC
+                    (The U.S. Securities and Exchange Commission) in these past couple of days. For those of you
+                    who have been living under a rock lately.
+                </div>
+                <div class="blog-more"><a href="#">Read more</a></div>
+            </div>
+        </div>
+        <div class="row blog-item">
+            <div class="col-xs-12 col-sm-4">
+                <img src="/i/blog/posts/3/cover@2x.jpg" class="blog-cover">
+            </div>
+            <div class="col-xs-12 col-sm-8">
+                <div class="blog-created">July 24, 2018</div>
+                <a href="#" class="blog-title">Bitcoin ETF: It's Getting Hot in Here</a>
+                <div class="blog-text">
+                    Everyone who is even remotely interested in cryptocurrencies, has its gaze fixed on the SEC
+                    (The U.S. Securities and Exchange Commission) in these past couple of days. For those of you
+                    who have been living under a rock lately.
+                </div>
+                <div class="blog-more"><a href="#">Read more</a></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

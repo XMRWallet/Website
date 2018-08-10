@@ -1,0 +1,16 @@
+<svg width="20px" height="22px" viewBox="0 0 20 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.1 (57501) - http://www.bohemiancoding.com/sketch -->
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Dashboard_Blog01" transform="translate(-34.000000, -256.000000)" fill="#FFFFFF" fill-rule="nonzero">
+            <g id="Header">
+                <g id="Blog" transform="translate(0.000000, 239.000000)">
+                    <g transform="translate(34.000000, 17.000000)" id="Combined-Shape">
+                        <path d="M3,0 L17,0 C18.6568542,-3.04359188e-16 20,1.34314575 20,3 L20,19 C20,20.6568542 18.6568542,22 17,22 L3,22 C1.34314575,22 2.02906125e-16,20.6568542 0,19 L0,3 C-2.02906125e-16,1.34314575 1.34314575,3.04359188e-16 3,0 Z M3,2 C2.44771525,2 2,2.44771525 2,3 L2,19 C2,19.5522847 2.44771525,20 3,20 L17,20 C17.5522847,20 18,19.5522847 18,19 L18,3 C18,2.44771525 17.5522847,2 17,2 L3,2 Z M5,12 L15,12 L15,14 L5,14 L5,12 Z M5,8 L15,8 L15,10 L5,10 L5,8 Z M5,4 L15,4 L15,6 L5,6 L5,4 Z M5,16 L12,16 L12,18 L5,18 L5,16 Z"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

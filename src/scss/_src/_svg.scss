@@ -182,6 +182,14 @@
   height: image-height($img);
 }
 
+.svg--blog {
+  @extend .svg;
+  $img: 'blog.svg';
+  background-image: inline-image($img);
+  width: image-width($img);
+  height: image-height($img);
+}
+
 .svg--support-white {
   @extend .svg;
   $img: 'support-white.svg';

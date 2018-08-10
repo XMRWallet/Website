@@ -1,0 +1,280 @@
+{% if isShowBalance != false %}
+    <div id="xmrbal_full" class="header-balance" style="cursor:pointer;">
+        <div id="xmrbal_logo" class="header-balance-logo" style="cursor:pointer;">
+            <span id="curimg" class="svg svg--monero-white"></span>
+        </div>
+        <div class="header-balance-hr"></div>
+        <div class="header-balance-current">
+            <div id="xmr_balance" class="header-balance-count" style="cursor:pointer;"><div class="wave"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div id="xmr_unlocked_balance" class="header-balance-desc" style="cursor:pointer;">XMR Balance</div>
+        </div>
+        <script>
+			var current_time = XMR_DATE.getTime();
+
+			function update_xmr_balance_helper(data)
+			{
+
+				var check_timeout = 10000;
+				var returned_data = [];
+				if(data != "")
+				{
+					returned_data = data.split(":");
+				}
+				else
+				{
+					returned_data.push("!");
+					returned_data.push("!");
+				}
+				if(returned_data.length == 2)
+				{
+					if(returned_data[0] != returned_data[1])
+					{
+						real_xmr_balance = JSBigInt(returned_data[0]);
+						real_xmr_unlocked_balance = JSBigInt(returned_data[1]);
+						if(show_currency == 1)
+						{
+							last_xmr_balance = "$" + parseFloat(moneroBalance(real_xmr_balance.subtract(real_xmr_balance_pending).multiply(last_usd_value))).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+							last_xmr_unlocked_balance = "$" + parseFloat(moneroBalance(real_xmr_unlocked_balance.subtract(real_xmr_unlocked_balance_pending).multiply(last_usd_value))).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + " Unlocked";
+						}
+						else
+						{
+							last_xmr_balance = (moneroBalance(real_xmr_balance.subtract(real_xmr_balance_pending)) + " XMR");
+							last_xmr_unlocked_balance = (moneroBalance(real_xmr_unlocked_balance.subtract(real_xmr_unlocked_balance_pending)) + " Unlocked");
+						}
+					}
+					else
+					{
+						if(returned_data[0] != "!")
+						{
+							real_xmr_balance = JSBigInt(returned_data[0]);
+							real_xmr_unlocked_balance = JSBigInt(returned_data[0]);
+						}
+						if(show_currency == 1)
+						{
+							last_xmr_balance = "$" + parseFloat(moneroBalance(real_xmr_balance.subtract(real_xmr_balance_pending).multiply(last_usd_value))).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+							last_xmr_unlocked_balance = "USD Balance";
+						}
+						else
+						{
+							last_xmr_balance = moneroBalance(real_xmr_balance.subtract(real_xmr_balance_pending));
+							last_xmr_unlocked_balance = "XMR Balance";
+						}
+					}
+					var finalshowbalsup = "";
+
+					var finalshowbal = last_xmr_balance;
+					if(show_currency == 0 && last_xmr_balance.length > 7)
+					{
+						finalshowbalsup = last_xmr_balance.substr(7);
+						finalshowbal = last_xmr_balance.substr(0, 7)  + "<sup class=\"header-balance-pennies\">" + finalshowbalsup + "</sup>";
+					}
+					if(show_currency == 1)
+					{
+						if($('#curimg').hasClass('svg--monero-white'))
+						{
+							$('#curimg').removeClass('svg--monero-white').addClass('svg--usd-white');
+						}
+					}
+					else
+					{
+						if($('#curimg').hasClass('svg--usd-white'))
+						{
+							$('#curimg').removeClass('svg--usd-white').addClass('svg--monero-white');
+						}
+					}
+					document.getElementById("xmr_balance").innerHTML = finalshowbal;
+					document.getElementById("xmr_unlocked_balance").innerHTML = last_xmr_unlocked_balance;
+					last_xmr_bal_init = 1;
+				}
+				else
+				{
+					check_timeout = 1000;
+				}
+
+				return check_timeout;
+
+			}
+
+			function update_xmr_balance(timeout)
+			{
+				if(timeout == 2)
+				{
+					update_xmr_balance_helper("");
+				}
+				else
+				{
+					xmr_balance_updated_value = XMR_DATE.getTime();
+					if(session_id && xmr_canget_transactions == 1)
+					{
+						$.ajax({
+							type: "POST",
+							url: '/getbalance.php',
+							data: {
+								session_id: session_id,
+							}
+						}).done(function(data){
+							var check_timeout = update_xmr_balance_helper(data);
+							if(timeout == 1)
+							{
+								setTimeout(function(){ update_xmr_balance(1) }, check_timeout);
+							}
+
+						}).fail(function()
+						{
+							if(timeout == 1)
+							{
+								setTimeout(function(){ update_xmr_balance(1) }, 1000);
+							}
+						});
+					}
+					else
+					{
+						if(timeout == 1)
+						{
+							setTimeout(function(){ update_xmr_balance(1) }, 1000);
+						}
+					}
+				}
+			}
+
+			//$("#xmr_balance").unbind().click(function(){ if(show_currency == 0 && last_usd_value.compare("0") > 0){ show_currency = 1; }else{ show_currency = 0; } update_xmr_balance(0); });
+			//$("#xmr_unlocked_balance").unbind().click(function(){ if(show_currency == 0 && last_usd_value.compare("0") > 0){ show_currency = 1; }else{ show_currency = 0; } update_xmr_balance(0); });
+			//$("#xmrbal_logo").unbind().click(function(){ if(show_currency == 0 && last_usd_value.compare("0") > 0){ show_currency = 1; }else{ show_currency = 0; } update_xmr_balance(0); });
+			$("#xmrbal_full").unbind().click(function(){ if(show_currency == 0 && last_usd_value.compare("0") > 0){ show_currency = 1; }else{ show_currency = 0; } update_xmr_balance(2); });
+			function update_xmr_outputs()
+			{
+				if(session_id)
+				{
+					$.ajax({
+						type: "POST",
+						url: '/getoutputs.php',
+						data: {
+							session_id: session_id,
+						}
+					}).done(function(data){
+
+						var check_timeout = 60000;
+
+						if(data != "0")
+						{
+							if(data != "1")
+							{
+								var finaldata = JSON.parse(data);
+								if(finaldata)
+								{
+									var finalkeyimages = {};
+									finalkeyimages.content = new Array();
+									var donotprocessthis = 0;
+									for(var i = 0; i < finaldata.length; i++)
+									{
+										if(finaldata[i].tx_pubkeys.length > 0)
+										{
+											finalkeyimages.content.push({});
+											var image_ret;
+
+											try
+											{
+												image_ret = cnUtil.generate_key_image_helper_rct(main_keys, finaldata[i].tx_pubkeys[0], finaldata[i].m_internal_output_index, finaldata[i].m_mask);
+											}
+											catch(e)
+											{
+												console.log("trying to get outputs again...");
+												donotprocessthis = 1;
+												check_timeout = 1000;
+												break;
+											}
+
+											var src_keys = [];
+											src_keys.push(image_ret.in_ephemeral.pub);
+											var sig_ret = cnUtil.generate_ring_signature(image_ret.image, image_ret.image, src_keys, image_ret.in_ephemeral.sec, 0);
+
+											finalkeyimages.content[finalkeyimages.content.length-1].key_image = image_ret.image;
+											finalkeyimages.content[finalkeyimages.content.length-1].signature = sig_ret;
+										}
+										else
+										{
+											console.log("invalid transactions, please contact support");
+											break;
+										}
+									}
+									if(donotprocessthis == 0 && finalkeyimages.content.length == finaldata.length)
+									{
+										finalsend = JSON.stringify(finalkeyimages);
+
+										$.ajax({
+											url: '/updateoutputs.php',
+											type: 'POST',
+											data: { session_id: session_id,
+												keys : finalsend }
+										}).done(function(data){}).fail(function(){ console.log("failed to update outputs"); });
+									}
+								}
+								else
+								{
+									check_timeout = 1000;
+								}
+							}
+						}
+						else
+						{
+							check_timeout = 1000;
+						}
+
+						setTimeout(update_xmr_outputs, check_timeout);
+
+					}).fail(function()
+					{
+						setTimeout(update_xmr_outputs, 1000);
+					});
+				}
+				else
+				{
+					setTimeout(update_xmr_outputs, 1000);
+				}
+			}
+
+			if(xmr_alreadyupdating_balance == 0)
+			{
+				xmr_alreadyupdating_balance = 1;
+				update_xmr_balance(1);
+			}
+			else
+			{
+				if(last_xmr_bal_init == 1)
+				{
+					var finalshowbalsup = "";
+
+					var finalshowbal = last_xmr_balance;
+					if(show_currency == 0 && last_xmr_balance.length > 7)
+					{
+						finalshowbalsup = last_xmr_balance.substr(7);
+						finalshowbal = last_xmr_balance.substr(0, 7)  + "<sup class=\"header-balance-pennies\">" + finalshowbalsup + "</sup>";
+					}
+					if(show_currency == 1)
+					{
+						if($('#curimg').hasClass('svg--monero-white'))
+						{
+							$('#curimg').removeClass('svg--monero-white').addClass('svg--usd-white');
+						}
+					}
+					else
+					{
+						if($('#curimg').hasClass('svg--usd-white'))
+						{
+							$('#curimg').removeClass('svg--usd-white').addClass('svg--monero-white');
+						}
+					}
+					document.getElementById("xmr_balance").innerHTML = finalshowbal;
+					document.getElementById("xmr_unlocked_balance").innerHTML = last_xmr_unlocked_balance;
+				}
+			}
+
+			if(xmr_alreadyupdating_outputs == 0)
+			{
+				xmr_alreadyupdating_outputs = 1;
+				update_xmr_outputs();
+			}
+
+        </script>
+    </div>
+{% endif %}
