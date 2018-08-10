@@ -22,10 +22,15 @@
 		color: #474E5D;
 	}
 	.blog-title {
+		display: block;
 		font-size: 22px;
 		line-height: 28px;
 		color: #474E5D;
 		margin-bottom: 14px;
+
+		&:hover {
+			opacity: 0.7;
+		}
 	}
 	.blog-text {
 		opacity: 0.7;
