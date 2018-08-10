@@ -23,6 +23,8 @@
 	"title_login": "That was simple. Your Account is ready!",
 	"title_sub_login": "Already have an account?",
 	"title_link_login": "Login to your existing Monero account.",
+	"title_blog": "Blog",
+	"title_sub_blog": " posts in blog",
 
 	"table_transaction_history": "Transaction history",
 	"table_transaction_id": "Transaction ID",
@@ -89,6 +91,7 @@
 	"receive": "Receive",
 	"account": "Account",
 	"support": "Support",
+	"blog": "Blog",
 	"quit": "Quit",
 	"view": "View",
 
