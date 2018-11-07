@@ -201,9 +201,9 @@
                                 }
                             }
                             
-                            //$("#xmr_balance").unbind().click(function(){ if(show_currency == 0 && last_usd_value.compare("0") > 0){ show_currency = 1; }else{ show_currency = 0; } update_xmr_balance(0); });
-                            //$("#xmr_unlocked_balance").unbind().click(function(){ if(show_currency == 0 && last_usd_value.compare("0") > 0){ show_currency = 1; }else{ show_currency = 0; } update_xmr_balance(0); });
-                            //$("#xmrbal_logo").unbind().click(function(){ if(show_currency == 0 && last_usd_value.compare("0") > 0){ show_currency = 1; }else{ show_currency = 0; } update_xmr_balance(0); });
+                            //$("#xmr_balance").unbind().click(function(){ if(show_currency == 0 && last_usd_value.compare("0") > 0){ show_currency = 1; }else{ show_currency = 0; } update_xmr_balance(2); });
+                            //$("#xmr_unlocked_balance").unbind().click(function(){ if(show_currency == 0 && last_usd_value.compare("0") > 0){ show_currency = 1; }else{ show_currency = 0; } update_xmr_balance(2); });
+                            //$("#xmrbal_logo").unbind().click(function(){ if(show_currency == 0 && last_usd_value.compare("0") > 0){ show_currency = 1; }else{ show_currency = 0; } update_xmr_balance(2); });
                             $("#xmrbal_full").unbind().click(function(){ if(show_currency == 0 && last_usd_value.compare("0") > 0){ show_currency = 1; }else{ show_currency = 0; } update_xmr_balance(2); });
                             function update_xmr_outputs()
                             {
@@ -218,68 +218,85 @@
                                     }).done(function(data){
                                     
                                             var check_timeout = 60000;
-                                            
-                                            if(data != "0")
+                                           
+                                            try
                                             {
-                                                if(data != "1")
+                                                
+                                                if(data != "0")
                                                 {
-                                                    var finaldata = JSON.parse(data);
-                                                    if(finaldata)
+                                                    if(data != "1")
                                                     {
-                                                        var finalkeyimages = {}; 
-                                                        finalkeyimages.content = new Array();
-                                                        var donotprocessthis = 0;
-                                                        for(var i = 0; i < finaldata.length; i++)
+                                                        var finaldata = JSON.parse(data);
+                                                        if(finaldata)
                                                         {
-                                                            if(finaldata[i].tx_pubkeys.length > 0)
+                                                            var finalkeyimages = {}; 
+                                                            finalkeyimages.content = new Array();
+                                                            var donotprocessthis = 0;
+                                                            for(var i = 0; i < finaldata.length; i++)
                                                             {
-                                                                finalkeyimages.content.push({});
-                                                                var image_ret;
-                                                                
-                                                                try
+                                                                if(finaldata[i] != null)
                                                                 {
-                                                                    image_ret = cnUtil.generate_key_image_helper_rct(main_keys, finaldata[i].tx_pubkeys[0], finaldata[i].m_internal_output_index, finaldata[i].m_mask);
+                                                                    if(typeof finaldata[i].tx_pubkeys !== 'undefined' && finaldata[i].tx_pubkeys.length > 0)
+                                                                    {
+                                                                        finalkeyimages.content.push({});
+                                                                        var image_ret;
+                                                                        
+                                                                        try
+                                                                        {
+                                                                            image_ret = cnUtil.generate_key_image_helper_rct(main_keys, finaldata[i].tx_pubkeys[0], finaldata[i].m_internal_output_index, finaldata[i].m_mask);
+                                                                        }
+                                                                        catch(e)
+                                                                        {
+                                                                            console.log("trying to get outputs again...");
+                                                                            donotprocessthis = 1;
+                                                                            check_timeout = 1000;
+                                                                            break;
+                                                                        }
+                                                                        
+                                                                        var src_keys = [];
+                                                                        src_keys.push(image_ret.in_ephemeral.pub);
+                                                                        var sig_ret = cnUtil.generate_ring_signature(image_ret.image, image_ret.image, src_keys, image_ret.in_ephemeral.sec, 0);
+                                                                        
+                                                                        finalkeyimages.content[finalkeyimages.content.length-1].key_image = image_ret.image;
+                                                                        finalkeyimages.content[finalkeyimages.content.length-1].signature = sig_ret;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        console.log("invalid transactions, please contact support");
+                                                                        break;
+                                                                    }
                                                                 }
-                                                                catch(e)
+                                                                else
                                                                 {
-                                                                    console.log("trying to get outputs again...");
-                                                                    donotprocessthis = 1;
-                                                                    check_timeout = 1000;
+                                                                    console.log("invalid transactions, please contact support");
                                                                     break;
                                                                 }
                                                                 
-                                                                var src_keys = [];
-                                                                src_keys.push(image_ret.in_ephemeral.pub);
-                                                                var sig_ret = cnUtil.generate_ring_signature(image_ret.image, image_ret.image, src_keys, image_ret.in_ephemeral.sec, 0);
-                                                                
-                                                                finalkeyimages.content[finalkeyimages.content.length-1].key_image = image_ret.image;
-                                                                finalkeyimages.content[finalkeyimages.content.length-1].signature = sig_ret;
                                                             }
-                                                            else
+                                                            if(donotprocessthis == 0 && finalkeyimages.content.length == finaldata.length)
                                                             {
-                                                                console.log("invalid transactions, please contact support");
-                                                                break;
+                                                                finalsend = JSON.stringify(finalkeyimages);
+                                                                
+                                                                $.ajax({
+                                                                    url: '/updateoutputs.php',
+                                                                    type: 'POST',
+                                                                    data: { session_id: session_id,
+                                                                            keys : finalsend }
+                                                                }).done(function(data){}).fail(function(){ console.log("failed to update outputs"); });
                                                             }
                                                         }
-                                                        if(donotprocessthis == 0 && finalkeyimages.content.length == finaldata.length)
+                                                        else
                                                         {
-                                                            finalsend = JSON.stringify(finalkeyimages);
-                                                            
-                                                            $.ajax({
-                                                                url: '/updateoutputs.php',
-                                                                type: 'POST',
-                                                                data: { session_id: session_id,
-                                                                        keys : finalsend }
-                                                            }).done(function(data){}).fail(function(){ console.log("failed to update outputs"); });
+                                                            check_timeout = 1000;
                                                         }
-                                                    }
-                                                    else
-                                                    {
-                                                        check_timeout = 1000;
                                                     }
                                                 }
+                                                else
+                                                {
+                                                    check_timeout = 1000;
+                                                }
                                             }
-                                            else
+                                            catch(e)
                                             {
                                                 check_timeout = 1000;
                                             }
@@ -375,7 +392,7 @@
 
                   gtag('config', 'UA-116766241-1');
                 </script>
-                <div class="dashboard-footer-copy">© 2018 XMRWALLET.COM</div>
+                <div class="dashboard-footer-copy">© 2018 XMRWALLET.COM <span style="position: relative; color: #fff; left: 3px; font-size: 12px; font-weight: bold; background-color: #383F4D; padding: 6px;">v0.13.0.4</span></div>
             </div>
         </div>
     </div>

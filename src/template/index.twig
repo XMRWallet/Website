@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Monero Web Wallet - Send and Receive Monero Instantly | xmrwallet.com</title>
+    <title>Monero Web Wallet - Send and Receive Monero Instantly | xmrwallet.com</title> 
     <meta name="description" content="XMRWallet is a web-based interface. It helps you use Monero without running a full Monero node.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/style.css">
@@ -40,10 +40,38 @@
 </head>
 <body>
 <div id="loading-page" style="display: none;"></div>
+<dialog id="dialog_info" class="dashboard-dialog" style="width: 550px; padding: 40px; -webkit-box-shadow: 16px 16px 47px 2px rgba(0,0,0,.07); box-shadow: 16px 16px 47px 2px rgba(0,0,0,.07); border: 0;">
+    <div class="dashboard-dialog-title" style="text-align: center; font-size: 25px; font-weight: bold;">
+        Welcome to XMRWallet
+    </div>
+    <div class="dashboard-dialog-body">
+        <div class="dashboard-dialog-value" style="margin-top: 20px;">XMRWallet is an open-source, client-side, free web wallet which allows you to send and receive Monero instantly on the blockchain. All while remaining in control of your coins & your keys.</div>
+        <div class="dashboard-dialog-value" style="margin-top: 10px;">When you generate a new wallet, login, send or receive Monero, everything happens locally in your browser. Your seed is never transmitted, received or stored. That's why its imperative to write, print or save your seed somewhere safe. If you lose your seed, your account cannot be recovered.</div>
+        <div class="dashboard-dialog-value" style="margin-top: 10px;">Simply generate a new wallet or login with:</div>
+        <div class="dashboard-dialog-value" style="margin-top: 5px;">&#x2714; Your original seed</div>
+        <div class="dashboard-dialog-value">&#x2714; Your paper wallet seed</div>
+        <div class="dashboard-dialog-value">&#x2714; Your 13 word seed</div>
+        <div class="dashboard-dialog-value">&#x2714; Your 25 word seed</div>
+        <div class="dashboard-dialog-value" style="margin-top: 20px;">* Import seed sync approx. 25 minutes</div>
+        <div class="dashboard-dialog-value">* New wallets can be used immediately</div>
+    </div>
+    <div class="dashboard-dialog-buttons" style="margin-top: 20px;">
+        <button id="button-dialog-ok" class="btn btn-orange btn-orange--small" style="width: 100%; font-family: &quot;Roboto-Bold&quot;, sans-serif;">
+            DISMISS
+        </button>
+    </div>
+</dialog>
 <div id="content">
 
 </div>
 <script src="/js/app.js"></script>
+<script>
+var dialog = document.getElementById('dialog_info');
+document.getElementById('button-dialog-ok').onclick = function() {
+    dialog.close();
+};
+dashboardShowModal('#dialog_info');
+</script>
 <script>
 
 var version = 0.1;
@@ -73,6 +101,7 @@ var transactions_updated_value = 0;
 
 var show_currency = 0;
 var last_usd_value = new JSBigInt(0);
+var last_usd_value_real = 0.0;
 var last_xmr_value = '';
 var last_xmr_bal_init = 0;
 var last_xmr_balance = '<div class="wave"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>';
@@ -101,7 +130,7 @@ var last_timeloadx = 0;
 
 var account_timeout = new Date().getTime();
 
-setInterval(function(){ if(session_id != ''){ var currenttimetimeout = new Date().getTime(); if(currenttimetimeout >= account_timeout + 1800000){  window.location.href = "/";  } } }, 1000);
+setInterval(function(){ if(session_id != ''){ var currenttimetimeout = new Date().getTime(); if(currenttimetimeout >= account_timeout + 3600000){  window.location.href = "/";  } } }, 1000);
 
 var old_hash = '';
 var current_hash = location.hash;
@@ -213,6 +242,7 @@ function load_page()
             window.location.hash = "#/login.html";
             current_hash = location.hash;
         }
+        
         last_timeload++;
         $('#loading-page').hide();
     });

@@ -131,9 +131,17 @@
                                     }
                                     else
                                     {
-                                        last_xmr_send = $("#send_xmr").val();
-                                        last_usd_send = parseFloat(last_xmr_send * last_usd_value).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}).replace(/,/g, "");
-                                        $("#send_usd").val(last_usd_send);
+                                        if(last_usd_value_real)
+                                        {
+                                            last_xmr_send = $("#send_xmr").val();
+                                            last_usd_send = (parseFloat(last_xmr_send)*last_usd_value_real).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}).replace(/,/g, "");
+                                            $("#send_usd").val(last_usd_send);
+                                        }
+                                        else
+                                        {
+                                            $("#send_xmr").val(last_xmr_send);
+                                            $("#send_usd").val(last_usd_send);
+                                        }
                                     }
                                 }
                                 function setsendingmaxusd(val)
@@ -200,9 +208,17 @@
                                     }
                                     else
                                     {
-                                        last_usd_send = $("#send_usd").val();
-                                        last_xmr_send = parseFloat(last_usd_send / last_usd_value).toString();
-                                        $("#send_xmr").val(last_xmr_send);
+                                        if(last_usd_value_real)
+                                        {
+                                            last_usd_send = $("#send_usd").val();
+                                            last_xmr_send = (parseFloat(last_usd_send) / last_usd_value_real).toString();
+                                            $("#send_xmr").val(last_xmr_send);
+                                        }
+                                        else
+                                        {
+                                            $("#send_xmr").val(last_xmr_send);
+                                            $("#send_usd").val(last_usd_send);
+                                        }
                                     }
                                 }
                                 $("#xmr_max").unbind().click(function(event) {
@@ -220,26 +236,12 @@
                                         if(data == "0")
                                         {
                                             alert("Failed to get Fees info. Try again later...");
-                                            /*
-                                            var fee_per_kb = JSBigInt('188100000');
-                                            var required_fee = fee_per_kb.multiply(13);
-                                            newfee = JSBigInt(Math.ceil(cnUtil.estimateRctSize(30, 40, 2) / 1024)).multiply(fee_per_kb);
-                                            required_fee = newfee;
-                                            
-                                            var showfinalbal = real_xmr_unlocked_balance.subtract(real_xmr_unlocked_balance_pending).subtract(required_fee);
-                                            if(showfinalbal.compare("0") < 0)
-                                            {
-                                                showfinalbal = JSBigInt("0");
-                                            }
-                                            $("#send_xmr").val(moneroBalance(showfinalbal));
-                                            */
                                         }
                                         else
                                         {
                                             var fee_per_kb = JSBigInt(data);
-                                            var required_fee = fee_per_kb.multiply(13);
-                                            newfee = JSBigInt(Math.ceil(cnUtil.estimateRctSize(30, 40, 2) / 1024)).multiply(fee_per_kb);
-                                            required_fee = newfee;
+                                            var required_fee = fee_per_kb.multiply(2);
+                                            required_fee = JSBigInt(cnUtil.estimate_tx_size(1, 1, 10, 2, 0, 1) / 1024).multiply(required_fee);
                                             var showfinalbal = real_xmr_unlocked_balance.subtract(real_xmr_unlocked_balance_pending).subtract(required_fee);
                                             if(showfinalbal.compare("0") < 0)
                                             {
@@ -259,18 +261,6 @@
                                         
                                         }).fail(function(){
                                         
-                                            /*
-                                            var fee_per_kb = JSBigInt('188100000');
-                                            var required_fee = fee_per_kb.multiply(13);
-                                            newfee = JSBigInt(Math.ceil(cnUtil.estimateRctSize(30, 40, 2) / 1024)).multiply(fee_per_kb);
-                                            required_fee = newfee;
-                                            var showfinalbal = real_xmr_unlocked_balance.subtract(real_xmr_unlocked_balance_pending).subtract(required_fee);
-                                            if(showfinalbal.compare("0") < 0)
-                                            {
-                                                showfinalbal = JSBigInt("0");
-                                            }
-                                            $("#send_xmr").val(moneroBalance(showfinalbal));
-                                            */
                                             alert("Failed to get Fees info. Try again later...");
                                             
                                             });
@@ -378,7 +368,7 @@
 
                 if(transaction_mixin == "1")
                 {
-                    transaction_mixin = 6;
+                    transaction_mixin = 10;
                 }
                 else if(transaction_mixin == "2")
                 {
@@ -491,7 +481,7 @@
                                 var fee_per_kb = JSBigInt(output_data[0]);
                                 var rct = true;
                                 
-                                var required_fee = rct ? fee_per_kb.multiply(13) : fee_per_kb;
+                                var required_fee = rct ? fee_per_kb.multiply(2) : fee_per_kb;
                                 
                                 if(sending_max == 1)
                                 {
@@ -526,7 +516,7 @@
 
                                 if (output_using.length > 1 && rct)
                                 {
-                                    var newfee = JSBigInt(Math.ceil(cnUtil.estimateRctSize(output_using.length, transaction_mixin, 2) / 1024)).multiply(fee_per_kb);
+                                    var newfee = JSBigInt(cnUtil.estimate_tx_size(1, 1, transaction_mixin, output_using.length, 0, 1) / 1024).multiply(fee_per_kb);
                                     if(sending_max == 1)
                                     {
                                         if(sending_max_fees.compare(newfee) > 0)
@@ -540,7 +530,7 @@
                                         var out = pop_random_value(unspent_outputs);
                                         output_using.push(out);
                                         output_amount = output_amount.add(out.m_amount);
-                                        newfee = JSBigInt(Math.ceil(cnUtil.estimateRctSize(output_using.length, transaction_mixin, 2) / 1024)).multiply(fee_per_kb);
+                                        newfee = JSBigInt(cnUtil.estimate_tx_size(1, 1, transaction_mixin, output_using.length, 0, 1) / 1024).multiply(fee_per_kb);
                                         if(sending_max == 1)
                                         {
                                             if(sending_max_fees.compare(newfee) > 0)
