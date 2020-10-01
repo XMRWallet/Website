@@ -1,4 +1,4 @@
-More information coming soon!
+More information coming soon! Stay tuned
 
 Website: https://www.xmrwallet.com/#/landing.html
 
@@ -10,3 +10,5 @@ Build:
 2. Install NPM https://docs.npmjs.com/getting-started/installing-node
 3. Terminal: npm install
 4. Terminal: gulp build
+
+Thanks for using our services!
