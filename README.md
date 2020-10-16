@@ -10,3 +10,5 @@ Build:
 2. Install NPM https://docs.npmjs.com/getting-started/installing-node
 3. Terminal: npm install
 4. Terminal: gulp build
+
+Thank You!
