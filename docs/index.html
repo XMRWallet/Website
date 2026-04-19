@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    />
+    <title>xmrwallet.com — Important Update</title>
+    <meta
+        name="description"
+        content="An important update from xmrwallet.com. Thank you for your support since 2018. Recovery instructions, Tor access, and FAQ."
+    />
+    <style>
+        :root {
+            --bg: #060606;
+            --bg2: #0e0e11;
+            --panel: rgba(18, 18, 22, 0.92);
+            --panel2: rgba(24, 24, 30, 0.96);
+            --text: #f7f4ef;
+            --muted: #c5bdb1;
+            --soft: #978d82;
+            --line: rgba(255, 255, 255, 0.08);
+            --line-strong: rgba(255, 102, 0, 0.26);
+            --orange: #ff6600;
+            --orange2: #ff944d;
+            --orange3: #ffd1b3;
+            --green: #63e6a1;
+            --green-bg: rgba(99, 230, 161, 0.12);
+            --shadow: 0 24px 80px rgba(0, 0, 0, 0.46);
+            --radius-xl: 28px;
+            --radius-lg: 22px;
+            --radius-md: 16px;
+            --max: 1160px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            color: var(--text);
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system,
+                BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+                sans-serif;
+            line-height: 1.7;
+            background:
+                radial-gradient(
+                    900px 500px at 10% 0%,
+                    rgba(255, 102, 0, 0.18),
+                    transparent 60%
+                ),
+                radial-gradient(
+                    700px 420px at 90% 10%,
+                    rgba(255, 148, 77, 0.10),
+                    transparent 60%
+                ),
+                radial-gradient(
+                    900px 700px at 50% 100%,
+                    rgba(255, 102, 0, 0.07),
+                    transparent 65%
+                ),
+                linear-gradient(180deg, #030303 0%, #080808 45%, #0e0e11 100%);
+            overflow-x: hidden;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .wrap {
+            width: min(var(--max), calc(100% - 32px));
+            margin: 0 auto;
+        }
+
+        .space {
+            height: 28px;
+        }
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--line);
+            border-radius: var(--radius-xl);
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(255, 255, 255, 0.04),
+                    rgba(255, 255, 255, 0.015)
+                ),
+                var(--panel);
+            box-shadow: var(--shadow);
+            padding: 38px;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background:
+                radial-gradient(
+                    720px 260px at 0% 0%,
+                    rgba(255, 102, 0, 0.20),
+                    transparent 70%
+                ),
+                radial-gradient(
+                    420px 220px at 100% 0%,
+                    rgba(255, 148, 77, 0.08),
+                    transparent 70%
+                );
+        }
+
+        .hero-grid {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1.35fr 0.95fr;
+            gap: 24px;
+            align-items: stretch;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 18px;
+            padding: 10px 14px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.035);
+            color: var(--orange3);
+            font-size: 0.92rem;
+            letter-spacing: 0.02em;
+        }
+
+        .eyebrow-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: linear-gradient(180deg, var(--orange2), var(--orange));
+            box-shadow: 0 0 18px rgba(255, 102, 0, 0.55);
+        }
+
+        h1 {
+            margin: 0 0 18px;
+            font-size: clamp(2.4rem, 5vw, 5rem);
+            line-height: 1.02;
+            letter-spacing: -0.05em;
+        }
+
+        h2 {
+            margin: 0 0 12px;
+            font-size: 1.3rem;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+
+        h3 {
+            margin: 0 0 10px;
+            font-size: 1.08rem;
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+        }
+
+        p {
+            margin: 0;
+            color: var(--muted);
+        }
+
+        p + p {
+            margin-top: 12px;
+        }
+
+        .lead {
+            font-size: clamp(1.04rem, 1.15vw, 1.16rem);
+            max-width: 64ch;
+        }
+
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 28px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 50px;
+            padding: 13px 18px;
+            border-radius: 14px;
+            font-weight: 800;
+            transition: transform 0.18s ease, background 0.18s ease,
+                border-color 0.18s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .btn-primary {
+            color: #fff;
+            background: linear-gradient(180deg, var(--orange2), var(--orange));
+            box-shadow: 0 14px 36px rgba(255, 102, 0, 0.28);
+        }
+
+        .btn-secondary {
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .hero-note {
+            margin-top: 22px;
+            padding: 16px 18px;
+            border-radius: 16px;
+            border: 1px solid var(--line-strong);
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(255, 102, 0, 0.10),
+                    rgba(255, 102, 0, 0.04)
+                );
+            color: #fff0e4;
+            font-weight: 600;
+        }
+
+        .side {
+            display: grid;
+            gap: 16px;
+        }
+
+        .card {
+            border: 1px solid var(--line);
+            border-radius: var(--radius-lg);
+            background: var(--panel2);
+            box-shadow: var(--shadow);
+            padding: 22px;
+        }
+
+        .status {
+            position: relative;
+            overflow: hidden;
+            border-color: rgba(99, 230, 161, 0.20);
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(99, 230, 161, 0.06),
+                    rgba(99, 230, 161, 0.02)
+                ),
+                var(--panel2);
+        }
+
+        .status::after {
+            content: "";
+            position: absolute;
+            right: -70px;
+            bottom: -70px;
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            background: radial-gradient(
+                circle,
+                rgba(99, 230, 161, 0.16) 0%,
+                transparent 72%
+            );
+            pointer-events: none;
+        }
+
+        .status-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            margin-bottom: 10px;
+            color: #cff7e2;
+            font-size: 0.92rem;
+            font-weight: 800;
+            letter-spacing: 0.02em;
+        }
+
+        .pulse {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--green);
+            box-shadow: 0 0 0 rgba(99, 230, 161, 0.45);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(99, 230, 161, 0.55);
+            }
+            70% {
+                box-shadow: 0 0 0 14px rgba(99, 230, 161, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(99, 230, 161, 0);
+            }
+        }
+
+        .tor-box {
+            margin-top: 16px;
+            padding: 16px;
+            border-radius: 16px;
+            border: 1px solid rgba(99, 230, 161, 0.24);
+            background: var(--green-bg);
+        }
+
+        .tor-title {
+            margin: 0 0 8px;
+            color: #dafbe9;
+            font-size: 0.84rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-weight: 900;
+        }
+
+        .onion {
+            color: #f7fff9;
+            word-break: break-word;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+                "Liberation Mono", "Courier New", monospace;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .copy-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            margin-top: 12px;
+        }
+
+        .copy-btn {
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.06);
+            color: #fff;
+            border-radius: 12px;
+            padding: 10px 14px;
+            font-weight: 700;
+            transition: transform 0.18s ease, background 0.18s ease;
+        }
+
+        .copy-btn:hover {
+            transform: translateY(-1px);
+            background: rgba(255, 255, 255, 0.09);
+        }
+
+        .copy-status {
+            color: #d7fbe8;
+            font-size: 0.94rem;
+        }
+
+        .grid {
+            display: grid;
+            gap: 22px;
+            grid-template-columns: 1fr 1fr;
+            margin-top: 22px;
+        }
+
+        .full {
+            grid-column: 1 / -1;
+        }
+
+        .quote {
+            color: #f6efe7;
+            font-size: 1.08rem;
+        }
+
+        .warm {
+            color: #ffe0c8;
+        }
+
+        .emphasis {
+            color: #fff;
+            font-weight: 800;
+        }
+
+        .divider {
+            height: 1px;
+            margin: 16px 0;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.12),
+                transparent
+            );
+        }
+
+        .steps {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            gap: 14px;
+        }
+
+        .steps li {
+            display: grid;
+            grid-template-columns: 44px 1fr;
+            gap: 14px;
+            align-items: start;
+            padding: 15px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            background: rgba(255, 255, 255, 0.025);
+        }
+
+        .num {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            color: #fff;
+            background: linear-gradient(180deg, var(--orange2), var(--orange));
+            box-shadow: 0 10px 28px rgba(255, 102, 0, 0.24);
+        }
+
+        .steps strong {
+            display: block;
+            margin-bottom: 4px;
+            color: var(--text);
+            font-size: 1rem;
+        }
+
+        .list {
+            margin: 0;
+            padding-left: 18px;
+            color: var(--muted);
+        }
+
+        .list li + li {
+            margin-top: 8px;
+        }
+
+        .warning {
+            border-color: rgba(255, 102, 0, 0.24);
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(255, 102, 0, 0.08),
+                    rgba(255, 102, 0, 0.03)
+                ),
+                var(--panel2);
+        }
+
+        .faq {
+            display: grid;
+            gap: 12px;
+        }
+
+        .faq-item {
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.025);
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 18px 20px;
+            border: 0;
+            background: transparent;
+            color: #fff;
+            text-align: left;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 800;
+            position: relative;
+        }
+
+        .faq-question:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .faq-question::after {
+            content: "+";
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--orange3);
+            font-size: 1.3rem;
+            line-height: 1;
+        }
+
+        .faq-item.open .faq-question::after {
+            content: "–";
+        }
+
+        .faq-answer {
+            display: none;
+            padding: 0 20px 18px;
+            color: var(--muted);
+        }
+
+        .faq-item.open .faq-answer {
+            display: block;
+        }
+
+        .footer {
+            margin: 30px 0 42px;
+            text-align: center;
+            color: var(--soft);
+            font-size: 0.96rem;
+        }
+
+        .footer strong {
+            color: #fff0e3;
+        }
+
+        @media (max-width: 980px) {
+            .hero-grid,
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding: 24px;
+            }
+
+            h1 {
+                font-size: clamp(2.2rem, 11vw, 4rem);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .wrap {
+                width: min(var(--max), calc(100% - 18px));
+            }
+
+            .hero,
+            .card {
+                border-radius: 22px;
+            }
+
+            .steps li {
+                grid-template-columns: 38px 1fr;
+                gap: 12px;
+            }
+
+            .num {
+                width: 38px;
+                height: 38px;
+                border-radius: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="space"></div>
+
+        <section class="hero">
+            <div class="hero-grid">
+                <div>
+                    <div class="eyebrow">
+                        <span class="eyebrow-dot"></span>
+                        xmrwallet.com • Serving the community since 2018
+                    </div>
+
+                    <h1>
+                        Thank you for the years.<br />
+                        Thank you for the trust.
+                    </h1>
+
+                    <p class="lead">
+                        Since 2018, xmrwallet.com has been a small, independent,
+                        open-source, and free project built out of love for Monero,
+                        privacy, and the people who simply needed a fast and easy
+                        way to access their wallet.
+                    </p>
+
+                    <p class="lead">
+                        Today, with sincere sadness, we are closing the clearnet
+                        version of xmrwallet.com. Ongoing attacks against the service
+                        have made it too difficult and too costly for us to continue
+                        operating it responsibly here.
+                    </p>
+
+                    <p class="lead">
+                        This was never a company-backed product or a venture-funded
+                        platform. It was a labor of care, maintained in free time,
+                        sustained by belief, and carried forward by the patience,
+                        kindness, and generosity of the community.
+                    </p>
+
+                    <div class="buttons">
+                        <a href="#recover" class="btn btn-primary">
+                            Recover your wallet
+                        </a>
+                        <a href="#faq" class="btn btn-secondary">
+                            Read the FAQ
+                        </a>
+                    </div>
+
+                    <div class="hero-note">
+                        Your funds are not trapped here.
+                        <span class="emphasis">
+                            If you have your seed, you can restore your wallet in the
+                            official Monero wallet.
+                        </span>
+                        Your seed is and forever will remain backward compatible with
+                        the official wallet.
+                    </div>
+                </div>
+
+                <div class="side">
+                    <div class="card status">
+                        <div class="status-label">
+                            <span class="pulse"></span>
+                            Service still available through Tor
+                        </div>
+
+                        <h2>The clearnet site is closing, but the service remains available on Tor.</h2>
+
+                        <p>
+                            For people who still need access, xmrwallet remains
+                            available through Tor at this time.
+                        </p>
+
+                        <p>
+                            The timeline for its final closure is uncertain, and we
+                            do not want to make promises we may not be able to keep.
+                            But for now, the service is still reachable there.
+                        </p>
+
+                        <div class="tor-box">
+                            <div class="tor-title">Onion address</div>
+                            <div class="onion" id="onion-address">
+                                xmrtor3fsapuu6y26za7vpzox4vpaj6ny5viq2arbmozm7kg6jitnlid.onion
+                            </div>
+                            <div class="copy-row">
+                                <button class="copy-btn" id="copy-onion">
+                                    Copy onion address
+                                </button>
+                                <span class="copy-status" id="copy-status"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h2>A brief and important clarification</h2>
+                        <p>
+                            Some of the attacks against this service came from
+                            misunderstandings about the use of a
+                            <span class="emphasis">view key</span>.
+                        </p>
+                        <p>
+                            Many Monero light-wallet style services require a view
+                            key in order to display balances and incoming
+                            transactions.
+                        </p>
+                        <p>
+                            <span class="emphasis">
+                                A view key alone cannot spend a user's funds.
+                            </span>
+                            It does not grant spending authority.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="grid">
+            <div class="card">
+                <h2>To everyone who used xmrwallet</h2>
+                <p class="quote">
+                    Thank you for being part of this journey.
+                </p>
+                <p>
+                    Whether you used xmrwallet once in a moment of urgency, or
+                    returned to it over many years, you gave this project meaning.
+                </p>
+                <p>
+                    Thank you for your trust, your patience, your messages, your bug
+                    reports, your encouragement, and your belief that small,
+                    independent privacy tools still matter.
+                </p>
+            </div>
+
+            <div class="card">
+                <h2>To everyone who donated</h2>
+                <p>
+                    Your support kept this project alive far longer than it could
+                    have survived on goodwill alone.
+                </p>
+                <p>
+                    Every donation helped with infrastructure, maintenance, and the
+                    hidden cost of keeping a free public service online.
+                </p>
+                <p class="warm">
+                    More than the money itself, it reminded us that people cared.
+                </p>
+            </div>
+
+            <div class="card full">
+                <h2>A final note from the heart</h2>
+                <p>
+                    There is sadness in ending something that was built with love.
+                    There is sadness in knowing that many people relied on this
+                    service because it made Monero easier, faster, and more
+                    approachable.
+                </p>
+                <p>
+                    But there is also pride. Pride that this small open-source
+                    project stood for years. Pride that it helped real people. Pride
+                    that, since 2018, it served a community that values freedom,
+                    privacy, and self-sovereignty.
+                </p>
+                <p>
+                    We are deeply sorry for the inconvenience this causes. And we
+                    are deeply grateful for the years you gave us.
+                </p>
+            </div>
+
+            <div class="card full" id="recover">
+                <h2>How to recover your funds with the official Monero wallet</h2>
+                <p>
+                    If you used xmrwallet.com, the closure of this website does
+                    <span class="emphasis">not</span> mean the loss of your wallet
+                    or your funds.
+                </p>
+                <p>
+                    Your wallet can be restored using your original seed in the
+                    official Monero wallet from the official Monero website.
+                </p>
+
+                <div class="divider"></div>
+
+                <ol class="steps">
+                    <li>
+                        <div class="num">1</div>
+                        <div>
+                            <strong>Go to the official Monero website</strong>
+                            Download the official Monero wallet software from the
+                            official website:
+                            <span class="emphasis">getmonero.org</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="num">2</div>
+                        <div>
+                            <strong>Install the official wallet</strong>
+                            Most users will want the Monero GUI wallet. Advanced
+                            users may prefer the CLI wallet.
+                        </div>
+                    </li>
+                    <li>
+                        <div class="num">3</div>
+                        <div>
+                            <strong>Choose “Restore wallet from seed”</strong>
+                            Open the official wallet and select the option to restore
+                            an existing wallet from mnemonic seed.
+                        </div>
+                    </li>
+                    <li>
+                        <div class="num">4</div>
+                        <div>
+                            <strong>Enter your seed words carefully</strong>
+                            Type your seed exactly as it was given, in the correct
+                            order.
+                        </div>
+                    </li>
+                    <li>
+                        <div class="num">5</div>
+                        <div>
+                            <strong>Allow the wallet to synchronize and scan</strong>
+                            Depending on your setup and restore height, this may take
+                            some time.
+                        </div>
+                    </li>
+                    <li>
+                        <div class="num">6</div>
+                        <div>
+                            <strong>Your funds will appear after scanning completes</strong>
+                            Once the blockchain scan is complete, your balance and
+                            transaction history should become visible.
+                        </div>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="card">
+                <h3>Important reassurance</h3>
+                <ul class="list">
+                    <li>Your seed remains the key to your wallet.</li>
+                    <li>If you have your seed, you can recover your wallet.</li>
+                    <li>The closure of this website does not erase your funds.</li>
+                    <li>
+                        Your seed is and forever will remain backward compatible with
+                        the official Monero wallet.
+                    </li>
+                </ul>
+            </div>
+
+            <div class="card warning">
+                <h3>Please protect your seed</h3>
+                <p>
+                    Never share your seed with anyone claiming they can recover your
+                    wallet for you.
+                </p>
+                <p>
+                    Only download wallet software from the official Monero website
+                    and only enter your seed into software you trust.
+                </p>
+                <p class="warm">
+                    If someone gets your seed, they control your wallet.
+                </p>
+            </div>
+
+            <div class="card full">
+                <h2>Why this closure is happening</h2>
+                <p>
+                    We want to be direct and honest: xmrwallet.com is closing on the
+                    clearnet because it has been attacked, and we cannot afford to
+                    continue running it under those conditions.
+                </p>
+                <p>
+                    This service was never built as a business. It was free, open
+                    source, and maintained in personal time. There is only so much a
+                    small independent project can absorb before reality catches up.
+                </p>
+                <p>
+                    Closing here is not what we wanted. It is simply what we must do.
+                </p>
+            </div>
+
+            <div class="card full" id="faq">
+                <h2>Frequently asked questions</h2>
+
+                <div class="faq">
+                    <div class="faq-item open">
+                        <button class="faq-question" type="button">
+                            Are my funds safe if xmrwallet.com closes?
+                        </button>
+                        <div class="faq-answer">
+                            Yes. The closure of this website does not mean the loss
+                            of your funds. If you still have your wallet seed, you
+                            can restore your wallet in the official Monero wallet.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" type="button">
+                            How do I recover my wallet?
+                        </button>
+                        <div class="faq-answer">
+                            Download the official Monero wallet from the official
+                            Monero website, choose the option to restore from seed,
+                            and enter your original mnemonic seed carefully. After
+                            synchronization and scanning, your wallet should appear.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" type="button">
+                            Is the service completely gone?
+                        </button>
+                        <div class="faq-answer">
+                            The clearnet service is closing. However, the service is
+                            still available through Tor for now at the onion address
+                            shown on this page. The timeline for final shutdown is
+                            uncertain.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" type="button">
+                            What is the onion address?
+                        </button>
+                        <div class="faq-answer">
+                            The current onion address is:
+                            <div class="tor-box" style="margin-top: 12px;">
+                                <div class="onion">
+                                    xmrtor3fsapuu6y26za7vpzox4vpaj6ny5viq2arbmozm7kg6jitnlid.onion
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" type="button">
+                            Why did xmrwallet require a view key?
+                        </button>
+                        <div class="faq-answer">
+                            Like many Monero light-wallet style services, xmrwallet
+                            used a view key so the service could detect and display
+                            wallet activity such as incoming transactions and
+                            balances.
+                            <span class="emphasis">
+                                A view key does not allow funds to be spent.
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" type="button">
+                            Can my seed still be used in the official wallet in the future?
+                        </button>
+                        <div class="faq-answer">
+                            Yes. Your wallet seed is and forever will remain backward
+                            compatible with the official Monero wallet.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" type="button">
+                            What if I do not have my seed anymore?
+                        </button>
+                        <div class="faq-answer">
+                            Your seed is the critical backup for your wallet. If you
+                            no longer have it, recovery becomes much more difficult
+                            or impossible. If you still have access through Tor, act
+                            as soon as possible and securely back up your seed.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card full">
+                <h2>With gratitude</h2>
+                <p>
+                    xmrwallet.com existed because people used it, supported it,
+                    recommended it, and cared enough to help keep it alive.
+                </p>
+                <p>
+                    To everyone who trusted this project over the years: thank you.
+                    To everyone who donated: thank you. To everyone who believed a
+                    small free privacy service should exist: thank you.
+                </p>
+                <p class="quote">
+                    With respect, gratitude, and love,<br />
+                    <span class="emphasis">the xmrwallet.com team</span>
+                </p>
+            </div>
+        </section>
+
+        <div class="footer">
+            <strong>xmrwallet.com</strong> • Open source • Free to use • Serving the
+            Monero community since 2018
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            var faqButtons = document.querySelectorAll(".faq-question");
+
+            faqButtons.forEach(function (button) {
+                button.addEventListener("click", function () {
+                    var item = button.parentElement;
+                    item.classList.toggle("open");
+                });
+            });
+
+            var copyButton = document.getElementById("copy-onion");
+            var copyStatus = document.getElementById("copy-status");
+            var onionAddress = document.getElementById("onion-address").textContent.trim();
+
+            copyButton.addEventListener("click", function () {
+                navigator.clipboard.writeText(onionAddress).then(function () {
+                    copyStatus.textContent = "Copied.";
+                    setTimeout(function () {
+                        copyStatus.textContent = "";
+                    }, 2000);
+                }).catch(function () {
+                    copyStatus.textContent = "Copy failed. Please copy manually.";
+                    setTimeout(function () {
+                        copyStatus.textContent = "";
+                    }, 3000);
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
